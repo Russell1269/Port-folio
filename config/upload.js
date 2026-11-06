@@ -1,33 +1,76 @@
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 const cloudinary = require("./cloudinary");
+const ExpressError = require("../utility/expressError");
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: (req, file) => {
-    const routePath = `${req.baseUrl || ""} ${req.originalUrl || ""}`.toLowerCase();
-    const field = String(file.fieldname || "").toLowerCase();
-    const isBlog = routePath.includes("/blogs");
-    const rootFolder = isBlog ? "portfolio/blogs" : "portfolio/projects";
-    const folderName =
-      field === "thumbnail"
-        ? "Thumbnail"
-        : field === "coverimage" || field === "cover"
-          ? "CoverImage"
-          : field === "gallery"
-            ? "Gallery"
-            : "Misc";
+const storage = multer.memoryStorage();
 
-    return {
-      folder: `${rootFolder}/${folderName}`,
-      type: "upload",
-      resource_type: "image",
-      allowed_formats: ["png", "jpg", "jpeg", "webp"],
-      public_id: `${Date.now()}-${Math.round(Math.random() * 1e9)}`,
-      transformation: [{ quality: "auto", fetch_format: "auto" }],
-    };
-  },
-});
+const uploadToCloudinary = (req, file) => {
+  const routePath = `${req.baseUrl || ""} ${req.originalUrl || ""}`.toLowerCase();
+  const field = String(file.fieldname || "").toLowerCase();
+  const isBlog = routePath.includes("/blogs");
+  const rootFolder = isBlog ? "portfolio/blogs" : "portfolio/projects";
+  const folderName =
+    field === "thumbnail"
+      ? "Thumbnail"
+      : field === "coverimage" || field === "cover"
+        ? "CoverImage"
+        : field === "gallery"
+          ? "Gallery"
+          : "Misc";
+
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: `${rootFolder}/${folderName}`,
+        resource_type: "image",
+        public_id: `${Date.now()}-${Math.round(Math.random() * 1e9)}`,
+        transformation: [{ quality: "auto", fetch_format: "auto" }],
+      },
+      (err, result) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(result);
+      },
+    );
+    stream.end(file.buffer);
+  });
+};
+
+const uploadFilesToCloudinary = async (req, files) => {
+  const uploadedFiles = [];
+  req.files = req.files || {};
+  try {
+    for (const [fieldName, fieldFiles] of Object.entries(files || {})) {
+      req.files[fieldName] = [];
+      for (const file of fieldFiles) {
+        const result = await uploadToCloudinary(req, file);
+        const uploadedFile = {
+          ...file,
+          path: result.secure_url,
+          url: result.secure_url,
+          filename: result.public_id,
+        };
+        delete uploadedFile.buffer;
+        req.files[fieldName].push(uploadedFile);
+        uploadedFiles.push(uploadedFile);
+      }
+    }
+  } catch (err) {
+    await Promise.all(
+      uploadedFiles
+        .filter((file) => file.filename)
+        .map((file) =>
+          cloudinary.uploader.destroy(file.filename, { resource_type: "image" }),
+        ),
+    ).catch(() => {});
+    throw new ExpressError(
+      502,
+      `Cloudinary upload failed: ${err.message || "Unknown upload error"}`,
+    );
+  }
+};
 
 const upload = multer({
   storage,
@@ -43,17 +86,26 @@ const upload = multer({
 module.exports.upload = upload;
 
 module.exports.uploadFields = (fields) => (req, res, next) => {
-  upload.fields(fields)(req, res, (err) => {
-    if (!err) return next();
-    if (err.code === "LIMIT_FILE_SIZE") {
-      req.flash("error", "Image size must be less than 10 MB.");
-      return res.redirect("back");
+  upload.fields(fields)(req, res, async (err) => {
+    if (err) {
+      if (err.code === "LIMIT_FILE_SIZE") {
+        return next(new ExpressError(400, "Image size must be less than 20 MB."));
+      }
+      if (err.code === "LIMIT_UNEXPECTED_FILE" || err.code === "LIMIT_FILE_COUNT") {
+        return next(new ExpressError(400, err.message || "Invalid upload field or file count."));
+      }
+      if (err.message) {
+        return next(new ExpressError(400, err.message));
+      }
+      return next(new ExpressError(400, "Invalid image upload."));
     }
-    if (err.code === "LIMIT_UNEXPECTED_FILE" || err.code === "LIMIT_FILE_COUNT") {
-      req.flash("error", err.message || "Invalid upload field or file count.");
-      return res.redirect("back");
+
+    try {
+      await uploadFilesToCloudinary(req, req.files);
+      next();
+    } catch (uploadError) {
+      next(uploadError);
     }
-    return next(err);
   });
 };
 

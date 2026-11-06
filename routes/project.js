@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { upload } = require("../config/upload");
+const { uploadFields } = require("../config/upload");
 const {
   asyncHandler,
   projectValidation,
@@ -42,22 +42,11 @@ router.route("/").get(projectsNs, asyncHandler(index));
 router.post(
   "/",
   ownerOnly,
-  (req, res, next) => {
-    upload.fields([
-      { name: "thumbnail", maxCount: 1 },
-      { name: "coverImage", maxCount: 1 },
-      { name: "gallery", maxCount: 20 },
-    ])(req, res, function (err) {
-      if (err) {
-        if (err.code === "LIMIT_FILE_SIZE") {
-          req.flash("error", "Image size must be less than 10 MB.");
-          return res.redirect("back");
-        }
-        return next(err);
-      }
-      next();
-    });
-  },
+  uploadFields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "coverImage", maxCount: 1 },
+    { name: "gallery", maxCount: 20 },
+  ]),
   projectValidation, 
   asyncHandler(postNew),
 );
@@ -73,22 +62,11 @@ router
   .put(
     ownerOnly,
     isLoggedIn,
-    (req, res, next) => {
-      upload.fields([
-        { name: "thumbnail", maxCount: 1 },
-        { name: "coverImage", maxCount: 1 },
-        { name: "gallery", maxCount: 20 },
-      ])(req, res, function (err) {
-        if (err) {
-          if (err.code === "LIMIT_FILE_SIZE") {
-            req.flash("error", "Image size must be less than 10 MB.");
-            return res.redirect("back");
-          }
-          return next(err);
-        }
-        next();
-      });
-    },
+    uploadFields([
+      { name: "thumbnail", maxCount: 1 },
+      { name: "coverImage", maxCount: 1 },
+      { name: "gallery", maxCount: 20 },
+    ]),
     projectValidation,
     asyncHandler(updatePost),
   )
