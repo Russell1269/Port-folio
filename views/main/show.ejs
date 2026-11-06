@@ -1,0 +1,1367 @@
+<% layout('layout/boilerplate') -%>
+
+  <% const projectTitle = localized(project, 'title'); const projectTagline = localized(project, 'tagline'); const fallbackImage = 'https://images.unsplash.com/photo-1715529134972-221f23a6c701?q=80&w=1452&auto=format&fit=crop'; const thumbnailUrl = typeof project.thumbnail === 'string' ? project.thumbnail : (project.thumbnail && project.thumbnail.url ? project.thumbnail.url : fallbackImage); const coverUrl = typeof project.coverImage === 'string' ? project.coverImage : (project.coverImage && project.coverImage.url ? project.coverImage.url : thumbnailUrl); const technologies = project.technologies || []; const features = project.features || []; const developmentJourney = project.developmentJourney || []; const gallery = project.gallery || []; const futurePlans = project.futurePlans || []; %>
+  <section class="relative overflow-hidden rounded-[35px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+
+    <!-- Cover Image -->
+    <div class="relative h-[350px] md:h-[500px] overflow-hidden">
+
+      <img src="<%= coverUrl %>" alt="<%= projectTitle %>" class="w-full h-full object-cover scale-105 hover:scale-110 transition duration-700">
+
+      <!-- Dark Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#050816] via-[#050816]/40 to-transparent"></div>
+
+      <!-- Glass Overlay -->
+      <div class="absolute inset-0 backdrop-blur-[2px]"></div>
+
+    </div>
+
+    <div class="relative px-8 md:px-14 pb-12 -mt-28">
+
+      <div class="flex flex-col lg:flex-row gap-8 items-end">
+
+        <!-- Thumbnail -->
+
+        <div class="w-40 h-40 rounded-3xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,.4)] flex-shrink-0">
+
+          <img src="<%= thumbnailUrl %>" alt="<%= projectTitle %>" class="w-full h-full object-cover">
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="flex-1">
+
+          <div class="flex flex-wrap gap-3 mb-5">
+
+            <!-- Category -->
+
+            <span class="px-4 py-2 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/20 text-sm">
+
+              <%= t(`projects:category.${project.category}`) %>
+
+            </span>
+
+            <!-- Status -->
+
+            <span class="px-4 py-2 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/20 text-sm">
+
+              <%= t(`projects:status.${project.status}`) %>
+
+            </span>
+
+            <% if(project.featured){ %>
+
+            <span class="px-4 py-2 rounded-full bg-yellow-500/20 text-yellow-300 border border-yellow-400/20 text-sm">
+
+              ⭐ <%= t('project:badge.featured') %>
+
+            </span>
+
+            <% } %>
+
+          </div>
+
+
+          <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+
+            <%= projectTitle %>
+
+          </h1>
+
+          <p class="mt-4 text-slate-300 text-lg md:text-xl max-w-3xl">
+
+            <%= projectTagline %>
+
+          </p>
+
+
+
+          <!-- Technology Pills -->
+          <% if (technologies.length > 0) { %>
+          <div class="flex flex-wrap gap-3 mt-8">
+
+            <% technologies.forEach(tech=>{ %>
+
+            <span class="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl hover:bg-cyan-500/20 transition">
+
+              <% if(tech.icon){ %>
+
+              <i class="<%= tech.icon %> text-cyan-400"></i>
+
+              <% } %>
+
+              <%= tech.name %>
+
+            </span>
+
+            <% }) %>
+
+          </div>
+
+          <% } %>
+          <!-- Buttons -->
+
+          <div class="flex flex-wrap gap-4 mt-10">
+
+            <% if(project.liveUrl){ %>
+
+            <a href="<%= project.liveUrl %>" target="_blank" class="px-7 py-3 rounded-2xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold shadow-lg shadow-cyan-500/30">
+
+              <i class="fas fa-arrow-up-right-from-square mr-2"></i>
+
+              <%= t('project:actions.live') %>
+
+            </a>
+
+            <% } %>
+
+            <% if(project.githubUrl){ %>
+
+            <a href="<%= project.githubUrl %>" target="_blank" class="px-7 py-3 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/10 transition">
+
+              <i class="fab fa-github mr-2"></i>
+
+              <%= t('project:actions.github') %>
+
+            </a>
+
+            <% } %>
+
+            <% if (isOwner) { %>
+            <a href="/projects/<%= project._id %>/edit" target="_blank" class="px-7 py-3 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/10 transition">
+
+              <i class="fa-regular fa-pen-to-square"></i>
+
+              <%= t('project:actions.edit') %>
+
+            </a>
+            <form action="/projects/<%= project._id %>?_method=DELETE" method="post">
+              <button type="submit" class="px-7 py-3 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/10 transition">
+                <i class="fa-solid fa-trash"></i>
+                <%= t('common:button.delete') %>
+              </button>
+            </form>
+            <% } %>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Floating Stats -->
+
+  <section class="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mt-10">
+
+    <div class="glass-card rounded-3xl p-7 bg-white/5 border border-white/10 backdrop-blur-xl">
+
+      <h4 class="text-slate-400 text-sm uppercase">
+
+        <%= t('project:stats.users') %>
+
+      </h4>
+
+      <p class="text-3xl font-bold mt-3">
+
+        <%= project.stats?.users != null ? formatNumber(project.stats.users) : t('project:stats.na') %>
+
+      </p>
+
+    </div>
+
+    <div class="glass-card rounded-3xl p-7 bg-white/5 border border-white/10 backdrop-blur-xl">
+
+      <h4 class="text-slate-400 text-sm uppercase">
+
+        <%= t('project:stats.commits') %>
+
+      </h4>
+
+      <p class="text-3xl font-bold mt-3">
+
+        <%= project.stats?.commits != null ? formatNumber(project.stats.commits) : t('project:stats.na') %>
+
+      </p>
+
+    </div>
+
+    <div class="glass-card rounded-3xl p-7 bg-white/5 border border-white/10 backdrop-blur-xl">
+
+      <h4 class="text-slate-400 text-sm uppercase">
+
+        <%= t('project:stats.stars') %>
+
+      </h4>
+
+      <p class="text-3xl font-bold mt-3">
+
+        <%= project.stats?.githubStars != null ? formatNumber(project.stats.githubStars) : t('project:stats.na') %>
+
+      </p>
+
+    </div>
+
+    <div class="glass-card rounded-3xl p-7 bg-white/5 border border-white/10 backdrop-blur-xl">
+
+      <h4 class="text-slate-400 text-sm uppercase">
+
+        <%= t('project:stats.performance') %>
+
+      </h4>
+
+      <p class="text-3xl font-bold mt-3">
+
+        <%= project.stats?.performanceScore != null ? formatNumber(project.stats.performanceScore) + t('common:symbol.percent') : t('project:stats.na') %>
+
+      </p>
+
+    </div>
+
+    <div class="glass-card rounded-3xl p-7 bg-white/5 border border-white/10 backdrop-blur-xl">
+
+      <h4 class="text-slate-400 text-sm uppercase">
+
+        <%= t('project:stats.lighthouse') %>
+
+      </h4>
+
+      <p class="text-3xl font-bold mt-3">
+
+        <%= project.stats?.lighthouseScore != null ? formatNumber(project.stats.lighthouseScore) : t('project:stats.na') %>
+
+      </p>
+
+    </div>
+
+  </section>
+  <!-- ================= ABOUT PROJECT ================= -->
+
+  <section class="mt-20">
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <!-- Description -->
+
+      <div class="lg:col-span-2">
+
+        <div class="relative overflow-hidden rounded-[30px] border border-white/10 bg-white/5 backdrop-blur-xl p-8">
+
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-cyan-400 to-purple-500">
+          </div>
+
+          <p class="text-cyan-400 font-semibold uppercase tracking-[3px] text-sm">
+
+            <%= t('project:about.eyebrow') %>
+
+          </p>
+
+          <h2 class="text-4xl font-bold mt-3">
+            <%= t('project:about.title') %>
+          </h2>
+
+            <p class="mt-8 text-slate-300 leading-8 text-lg">
+
+              <%= localized(project, 'description') %>
+
+            </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- Project Information -->
+
+      <div class="rounded-[30px] border border-white/10 bg-white/5 backdrop-blur-xl p-8">
+
+        <h3 class="text-2xl font-semibold mb-8">
+          <%= t('project:details.title') %>
+        </h3>
+
+          <div class="space-y-7">
+
+            <div>
+
+              <p class="text-slate-400 text-sm">
+
+                <%= t('project:details.role') %>
+
+              </p>
+
+              <p class="mt-2 font-medium">
+
+                <%= project.myRole %>
+
+              </p>
+
+            </div>
+
+            <div>
+
+              <p class="text-slate-400 text-sm">
+
+                <%= t('project:details.teamSize') %>
+
+              </p>
+
+              <p class="mt-2 font-medium">
+
+                <%= project.teamSize %>
+
+              </p>
+
+            </div>
+
+            <div>
+
+              <p class="text-slate-400 text-sm">
+
+                <%= t('project:details.duration') %>
+
+              </p>
+
+              <p class="mt-2 font-medium">
+
+                <%= project.duration || t('project:stats.na') %>
+
+              </p>
+
+            </div>
+
+            <div>
+
+              <p class="text-slate-400 text-sm">
+
+                <%= t('project:details.completion') %>
+
+              </p>
+
+              <p class="mt-2 font-medium">
+
+                <%= formatDate(project.completionDate, { year: "numeric", month: "long", day: undefined }) || t('project:details.ongoing') %>
+
+              </p>
+
+            </div>
+
+            <div>
+
+              <p class="text-slate-400 text-sm">
+
+                <%= t('project:details.category') %>
+
+              </p>
+
+              <p class="mt-2">
+
+                <%= project.category %>
+
+              </p>
+
+            </div>
+
+            <div>
+
+              <p class="text-slate-400 text-sm">
+
+                <%= t('project:details.status') %>
+
+              </p>
+
+              <span class="inline-flex mt-3 px-4 py-2 rounded-full bg-cyan-500/20 text-cyan-300">
+
+                <%= project.status %>
+
+              </span>
+
+            </div>
+
+          </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================= PROBLEM & SOLUTION ================= -->
+
+  <section class="mt-20">
+
+    <div class="text-center mb-12">
+
+      <p class="uppercase tracking-[4px] text-cyan-400 font-semibold text-sm">
+
+        <%= t('project:caseStudy.eyebrow') %>
+
+      </p>
+
+      <h2 class="text-4xl md:text-5xl font-bold mt-4">
+
+        <%= t('project:caseStudy.title') %>
+      </h2>
+
+        <p class="text-slate-400 mt-4">
+
+          <%= t('project:caseStudy.body') %>
+
+        </p>
+
+    </div>
+
+
+    <div class="grid lg:grid-cols-2 gap-8">
+
+      <!-- Problem -->
+
+      <div class="group relative rounded-[30px] border border-red-400/20 bg-white/5 backdrop-blur-xl overflow-hidden p-10">
+
+        <div class="absolute top-0 left-0 h-full w-2 bg-gradient-to-b from-red-500 to-orange-500">
+        </div>
+
+        <div class="w-20 h-20 rounded-3xl bg-red-500/20 flex items-center justify-center text-red-400 text-3xl">
+
+          <i class="fa-solid fa-circle-exclamation"></i>
+
+        </div>
+
+        <h3 class="text-3xl font-bold mt-8">
+
+          <%= t('project:caseStudy.problem') %>
+        </h3>
+
+          <p class="text-slate-300 leading-8 mt-6">
+
+            <%= project.problem %>
+
+          </p>
+
+      </div>
+
+
+      <!-- Solution -->
+
+      <div class="group relative rounded-[30px] border border-cyan-500/20 bg-white/5 backdrop-blur-xl overflow-hidden p-10">
+
+        <div class="absolute top-0 left-0 h-full w-2 bg-gradient-to-b from-cyan-400 to-purple-500">
+        </div>
+
+        <div class="w-20 h-20 rounded-3xl bg-cyan-500/20 flex items-center justify-center text-cyan-300 text-3xl">
+
+          <i class="fa-solid fa-lightbulb"></i>
+
+        </div>
+
+        <h3 class="text-3xl font-bold mt-8">
+
+          <%= t('project:caseStudy.solution') %>
+        </h3>
+
+          <p class="text-slate-300 leading-8 mt-6">
+
+            <%= project.solution %>
+
+          </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================= QUICK INFORMATION ================= -->
+
+  <section class="mt-20">
+
+    <div class="rounded-[35px] border border-white/10 bg-gradient-to-r from-cyan-500/10 via-white/5 to-purple-500/10 backdrop-blur-xl p-10">
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div>
+
+          <p class="text-slate-400 uppercase text-sm">
+
+            Technologies
+
+          </p>
+
+          <h2 class="text-5xl font-bold mt-4">
+
+            <%= technologies.length %>
+
+          </h2>
+
+        </div>
+
+        <div>
+
+          <p class="text-slate-400 uppercase text-sm">
+
+            Features
+
+          </p>
+
+          <h2 class="text-5xl font-bold mt-4">
+
+            <%= features.length %>
+
+          </h2>
+
+        </div>
+
+        <div>
+
+          <p class="text-slate-400 uppercase text-sm">
+
+            <%= t('project:quick.journey') %>
+
+          </p>
+
+          <h2 class="text-5xl font-bold mt-4">
+
+            <%= developmentJourney.length %>
+
+          </h2>
+
+        </div>
+
+        <div>
+
+          <p class="text-slate-400 uppercase text-sm">
+
+            <%= t('project:quick.gallery') %>
+
+          </p>
+
+          <h2 class="text-5xl font-bold mt-4">
+
+            <%= gallery.length %>
+
+          </h2>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+  <!-- ===================================================== -->
+  <!-- TECHNOLOGY STACK -->
+  <!-- ===================================================== -->
+
+  <section class="mt-24">
+
+    <div class="text-center mb-14">
+
+      <span class="inline-block px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-sm">
+
+        <%= t('project:stack.badge') %>
+      </span>
+
+        <h2 class="mt-5 text-4xl md:text-5xl font-bold">
+
+          <%= t('project:stack.title') %>
+        </h2>
+
+          <p class="text-slate-400 mt-4 max-w-2xl mx-auto">
+
+            <%= t('project:stack.body') %>
+
+          </p>
+
+    </div>
+
+
+    <div class="grid
+                grid-cols-2
+                sm:grid-cols-3
+                md:grid-cols-4
+                lg:grid-cols-5
+                gap-6">
+
+      <% technologies.forEach((tech)=>{ %>
+
+      <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-7 transition duration-500 hover:-translate-y-3 hover:border-cyan-400/40 hover:shadow-[0_0_40px_rgba(34,211,238,.25)]">
+
+        <!-- Glow -->
+
+        <div class="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-cyan-400/20 blur-3xl opacity-0 group-hover:opacity-100 transition duration-700">
+        </div>
+
+        <div class="relative z-10">
+
+          <% if(tech.icon){ %>
+
+          <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl text-cyan-300">
+
+            <i class="<%= tech.icon %>"></i>
+
+          </div>
+
+          <% } %>
+
+          <h3 class="mt-6 text-xl font-semibold">
+
+            <%= tech.name %>
+
+          </h3>
+
+          <p class="text-slate-400 mt-3 text-sm">
+
+            <%= t('project:stack.note') %>
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <% }) %>
+
+    </div>
+
+  </section>
+
+
+
+
+
+  <!-- ===================================================== -->
+  <!-- FEATURES -->
+  <!-- ===================================================== -->
+
+  <section class="mt-28">
+
+    <div class="text-center mb-14">
+
+      <span class="inline-block px-5 py-2 rounded-full bg-purple-500/10 border border-purple-400/20 text-purple-300 text-sm">
+
+        <%= t('project:features.badge') %>
+      </span>
+
+        <h2 class="mt-5 text-4xl md:text-5xl font-bold">
+
+          <%= t('project:features.title') %>
+        </h2>
+
+          <p class="text-slate-400 mt-4 max-w-3xl mx-auto">
+
+            <%= t('project:features.body') %>
+
+          </p>
+
+    </div>
+
+
+
+    <div class="grid
+               sm:grid-cols-2
+               lg:grid-cols-3
+               gap-8">
+
+      <% features.forEach((feature,index)=>{ %>
+
+      <div class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 transition duration-500 hover:-translate-y-3 hover:border-cyan-400/40 hover:shadow-[0_0_50px_rgba(34,211,238,.20)]">
+
+        <!-- Hover Glow -->
+
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700">
+
+          <div class="absolute top-0 right-0 h-52 w-52 rounded-full bg-cyan-400/10 blur-3xl">
+          </div>
+
+          <div class="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-purple-500/10 blur-3xl">
+          </div>
+
+        </div>
+
+        <div class="relative z-10">
+
+          <div class="flex items-center justify-between">
+
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center">
+
+              <i class="fa-solid fa-check text-cyan-300 text-xl">
+              </i>
+
+            </div>
+
+            <span class="text-5xl font-bold text-white/5">
+
+              <%= String(index+1).padStart(2,'0') %>
+
+            </span>
+
+          </div>
+
+          <h3 class="mt-8 text-2xl font-semibold">
+
+            <%= feature %>
+
+          </h3>
+
+          <p class="mt-4 text-slate-400 leading-7">
+
+            This feature enhances usability,
+            improves workflow,
+            and contributes to an efficient user experience.
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <% }) %>
+
+    </div>
+
+  </section>
+
+
+
+
+
+  <!-- ===================================================== -->
+  <!-- TECHNOLOGY SUMMARY -->
+  <!-- ===================================================== -->
+
+  <section class="mt-24">
+
+    <div class="rounded-[35px] overflow-hidden border border-white/10 bg-gradient-to-r from-cyan-500/10 via-white/5 to-purple-500/10 backdrop-blur-xl p-10">
+
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+
+        <div>
+
+          <span class="text-cyan-400 uppercase tracking-[4px] text-sm">
+
+            Architecture
+
+          </span>
+
+          <h2 class="text-4xl md:text-5xl font-bold mt-5">
+
+            <%= t('project:architecture.title') %>
+          </h2>
+
+            <p class="mt-6 text-slate-300 leading-8">
+
+              <%= t('project:architecture.body') %>
+
+            </p>
+
+        </div>
+
+
+
+        <div class="grid grid-cols-2 gap-5">
+
+          <div class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl p-6">
+
+            <p class="text-slate-400">
+
+              Technologies
+
+            </p>
+
+            <h3 class="mt-3 text-5xl font-bold text-cyan-300">
+
+              <%= technologies.length %>
+
+            </h3>
+
+          </div>
+
+          <div class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl p-6">
+
+            <p class="text-slate-400">
+
+              Features
+
+            </p>
+
+            <h3 class="mt-3 text-5xl font-bold text-purple-300">
+
+              <%= features.length %>
+
+            </h3>
+
+          </div>
+
+          <div class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl p-6">
+
+            <p class="text-slate-400">
+
+              <%= t('project:details.status') %>
+
+            </p>
+
+            <h3 class="mt-3 text-xl font-semibold">
+
+              <%= project.status %>
+
+            </h3>
+
+          </div>
+
+          <div class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl p-6">
+
+            <p class="text-slate-400">
+
+              <%= t('project:details.category') %>
+
+            </p>
+
+            <h3 class="mt-3 text-xl font-semibold">
+
+              <%= project.category %>
+
+            </h3>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+  <!-- ===================================================== -->
+  <!-- DEVELOPMENT JOURNEY -->
+  <!-- ===================================================== -->
+
+  <section class="mt-28">
+
+    <div class="text-center mb-16">
+
+      <span class="inline-block px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-sm">
+
+        <%= t('project:journey.badge') %>
+      </span>
+
+        <h2 class="mt-5 text-4xl md:text-5xl font-bold">
+
+          <%= t('project:journey.title') %>
+        </h2>
+
+          <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
+
+                  <%= t('project:journey.body') %>
+
+          </p>
+
+    </div>
+
+
+
+    <div class="relative">
+
+      <!-- Vertical Line -->
+
+      <div class="absolute left-5 md:left-1/2 top-0 h-full w-[2px] bg-gradient-to-b from-cyan-400 via-purple-500 to-cyan-400">
+      </div>
+
+      <% developmentJourney.forEach((step,index)=>{ %>
+
+      <div class="relative flex flex-col md:flex-row items-start md:items-center mb-16">
+
+        <% if(index % 2===0){ %>
+
+        <!-- LEFT -->
+
+        <div class="hidden md:block w-1/2 pr-12">
+
+          <div class="rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-cyan-400/30 transition">
+
+            <span class="text-cyan-300 text-sm uppercase tracking-widest">
+
+              <%= t('project:journey.step', { number: formatNumber(index + 1) }) %>
+
+            </span>
+
+            <h3 class="mt-3 text-2xl font-bold">
+
+              <%= step.title %>
+
+            </h3>
+
+            <p class="mt-5 leading-8 text-slate-300">
+
+              <%= step.description %>
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <% } else { %>
+
+        <div class="hidden md:block w-1/2"></div>
+
+        <% } %>
+
+
+
+        <!-- Circle -->
+
+        <div class="absolute left-5 md:left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-cyan-500 border-4 border-[#050816] flex items-center justify-center shadow-lg shadow-cyan-500/40">
+
+          <i class="fas fa-code text-white"></i>
+
+        </div>
+
+
+
+        <% if(index %2 !==0){ %>
+
+        <div class="hidden md:block w-1/2 pl-12">
+
+          <div class="rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-purple-400/30 transition">
+
+            <span class="text-purple-300 text-sm uppercase tracking-widest">
+
+              <%= t('project:journey.step', { number: formatNumber(index + 1) }) %>
+
+            </span>
+
+            <h3 class="mt-3 text-2xl font-bold">
+
+              <%= step.title %>
+
+            </h3>
+
+            <p class="mt-5 leading-8 text-slate-300">
+
+              <%= step.description %>
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <% } %>
+
+
+
+        <!-- Mobile -->
+
+        <div class="md:hidden pl-16 w-full">
+
+          <div class="rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl p-7">
+
+            <span class="text-cyan-300 text-xs uppercase">
+
+              <%= t('project:journey.step', { number: formatNumber(index + 1) }) %>
+
+            </span>
+
+            <h3 class="mt-3 text-xl font-bold">
+
+              <%= step.title %>
+
+            </h3>
+
+            <p class="mt-4 text-slate-300 leading-7">
+
+              <%= step.description %>
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <% }) %>
+
+    </div>
+
+  </section>
+
+
+
+
+
+  <!-- ===================================================== -->
+  <!-- GALLERY -->
+  <!-- ===================================================== -->
+
+  <section class="mt-28">
+
+    <div class="text-center mb-16">
+
+      <span class="inline-block px-5 py-2 rounded-full bg-purple-500/10 border border-purple-400/20 text-purple-300 text-sm">
+
+        <%= t('project:quick.gallery') %>
+      </span>
+
+        <h2 class="mt-5 text-4xl md:text-5xl font-bold">
+
+          <%= t('project:gallery.title') %>
+        </h2>
+
+          <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
+
+            <%= t('project:gallery.body') %>
+
+          </p>
+
+    </div>
+
+
+
+    <div class="grid
+               sm:grid-cols-2
+               lg:grid-cols-3
+               gap-8">
+
+      <% gallery.forEach(image=>{ %>
+
+      <div class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl">
+
+        <img src="<%= typeof image.image === 'string' ? image.image : (image.image && image.image.url ? image.image.url : fallbackImage) %>" alt="<%= image.title || projectTitle %>" class="w-full h-72 object-cover transition duration-700 group-hover:scale-110">
+
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+
+        </div>
+
+        <div class="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition duration-500">
+
+          <h3 class="text-xl font-semibold">
+
+            <%= image.title %>
+
+          </h3>
+
+        </div>
+
+      </div>
+
+      <% }) %>
+
+    </div>
+
+  </section>
+
+
+
+
+
+  <!-- ===================================================== -->
+  <!-- GALLERY STATS -->
+  <!-- ===================================================== -->
+
+  <section class="mt-24">
+
+    <div class="rounded-[35px] border border-white/10 bg-gradient-to-r from-cyan-500/10 via-white/5 to-purple-500/10 backdrop-blur-xl p-10">
+
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+
+        <div>
+
+          <h2 class="text-5xl font-bold text-cyan-300">
+
+            <%= gallery.length %>
+
+          </h2>
+
+          <p class="mt-3 text-slate-400">
+
+            <%= t('project:gallery.images') %>
+
+          </p>
+
+        </div>
+
+        <div>
+
+          <h2 class="text-5xl font-bold text-purple-300">
+
+            <%= developmentJourney.length %>
+
+          </h2>
+
+          <p class="mt-3 text-slate-400">
+
+            <%= t('project:gallery.stages') %>
+
+          </p>
+
+        </div>
+
+        <div>
+
+          <h2 class="text-5xl font-bold text-cyan-300">
+
+            <%= features.length %>
+
+          </h2>
+
+          <p class="mt-3 text-slate-400">
+
+            <%= t('project:gallery.majorFeatures') %>
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+  <!-- ===================================================== -->
+  <!-- FUTURE PLANS -->
+  <!-- ===================================================== -->
+
+  <section class="mt-28">
+
+    <div class="text-center mb-16">
+
+      <span class="inline-block px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-sm">
+
+        <%= t('project:future.badge') %>
+      </span>
+
+        <h2 class="mt-5 text-4xl md:text-5xl font-bold">
+
+          <%= t('project:future.title') %>
+        </h2>
+
+          <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
+
+            <%= t('project:future.body') %>
+
+          </p>
+
+    </div>
+
+
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <% futurePlans.forEach(plan=>{ %>
+
+      <div class="group rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-cyan-400/30 transition duration-500 hover:-translate-y-2">
+
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+
+          <i class="fas fa-rocket text-cyan-300 text-2xl"></i>
+
+        </div>
+
+        <h3 class="mt-7 text-2xl font-semibold">
+
+          <%= t('project:future.cardTitle') %>
+        </h3>
+
+          <p class="mt-5 leading-8 text-slate-300">
+
+            <%= plan %>
+
+          </p>
+
+      </div>
+
+      <% }) %>
+
+    </div>
+
+  </section>
+
+
+
+
+
+  <!-- ===================================================== -->
+  <!-- TEAM -->
+  <!-- ===================================================== -->
+
+  <section class="mt-28">
+
+    <div class="rounded-[35px] overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-10">
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <div>
+
+          <span class="uppercase tracking-[4px] text-cyan-400 text-sm">
+
+            <%= t('project:team.eyebrow') %>
+          </span>
+
+            <h2 class="mt-5 text-4xl font-bold">
+
+              <%= t('project:team.title') %>
+            </h2>
+
+              <p class="mt-6 text-slate-300 leading-8">
+
+                <%= t('project:team.body') %>
+
+              </p>
+
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-7">
+
+            <p class="text-slate-400">
+
+              <%= t('project:details.teamSize') %>
+
+            </p>
+
+            <h2 class="text-5xl font-bold mt-4 text-cyan-300">
+
+              <%= project.teamSize %>
+
+            </h2>
+
+          </div>
+
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-7">
+
+            <p class="text-slate-400">
+
+              <%= t('project:team.role') %>
+
+            </p>
+
+            <h2 class="text-2xl font-semibold mt-4">
+
+              <%= project.myRole %>
+
+            </h2>
+
+          </div>
+
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-7">
+
+            <p class="text-slate-400">
+
+              <%= t('project:details.duration') %>
+
+            </p>
+
+            <h2 class="text-2xl font-semibold mt-4">
+
+              <%= project.duration || t('project:stats.na') %>
+
+            </h2>
+
+          </div>
+
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-7">
+
+            <p class="text-slate-400">
+
+              <%= t('project:details.completion') %>
+
+            </p>
+
+            <h2 class="text-xl font-semibold mt-4">
+
+              <%= formatDate(project.completionDate, { year: "numeric", month: undefined, day: undefined }) || t('project:team.ongoing') %>
+
+            </h2>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+
+
+  <!-- ===================================================== -->
+  <!-- CTA -->
+  <!-- ===================================================== -->
+
+  <section class="mt-28 mb-16">
+
+    <div class="relative overflow-hidden rounded-[40px] border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-white/5 to-purple-500/10 backdrop-blur-xl p-12">
+
+      <!-- Glow -->
+
+      <div class="absolute -top-32 left-0 w-96 h-96 rounded-full bg-cyan-500/20 blur-[140px]">
+
+      </div>
+
+      <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-purple-500/20 blur-[140px]">
+
+      </div>
+
+
+
+      <div class="relative z-10 text-center">
+
+        <span class="inline-block px-5 py-2 rounded-full border border-cyan-400/20 bg-cyan-500/10 text-cyan-300">
+
+          <%= t('project:cta.badge') %>
+        </span>
+
+          <h2 class="mt-8 text-4xl md:text-6xl font-bold">
+
+            <%= t('project:cta.title') %>
+          </h2>
+
+            <p class="mt-6 max-w-3xl mx-auto text-slate-300 leading-8">
+
+              <%= t('project:cta.body') %>
+
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-5 mt-10">
+
+              <% if(project.liveUrl){ %>
+
+              <a href="<%= project.liveUrl %>" target="_blank" class="px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold shadow-lg shadow-cyan-500/30">
+
+                <i class="fas fa-arrow-up-right-from-square mr-2"></i>
+
+                Live Demo
+
+              </a>
+
+              <% } %>
+
+              <% if(project.githubUrl){ %>
+
+              <a href="<%= project.githubUrl %>" target="_blank" class="px-8 py-4 rounded-2xl border border-white/20 bg-white/5 hover:bg-white/10 transition">
+
+                <i class="fab fa-github mr-2"></i>
+
+                GitHub Repository
+
+              </a>
+
+              <% } %>
+
+            </div>
+
+      </div>
+    </div>
+
+  </section>

@@ -1,0 +1,19 @@
+<%
+  /* Language switcher — single source of truth.
+     `languages` is built in middleware/i18n.js and already contains a URL that
+     keeps the current path + query string, replacing only ?lang=.
+     Labels are endonyms (EN / বাংলা) and intentionally NOT translated. */
+  const languageList = typeof languages !== 'undefined' && languages.length
+    ? languages
+    : supportedLanguages.map((language) => ({
+        ...language,
+        url: `${(req.originalUrl || "/").split("?")[0].split("#")[0] || "/"}?lang=${language.code}`,
+        isCurrent: language.code === lng,
+      }));
+%>
+<div class="lx-nav__lang" role="group" aria-label="<%= t('common:language.label') %>">
+  <% languageList.forEach((language, index) => { %>
+  <% if (index > 0) { %><span class="lx-nav__lang-sep" aria-hidden="true">/</span><% } %>
+  <a href="<%= language.url %>" hreflang="<%= language.htmlLang %>" lang="<%= language.htmlLang %>" class="<%= language.isCurrent ? 'is-current' : '' %>" title="<%= t('common:language.switchTo') %>: <%= language.label %>" <%= language.isCurrent ? 'aria-current="true"' : '' %>><%= language.short %></a>
+  <% }); %>
+</div>

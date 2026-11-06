@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "Projects — {{name}}",
+    "description": "Selected projects across full stack development, artificial intelligence and research."
+  },
+  "head": {
+    "eyebrow": "My Portfolio",
+    "title": "Featured Projects",
+    "body": "A collection of projects that showcase my experience in Full Stack Development, Artificial Intelligence, UI/UX Design and modern web technologies."
+  },
+  "filter": {
+    "label": "Filter projects by category",
+    "all": "All",
+    "ai": "AI",
+    "fullstack": "Full Stack",
+    "research": "Research",
+    "mobile": "Mobile",
+    "openSource": "Open Source",
+    "other": "Other"
+  },
+  "category": {
+    "AI": "AI",
+    "Full Stack": "Full Stack",
+    "Research": "Research",
+    "Open Source": "Open Source",
+    "Mobile": "Mobile",
+    "Other": "Other"
+  },
+  "status": {
+    "Planning": "Planning",
+    "In Progress": "In Progress",
+    "Completed": "Completed",
+    "Maintaining": "Maintaining",
+    "Archived": "Archived"
+  },
+  "featured": {
+    "label": "Featured Project",
+    "view": "View Project",
+    "live": "Live Demo",
+    "github": "GitHub",
+    "imageAlt": "{{title}} preview"
+  },
+  "card": {
+    "viewDetails": "View Details",
+    "github": "GitHub",
+    "live": "Live",
+    "githubAria": "{{title}} on GitHub",
+    "liveAria": "{{title}} live site",
+    "more": "+{{count}}",
+    "imageAlt": "{{title}}"
+  },
+  "empty": {
+    "eyebrow": "Archive",
+    "title": "No Projects Yet",
+    "body": "New projects are currently under development. Check back soon for exciting updates."
+  },
+  "stats": {
+    "portfolio": "Portfolio",
+    "total": "Total Projects",
+    "status": "Status",
+    "completed": "Completed",
+    "category": "Category",
+    "aiProjects": "AI Projects",
+    "selection": "Selection",
+    "featured": "Featured"
+  },
+  "admin": {
+    "add": "Add new Project"
+  }
+}

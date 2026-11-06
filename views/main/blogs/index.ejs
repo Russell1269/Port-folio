@@ -1,0 +1,387 @@
+<% layout('layout/boilerplate') -%>
+
+<section class="relative overflow-hidden">
+
+  <div class="absolute inset-0 -z-10">
+
+    <div class="absolute -top-52 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[140px]"></div>
+
+    <div class="absolute right-0 top-40 h-80 w-80 rounded-full bg-purple-500/10 blur-[130px]"></div>
+
+    <div class="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-sky-500/10 blur-[120px]"></div>
+
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:70px_70px] opacity-20"></div>
+
+  </div>
+
+  <div class="lx-block lx-block--spine lx-page">
+
+    <!-- Page opening -->
+    <div class="lx-page-head lx-page-head--compact">
+      <p class="lx-numeral" aria-hidden="true">I.</p>
+
+      <p class="lx-label lx-label--gold"><%= t('blogs:head.eyebrow') %></p>
+
+      <h1 class="lx-display"><%- t('blogs:head.title') %></h1>
+
+      <p class="lx-body lx-body-lg">
+        <%= t('blogs:head.body') %>
+      </p>
+
+      <div class="lx-actions lx-page-head__actions">
+        <a href="#blogs" class="lx-btn"><%= t('blogs:head.explore') %></a>
+        <a href="<%= localizedUrl('/projects') %>" class="lx-link"><%= t('blogs:head.viewProjects') %></a>
+      </div>
+    </div>
+
+    <div class="lx-post-stats">
+
+      <div class="lx-post-stats__item">
+
+        <p class="lx-label lx-label--gold"><%= t('blogs:stats.journal') %></p>
+
+        <h2 class="lx-figure-value lx-num">
+          <%= formatNumber(blogs.length) %>
+        </h2>
+
+        <p class="lx-label lx-label--muted">
+          <%= t('blogs:stats.total') %>
+        </p>
+
+      </div>
+
+      <div class="lx-post-stats__item">
+
+        <p class="lx-label lx-label--gold"><%= t('blogs:stats.ai') %></p>
+
+        <p class="lx-figure-value lx-num">
+          <%= t('blogs:stats.aiValue') %>
+        </p>
+
+        <p class="lx-label lx-label--muted">
+          <%- t('blogs:stats.aiLabel') %>
+        </p>
+
+      </div>
+
+      <div class="lx-post-stats__item">
+
+        <p class="lx-label lx-label--gold"><%= t('blogs:stats.fullstack') %></p>
+
+        <p class="lx-figure-value lx-num">
+          <%= t('blogs:stats.fullstackValue') %>
+        </p>
+
+        <p class="lx-label lx-label--muted">
+          <%= t('blogs:stats.fullstackLabel') %>
+        </p>
+
+      </div>
+
+      <div class="lx-post-stats__item">
+
+        <p class="lx-label lx-label--gold"><%= t('blogs:stats.research') %></p>
+
+        <p class="lx-figure-value lx-num">
+          <%= t('blogs:stats.researchValue') %>
+        </p>
+
+        <p class="lx-label lx-label--muted">
+          <%- t('blogs:stats.researchLabel') %>
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<% if (featured) { %>
+
+<section class="lx-section lx-section--flush-top">
+
+  <div class="lx-block lx-block--spine lx-blog-section">
+
+    <div class="lx-wide-head">
+      <p class="lx-label lx-label--gold"><%= t('blogs:featured.label') %></p>
+
+      <h2 class="lx-statement lx-wide-head__statement">
+        <%= t('blogs:featured.title') %>
+      </h2>
+    </div>
+
+    <article class="lx-featured">
+
+      <div class="lx-featured__body">
+
+        <div class="lx-entry__meta">
+
+          <span class="lx-label lx-label--gold"><%= t('blogs:status.published') %></span>
+
+          <span class="lx-meta">
+
+            <i class="fa-regular fa-clock" aria-hidden="true"></i>
+
+            <%= t('common:label.readTime', { count: featured.readTime }) %>
+
+          </span>
+
+          <span class="lx-meta">
+
+            <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+
+            <%= formatDate(featured.publishedAt) %>
+
+          </span>
+
+        </div>
+
+        <h3 class="lx-title lx-featured__title">
+
+          <%= localized(featured, 'title') %>
+
+        </h3>
+
+        <p class="lx-body">
+
+          <%= localized(featured, 'summary') %>
+
+        </p>
+
+        <% if(featured.tags && featured.tags.length){ %>
+
+        <ul class="lx-tags">
+
+          <% featured.tags.forEach(tag=>{ %>
+
+          <li>
+
+            #<%= tag %>
+
+          </li>
+
+          <% }) %>
+
+        </ul>
+
+        <% } %>
+
+        <div class="lx-actions">
+
+          <a href="<%= localizedUrl('/blogs/' + featured.slug) %>" class="lx-btn">
+            <%= t('blogs:featured.read') %>
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+
+        </div>
+
+      </div>
+
+      <figure class="lx-figure lx-figure--framed lx-featured__media">
+        <img src="<%= featured.coverImage.url || '/images/blog-placeholder.jpg' %>" alt="<%= featured.coverImageAlt || localized(featured, 'title') %>" loading="lazy" decoding="async" width="900" height="1100">
+      </figure>
+
+    </article>
+
+  </div>
+
+</section>
+
+<% } %>
+<section id="blogs" class="lx-section">
+
+  <div class="lx-block lx-block--spine lx-blog-section">
+
+    <div class="lx-section-head lx-section-head--split">
+
+      <div>
+        <p class="lx-label lx-label--gold"><%= t('blogs:list.label') %></p>
+
+        <h2 class="lx-statement" style="margin-top: 0.75rem">
+          <%= t('blogs:list.title') %>
+        </h2>
+      </div>
+
+      <div>
+        <p class="lx-body">
+          <%= t('blogs:list.body') %>
+        </p>
+
+        <p class="lx-label lx-label--muted" style="margin-top: 1rem">
+          <%= t('blogs:list.count', { count: formatNumber(blogs.length) }) %>
+        </p>
+      </div>
+
+    </div>
+
+    <% const latestBlogs = featured ? blogs.slice(1) : blogs; %>
+
+    <% if(latestBlogs.length){ %>
+
+    <div class="lx-entries">
+
+      <% latestBlogs.forEach(blog=>{ %>
+
+      <article class="lx-entry">
+
+        <div class="lx-entry__media">
+
+          <img src="<%= blog.coverImage.url || '/images/blog-placeholder.jpg' %>" alt="<%= blog.coverImageAlt || localized(blog, 'title') %>" loading="lazy" decoding="async" width="640" height="400">
+
+        </div>
+
+        <div class="lx-entry__body">
+
+          <div class="lx-entry__meta">
+
+            <span class="lx-label lx-label--gold"><%= t(`blogs:status.${blog.status}`) %></span>
+
+            <span class="lx-meta">
+
+              <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+
+              <%= formatDate(blog.publishedAt) %>
+
+            </span>
+
+            <span class="lx-meta">
+
+              <i class="fa-regular fa-clock" aria-hidden="true"></i>
+
+              <%= t('common:label.readTime', { count: blog.readTime }) %>
+
+            </span>
+
+          </div>
+
+          <h3 class="lx-entry__title lx-serif">
+
+            <%= localized(blog, 'title') %>
+
+          </h3>
+
+          <p class="lx-body">
+
+            <%= localized(blog, 'summary') %>
+
+          </p>
+
+          <% if(blog.tags.length){ %>
+
+          <ul class="lx-tags">
+
+            <% blog.tags.slice(0,4).forEach(tag=>{ %>
+
+            <li>
+
+              #<%= tag %>
+
+            </li>
+
+            <% }) %>
+
+          </ul>
+
+          <% } %>
+
+        </div>
+
+        <div class="lx-entry__aside">
+
+          <a href="<%= localizedUrl('/blogs/' + blog.slug) %>" class="lx-link">
+
+            <%= t('blogs:list.read') %>
+
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+
+          </a>
+
+        </div>
+
+      </article>
+
+      <% }) %>
+
+    </div>
+
+    <% } %>
+
+  </div>
+
+</section>
+<% if(!blogs.length){ %>
+
+<section class="lx-section lx-section--flush-top">
+
+  <div class="lx-block lx-block--spine lx-blog-section">
+
+    <div class="lx-empty">
+
+      <p class="lx-label lx-label--gold"><%= t('blogs:empty.label') %></p>
+
+      <h2 class="lx-statement">
+
+        <%= t('blogs:empty.title') %>
+
+      </h2>
+
+      <p class="lx-body">
+
+        <%= t('blogs:empty.body') %>
+
+      </p>
+
+      <ul class="lx-tags">
+        <% t('blogs:empty.tags', { returnObjects: true }).forEach((tag) => { %>
+        <li><%= tag %></li>
+        <% }); %>
+      </ul>
+
+      <a href="<%= localizedUrl('/') %>" class="lx-btn lx-btn--ghost">
+        <%= t('blogs:empty.backHome') %>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<% } %>
+<section class="relative pb-24">
+
+  <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+
+    <div class="lx-blog-cta">
+      <div>
+
+        <p class="lx-label lx-label--gold"><%= t('blogs:cta.label') %></p>
+
+        <h2 class="lx-statement" style="margin-top: 0.75rem">
+          <%= t('blogs:cta.title') %>
+          <em class="lx-em"><%= t('blogs:cta.titleEm') %></em>
+        </h2>
+
+        <p class="lx-body lx-body-lg">
+          <%= t('blogs:cta.body') %>
+        </p>
+
+      </div>
+
+      <div class="lx-actions">
+        <% if (isOwner) { %>
+        <a href="<%= localizedUrl('/blogs/new') %>" class="lx-btn">
+          <%= t('blogs:cta.write') %>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <% } %>
+
+        <a href="<%= localizedUrl('/contact') %>" class="lx-link"><%= t('blogs:cta.contact') %></a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,373 @@
+﻿<div class="relative min-h-screen overflow-hidden bg-[#070B17] px-4 py-10 text-white sm:px-6 lg:px-10">
+  <div class="pointer-events-none fixed inset-0">
+    <div class="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-cyan-500/20 blur-[160px]"></div>
+    <div class="absolute right-[-200px] top-1/3 h-[600px] w-[600px] rounded-full bg-purple-600/20 blur-[180px]"></div>
+    <div class="absolute bottom-[-150px] left-1/3 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[150px]"></div>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-7xl">
+    <!-- Header -->
+    <div class="mb-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+      <div>
+        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold text-cyan-300">
+          <i class="fa-solid fa-pen-nib"></i>
+          <%= isEdit ? "EDITOR MODE" : "CREATE MODE" %>
+        </div>
+
+        <h1 class="text-4xl font-black tracking-tight sm:text-5xl">
+          <%= isEdit ? "Edit Blog" : "Create New Blog" %>
+        </h1>
+
+        <p class="mt-4 max-w-xl text-slate-400">
+          <%= isEdit ? "Update your article content, metadata and publishing settings." : "Create technical articles and share your knowledge with your audience." %>
+        </p>
+      </div>
+
+      <a href="/blogs" class="inline-flex w-fit items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-slate-300 backdrop-blur-xl transition hover:bg-white/10 hover:text-white">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back
+      </a>
+    </div>
+
+    <!-- Form: main column + sidebar are siblings inside the grid -->
+    <form action="/blogs<%= isEdit ? '/' + blog._id + '?_method=PUT' : '' %>" method="POST" enctype="multipart/form-data">
+      <div class="grid grid-cols-1 items-start gap-8 xl:grid-cols-[minmax(0,2fr)_minmax(0,0.9fr)]">
+        <!-- Left column -->
+        <div class="min-w-0 space-y-8">
+          <!-- Article details -->
+          <div class="blog-card rounded-[30px] border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-2xl sm:p-8">
+            <div class="mb-8 flex items-center gap-4">
+              <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-300">
+                <i class="fa-solid fa-file-pen text-xl"></i>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold">Article Details</h2>
+                <p class="text-sm text-slate-400">Basic information about your blog</p>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div>
+                <label for="title-input" class="mb-2 block text-sm text-slate-300">Title</label>
+                <input id="title-input" name="title" type="text" maxlength="100" required value="<%= isEdit ? blog.title : '' %>" placeholder="Building scalable backend architecture" class="w-full rounded-2xl border border-white/10 bg-black/20 px-5 py-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" />
+                <p id="title-count" class="mt-2 text-xs text-slate-500">0/100</p>
+              </div>
+
+              <div>
+                <label for="slug-input" class="mb-2 flex items-center justify-between gap-3 text-sm text-slate-300">
+                  <span>Slug</span>
+                  <span class="text-xs text-slate-500">Auto-generated from title</span>
+                </label>
+                <input id="slug-input" name="slug" type="text" required value="<%= isEdit ? blog.slug : '' %>" placeholder="building-backend-architecture" class="w-full rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-mono text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20" />
+              </div>
+
+              <div>
+                <label for="summary-input" class="mb-2 block text-sm text-slate-300">Summary</label>
+                <textarea id="summary-input" name="summary" maxlength="300" rows="4" placeholder="Short description of your article" class="w-full resize-none rounded-2xl border border-white/10 bg-black/20 px-5 py-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400"><%= isEdit ? blog.summary : '' %></textarea>
+                <p id="summary-count" class="mt-2 text-xs text-slate-500">0/300</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="blog-card rounded-[30px] border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-2xl sm:p-8">
+            <div class="mb-6 flex items-center gap-4">
+              <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-500/10 text-purple-300">
+                <i class="fa-solid fa-code text-xl"></i>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold">Content</h2>
+                <p class="text-sm text-slate-400">Write your article body</p>
+              </div>
+            </div>
+
+            <textarea id="content-input" name="content" required rows="20" placeholder="Write your article here..." class="min-h-[600px] w-full rounded-3xl border border-white/10 bg-black/20 p-6 font-mono text-sm leading-8 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400"><%= isEdit ? blog.content : '' %></textarea>
+
+            <div id="reading-time" class="mt-3 text-xs text-purple-300">Reading time: 0 min</div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="min-w-0 space-y-8 xl:sticky xl:top-24 xl:h-fit">
+          <div class="blog-card rounded-[30px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
+            <h3 class="mb-5 flex items-center gap-3 text-xl font-bold">
+              <i class="fa-solid fa-image text-cyan-400"></i>
+              Cover Image
+            </h3>
+
+            <label class="mb-2 block text-sm text-slate-300">Cover Image</label>
+            <input type="file" name="coverImage" accept="image/png,image/jpeg,image/webp" id="image-url" class="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none" />
+
+            <img id="image-preview" alt="<%= isEdit ? (blog.coverImageAlt || blog.title) : '' %>" src="<%= isEdit && blog.coverImage?.url ? blog.coverImage.url : '' %>" class="mt-5 <%= isEdit && blog.coverImage?.url ? '' : 'hidden ' %>h-48 w-full rounded-2xl object-cover" />
+
+            <label for="cover-image-alt" class="mt-5 mb-2 block text-sm text-slate-300">Cover Image Alt Text</label>
+            <input id="cover-image-alt" name="coverImageAlt" type="text" value="<%= isEdit ? (blog.coverImageAlt || '') : '' %>" class="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none" />
+          </div>
+
+          <div class="blog-card rounded-[30px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
+            <h3 class="mb-5 flex items-center gap-3 text-xl font-bold">
+              <i class="fa-solid fa-circle-check text-purple-400"></i>
+              Status
+            </h3>
+
+            <select id="status-input" name="status" class="w-full rounded-2xl border border-white/10 bg-[#111827] px-4 py-4 text-white outline-none focus:border-purple-400">
+              <option value="draft" <%= !isEdit || blog.status === "draft" ? "selected" : "" %>>Draft</option>
+              <option value="published" <%= isEdit && blog.status === "published" ? "selected" : "" %>>Published</option>
+              <option value="archived" <%= isEdit && blog.status === "archived" ? "selected" : "" %>>Archived</option>
+            </select>
+          </div>
+
+          <div class="blog-card rounded-[30px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
+            <h3 class="mb-5 flex items-center gap-3 text-xl font-bold">
+              <i class="fa-solid fa-tags text-cyan-400"></i>
+              Tags
+            </h3>
+
+            <div id="tags-box" class="flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-black/20 p-3">
+              <input id="tag-input" type="text" placeholder="Add tag, press Enter" class="min-w-[120px] flex-1 bg-transparent text-white outline-none placeholder:text-slate-600" />
+            </div>
+
+            <input type="hidden" name="tags" id="tags-value" />
+            <p class="mt-2 text-xs text-slate-500">Separate tags with Enter or comma</p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-8 flex flex-col-reverse gap-4 border-t border-white/10 pt-8 sm:flex-row sm:justify-end">
+        <a href="/blogs" class="flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-sm text-slate-300 transition hover:bg-white/10 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+          Cancel
+        </a>
+
+        <button id="save-draft-button" type="submit" class="flex items-center justify-center gap-2 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-6 py-4 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400 hover:text-black">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save Draft
+        </button>
+
+        <button type="submit" class="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-400 to-purple-500 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-cyan-500/20 transition hover:scale-105">
+          <i class="fa-solid fa-paper-plane"></i>
+          <%= isEdit ? "Update Blog" : "Publish Blog" %>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const isEdit = JSON.stringify(isEdit);
+    const existingCoverImageUrl = isEdit && blog.coverImage?.url ? blog.coverImage.url : "";
+    const existingTags = JSON.stringify(isEdit && Array.isArray(blog.tags) ? blog.tags : []);
+    const titleInput = document.getElementById("title-input");
+    const titleCount = document.getElementById("title-count");
+    const slugInput = document.getElementById("slug-input");
+    const summaryInput = document.getElementById("summary-input");
+    const summaryCount = document.getElementById("summary-count");
+    const contentInput = document.getElementById("content-input");
+    const readingTime = document.getElementById("reading-time");
+    const imageInput = document.getElementById("image-url");
+    const preview = document.getElementById("image-preview");
+    const tagInput = document.getElementById("tag-input");
+    const tagsBox = document.getElementById("tags-box");
+    const hiddenTags = document.getElementById("tags-value");
+    const form = document.querySelector("form[action^='/blogs']");
+    const statusInput = document.getElementById("status-input");
+    const saveDraftButton = document.getElementById("save-draft-button");
+
+    saveDraftButton?.addEventListener("click", () => {
+      statusInput.value = "draft";
+    });
+
+    /* ---------- Title / Summary counters ---------- */
+    const updateTitleCount = () => {
+      titleCount.textContent = `${titleInput.value.length}/100`;
+    };
+    const updateSummaryCount = () => {
+      summaryCount.textContent = `${summaryInput.value.length}/300`;
+    };
+
+    titleInput.addEventListener("input", updateTitleCount);
+    summaryInput.addEventListener("input", updateSummaryCount);
+    updateTitleCount();
+    updateSummaryCount();
+
+    /* ---------- Auto slug from title ---------- */
+    const slugify = (value) =>
+      value
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/['\u2019"]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    let slugEdited = Boolean(
+      slugInput.value && slugInput.value !== slugify(titleInput.value)
+    );
+
+    slugInput.addEventListener("input", () => {
+      slugEdited = slugInput.value.trim() !== "";
+    });
+
+    titleInput.addEventListener("input", () => {
+      if (slugEdited) return;
+      slugInput.value = slugify(titleInput.value);
+    });
+
+    slugInput.addEventListener("blur", () => {
+      slugInput.value = slugify(slugInput.value);
+      slugEdited = slugInput.value !== "";
+    });
+
+    form?.addEventListener("submit", () => {
+      if (!slugInput.value.trim()) {
+        slugInput.value = slugify(titleInput.value);
+      }
+    });
+
+    /* ---------- Reading time ---------- */
+    const calculateReading = () => {
+      const words = contentInput.value.trim().split(/\s+/).filter(Boolean).length;
+      readingTime.textContent = `Reading time: ${Math.ceil(words / 200)} min`;
+    };
+
+    contentInput.addEventListener("input", calculateReading);
+    calculateReading();
+    console.log({
+      preview,
+      isEdit,
+      existingCoverImageUrl,
+      imageInput,
+      files: imageInput?.files
+    });
+    /* ---------- Image preview ---------- */
+    const showImage = () => {
+      const file = imageInput.files[0];
+      if (!file) {
+        if (isEdit && existingCoverImageUrl) {
+          preview.src = existingCoverImageUrl;
+          preview.classList.remove("hidden");
+        } else {
+          preview.classList.add("hidden");
+          preview.removeAttribute("src");
+        }
+        return;
+      }
+      let currentObjectUrl = null;
+
+      if (currentObjectUrl) {
+        URL.revokeObjectURL(currentObjectUrl);
+      }
+
+      currentObjectUrl = URL.createObjectURL(file);
+
+      preview.src = currentObjectUrl;
+      preview.src = objectURL;
+      preview.classList.remove("hidden");
+    };
+
+    if (imageInput && preview) {
+      imageInput.addEventListener("change", showImage);
+      showImage();
+    }
+
+    /* ---------- Tags ---------- */
+    let tags = [];
+
+    const updateTags = () => {
+      hiddenTags.value = tags.join(",");
+    };
+
+    const addTag = (raw) => {
+      const tag = raw
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+
+      if (!tag || tags.includes(tag)) return;
+
+      tags.push(tag);
+      updateTags();
+
+      const badge = document.createElement("span");
+      badge.className =
+        "flex items-center gap-2 rounded-xl border border-purple-400/20 bg-purple-500/10 px-3 py-2 text-xs text-purple-300";
+      badge.dataset.tag = tag;
+
+      const label = document.createElement("span");
+      label.textContent = `#${tag}`;
+
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "transition hover:text-white";
+      remove.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      remove.addEventListener("click", () => {
+        tags = tags.filter((t) => t !== tag);
+        badge.remove();
+        updateTags();
+      });
+
+      badge.append(label, remove);
+      tagsBox.insertBefore(badge, tagInput);
+    };
+
+    tagInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === ",") {
+        e.preventDefault();
+        addTag(tagInput.value);
+        tagInput.value = "";
+        return;
+      }
+
+      if (e.key === "Backspace" && !tagInput.value && tags.length) {
+        tags.pop();
+        const badges = tagsBox.querySelectorAll("[data-tag]");
+        badges[badges.length - 1]?.remove();
+        updateTags();
+      }
+    }); // ← keydown listener এখানে close
+
+    // ✅ Existing tags — keydown-এর বাইরে, DOMContentLoaded-এর ভিতরে
+    if (isEdit && Array.isArray(existingTags)) {
+      existingTags.forEach(addTag);
+    }
+
+  }); // ← DOMContentLoaded এখানে close
+</script>
+
+<style>
+  .blog-card {
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .blog-card:hover {
+    border-color: rgba(34, 211, 238, 0.25);
+  }
+
+  input,
+  textarea,
+  select {
+    backdrop-filter: blur(20px);
+  }
+
+  @media (max-width: 1279px) {
+    aside {
+      position: relative !important;
+      top: auto !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    form {
+      padding-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

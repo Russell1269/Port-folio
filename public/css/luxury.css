@@ -1,0 +1,1155 @@
+/* ==========================================================================
+   Luxury — design tokens, shared grid and component layer.
+
+   Written as plain CSS on purpose: these rules must render even when the
+   Tailwind browser runtime is unavailable (same rule the existing .glass-stat
+   block follows). Page-level markup in the EJS views uses these classes with
+   utility fallbacks, so the layout holds either way.
+   ========================================================================== */
+
+:root {
+  --dp-color-ground: #f3eee4;
+  --dp-color-ground-2: #e4dbcc;
+  --dp-color-ink: #262321;
+  --dp-color-ink-2: #5f5750;
+  --dp-color-field: #262321;
+  --dp-color-field-deep: #302c29;
+  --dp-color-field-line: #46403a;
+  --dp-color-on-field: #f3eee4;
+  --dp-color-on-field-2: #c6bdb0;
+  --dp-color-panel: #e4dbcc;
+  --dp-color-panel-line: #c6b89f;
+  --dp-color-accent: #b69355;
+  --dp-color-accent-text: #76591f;
+  --dp-color-accent-light: #d2b071;
+  --dp-color-rule: #d5cab8;
+
+  --dp-typography-serif: "Luxury Garamond";
+  --dp-typography-sans: "Luxury Sans", "Helvetica Neue", Arial, sans-serif;
+  --dp-typography-serif-fallback: Georgia, "Times New Roman", serif;
+  --dp-typography-body: 1rem;
+  --dp-typography-leading: 1.55;
+  --dp-typography-label: 0.75rem;
+  --dp-typography-label-tracking: 0.16em;
+  --dp-typography-reading-small: 0.9375rem;
+  --dp-typography-caption: 0.875rem;
+  --dp-typography-attribution: 0.8125rem;
+  --dp-typography-item-title: 1.375rem;
+  --dp-typography-item-leading: 1.15;
+  --dp-typography-item-tracking: -0.01em;
+
+  --dp-spacing-pad: 3rem;
+  --dp-spacing-gap: 1.5rem;
+  --dp-spacing-pad-mid: 2rem;
+  --dp-spacing-pad-narrow: 1.25rem;
+  --dp-spacing-gap-compact: 1rem;
+  --dp-spacing-section-block: 6rem;
+  --dp-spacing-section-roomy: 7rem;
+
+  --dp-radius-control: 0;
+  --dp-border-focus-width: 2px;
+  --dp-border-hairline: 1px;
+
+  --dp-motion-interaction: 150ms;
+  --dp-motion-door-content: 600ms;
+  --dp-motion-door-delay: 450ms;
+  --dp-motion-door-easing: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dp-motion-door: 900ms;
+
+  /* Grid tokens ------------------------------------------------------------
+     Twelve tracks across the page block. --lx-col is the track width, so a
+     span of N columns is N*col + (N-1)*gap. Every breakpoint recomputes col,
+     which lets the wide-only patterns (margin image, numeral margin, sticky
+     headings) degrade cleanly instead of needing a class rewrite. */
+  --lx-pad: var(--dp-spacing-pad);
+  --lx-gap: var(--dp-spacing-gap);
+  --lx-col: calc((100% - (var(--lx-pad) * 2) - (var(--lx-gap) * 11)) / 12);
+  --lx-margin: calc(var(--lx-col) * 2 + var(--lx-gap));
+  --lx-content: calc(100% - var(--lx-margin));
+  --lx-narrow: 100%;
+  --lx-spine-x: calc(var(--lx-pad) + var(--lx-margin) - (var(--lx-gap) / 2));
+  --lx-numeral-gap: 1.25rem;
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --lx-pad: var(--dp-spacing-pad-mid);
+    --lx-gap: var(--dp-spacing-gap-compact);
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --lx-pad: var(--dp-spacing-pad-narrow);
+    --lx-spine-x: calc(var(--lx-pad) / 2);
+    --lx-numeral-gap: 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Keep the fixed 4.5rem navigation from covering anchor targets. */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+body.lx {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--dp-color-ground);
+  color: var(--dp-color-ink);
+  font-family: var(--dp-typography-sans);
+  font-size: var(--dp-typography-body);
+  line-height: var(--dp-typography-leading);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.lx ::selection {
+  background: rgba(182, 147, 85, 0.28);
+  color: var(--dp-color-ink);
+}
+
+body.lx :focus-visible {
+  outline: var(--dp-border-focus-width) solid var(--dp-color-accent-text);
+  outline-offset: 2px;
+}
+
+body.lx a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body.lx img {
+  display: block;
+  max-width: 100%;
+}
+
+body.lx figure {
+  margin: 0;
+}
+
+/* Tailwind's preflight leaves server-rendered SVGs at their intrinsic size
+   (missing there because it is injected after parse). Icons keep a 1em box. */
+body.lx i[class*="fa-"] {
+  flex: none;
+}
+
+body.lx i[class*="fa-"] svg {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+}
+
+body.lx p,
+body.lx ul,
+body.lx ol {
+  margin: 0;
+}
+
+/* Type roles -------------------------------------------------------------- */
+
+.lx-serif,
+.lx-display,
+.lx-statement,
+.lx-title,
+.lx-quote,
+.lx-numeral {
+  font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+}
+
+.lx-display {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(3rem, 1.1rem + 4.5vw, 4rem);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  max-width: 8.6em;
+  text-wrap: balance;
+  /* Statements never break inside hyphenated compounds (AI-Powered). */
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+.lx-statement,
+.lx-title,
+.lx-close__title {
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+.lx-statement {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(2rem, 1.1rem + 2.9vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.lx-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.lx-item-title {
+  margin: 0;
+  font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+  font-weight: 500;
+  font-size: var(--dp-typography-item-title);
+  line-height: var(--dp-typography-item-leading);
+  letter-spacing: var(--dp-typography-item-tracking);
+}
+
+.lx-quote {
+  margin: 0;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.375rem, 1rem + 1.4vw, 2rem);
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.lx-em {
+  font-style: italic;
+}
+
+/* Keeps a hyphenated compound (AI-Powered) on one line in serif statements. */
+.lx-nowrap {
+  white-space: nowrap;
+}
+
+.lx-body {
+  font-size: var(--dp-typography-body);
+  line-height: var(--dp-typography-leading);
+  color: var(--dp-color-ink-2);
+  max-width: 34em;
+  text-wrap: pretty;
+}
+
+.lx-body-lg {
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  line-height: 1.6;
+}
+
+.lx-reading-small {
+  font-size: var(--dp-typography-reading-small);
+  line-height: var(--dp-typography-leading);
+}
+
+.lx-caption {
+  font-size: var(--dp-typography-caption);
+}
+
+.lx-attribution {
+  font-size: var(--dp-typography-attribution);
+}
+
+.lx-label {
+  display: block;
+  margin: 0;
+  font-family: var(--dp-typography-sans) !important;
+  font-size: var(--dp-typography-label) !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  letter-spacing: var(--dp-typography-label-tracking) !important;
+  text-transform: uppercase;
+  color: var(--dp-color-ink-2);
+}
+
+/* The status line lays its dot out inline. */
+.lx-label.lx-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.lx-label--gold {
+  color: var(--dp-color-accent-text) !important;
+}
+
+.lx-label--muted {
+  color: var(--dp-color-ink-2) !important;
+}
+
+.lx-num {
+  font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  -webkit-font-feature-settings: "onum" 1, "pnum" 1;
+  font-feature-settings: "onum" 1, "pnum" 1;
+}
+
+.lx-figure-value {
+  margin: 0;
+  padding-bottom: 0.15rem;
+  font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-feature-settings: "onum" 1, "pnum" 1;
+  font-weight: 400;
+  font-size: clamp(2.25rem, 1.6rem + 1.8vw, 3.25rem);
+  line-height: 1;
+}
+
+.lx-meta {
+  font-family: var(--dp-typography-sans);
+  font-size: var(--dp-typography-caption);
+  color: var(--dp-color-ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   Shared grid + gold spine
+   -------------------------------------------------------------------------- */
+
+.lx-section {
+  position: relative;
+  padding-block: var(--dp-spacing-section-block);
+}
+
+.lx-section--roomy {
+  padding-block: var(--dp-spacing-section-roomy);
+}
+
+.lx-section--flush-top {
+  padding-top: 0;
+}
+
+.lx-block {
+  position: relative;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: var(--lx-pad);
+}
+
+.lx-block--narrow {
+  max-width: 68rem;
+}
+
+.lx-content {
+  padding-left: var(--lx-margin);
+}
+
+/* The spine is drawn per section block so it starts with the page and ends
+   before the closing charcoal field, instead of running to the footer. */
+.lx-block--spine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--lx-spine-x);
+  width: 1px;
+  background: var(--dp-color-accent);
+  opacity: 0.85;
+}
+
+/* Numeral sits in the margin; at wide widths it can hold near the top of the
+   viewport while its section scrolls past. */
+.lx-numeral {
+  display: block;
+  margin: 0 0 1.25rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.14em;
+  color: var(--dp-color-accent-text);
+}
+
+.lx-section-head {
+  display: grid;
+  gap: 1.25rem 2rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.lx-section-head .lx-body {
+  max-width: 32em;
+}
+
+/* The spine sits in the middle of the margin column, so the margin itself
+   only needs its own padding on very wide screens. It never shrinks below
+   the page pad, otherwise marque headlines that break the margin would run
+   past the page edge. */
+@media (max-width: 1280px) {
+  :root {
+    --lx-margin: var(--lx-pad);
+  }
+}
+
+@media (min-width: 1101px) {
+  .lx-sticky {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+  }
+}
+
+/* Column spans (wide layouts only) --------------------------------------- */
+
+@media (min-width: 1101px) {
+  .lx-col-3-7 {
+    grid-column: 3 / span 5;
+  }
+
+  .lx-col-3-8 {
+    grid-column: 3 / span 6;
+  }
+
+  .lx-col-3-9 {
+    grid-column: 3 / span 7;
+  }
+
+  .lx-col-3-12 {
+    grid-column: 3 / span 10;
+  }
+
+  /* Broad statements and comparison sections break the margin: the title
+     starts at the page pad while body copy inside stays on the grid. */
+  .lx-wide-head {
+    margin-left: calc(-1 * var(--lx-margin));
+  }
+
+  .lx-wide-head__title,
+  .lx-wide-head__statement {
+    max-width: 13em;
+  }
+
+  .lx-compare {
+    max-width: 62rem;
+  }
+}
+
+/* Table cells carry their own padding, so pull their start edge out to the
+   margin line at every width above the phone breakpoint. */
+@media (min-width: 721px) {
+  .lx-compare {
+    margin-left: -1.5rem;
+    width: calc(100% + 1.5rem);
+  }
+}
+
+@media (min-width: 1101px) {
+  .lx-col-9-12 {
+    grid-column: 9 / span 4;
+  }
+
+  .lx-col-8-12 {
+    grid-column: 8 / span 5;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Surfaces
+   -------------------------------------------------------------------------- */
+
+.lx-field {
+  position: relative;
+  background: var(--dp-color-field);
+  color: var(--dp-color-on-field);
+}
+
+.lx-field .lx-body,
+.lx-field .lx-meta,
+.lx-field .lx-label--muted {
+  color: var(--dp-color-on-field-2);
+}
+
+.lx-field .lx-label--gold {
+  color: var(--dp-color-accent-light) !important;
+}
+
+.lx-field .lx-label--muted {
+  color: var(--dp-color-on-field-2) !important;
+}
+
+.lx-field a:not(.lx-btn):not(.lx-link) {
+  color: var(--dp-color-on-field);
+}
+
+.lx-panel {
+  background: var(--dp-color-panel);
+  color: var(--dp-color-ink);
+}
+
+.lx-rule {
+  height: 1px;
+  border: 0;
+  background: var(--dp-color-rule);
+}
+
+.lx-panel .lx-rule,
+.lx-rule--panel {
+  background: var(--dp-color-panel-line);
+}
+
+.lx-rule--gold {
+  background: var(--dp-color-accent);
+}
+
+.lx-field .lx-rule {
+  background: var(--dp-color-field-line);
+}
+
+.lx-field .lx-rule--gold {
+  background: var(--dp-color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons and links
+   -------------------------------------------------------------------------- */
+
+.lx-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+}
+
+.lx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--dp-color-ink);
+  border-radius: var(--dp-radius-control);
+  /* Tailwind's @layer base resets button/link colour and font to inherit;
+     these roles must not depend on layer order. */
+  background: var(--dp-color-ink) !important;
+  color: var(--dp-color-ground) !important;
+  font-family: var(--dp-typography-sans) !important;
+  font-size: var(--dp-typography-label) !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: var(--dp-typography-label-tracking) !important;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color var(--dp-motion-interaction) ease,
+    border-color var(--dp-motion-interaction) ease,
+    color var(--dp-motion-interaction) ease;
+}
+
+.lx-btn:hover {
+  color: var(--dp-color-ground) !important;
+  background: var(--dp-color-ink-2) !important;
+  border-color: var(--dp-color-ink-2);
+}
+
+.lx-btn:active {
+  transform: translateY(1px);
+}
+
+.lx-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+.lx-btn--ghost {
+  background: transparent !important;
+  color: var(--dp-color-ink) !important;
+  border-color: var(--dp-color-rule);
+}
+
+.lx-btn--ghost:hover {
+  background: transparent !important;
+  border-color: var(--dp-color-accent-text);
+  color: var(--dp-color-accent-text) !important;
+}
+
+.lx-field .lx-btn {
+  background: var(--dp-color-ground) !important;
+  border-color: var(--dp-color-ground);
+  color: var(--dp-color-ink) !important;
+}
+
+.lx-field .lx-btn:hover {
+  background: var(--dp-color-ground-2) !important;
+  border-color: var(--dp-color-ground-2);
+  color: var(--dp-color-ink) !important;
+}
+
+.lx-field .lx-btn--ghost {
+  background: transparent !important;
+  color: var(--dp-color-on-field) !important;
+  border-color: var(--dp-color-field-line);
+}
+
+.lx-field .lx-btn--ghost:hover {
+  background: var(--dp-color-field-deep) !important;
+  border-color: var(--dp-color-accent-light);
+  color: var(--dp-color-on-field) !important;
+}
+
+.lx-field :focus-visible {
+  outline-color: var(--dp-color-accent-light);
+}
+
+.lx-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;
+  padding-block: 0.35rem;
+  border-bottom: 1px solid var(--dp-color-accent);
+  color: var(--dp-color-ink) !important;
+  font-family: var(--dp-typography-sans) !important;
+  font-size: var(--dp-typography-label) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--dp-typography-label-tracking) !important;
+  line-height: 1.3 !important;
+  text-transform: uppercase;
+  transition:
+    border-color var(--dp-motion-interaction) ease,
+    color var(--dp-motion-interaction) ease;
+}
+
+.lx-link:hover {
+  border-bottom-color: var(--dp-color-ink);
+}
+
+.lx-link:active {
+  transform: translateY(1px);
+}
+
+.lx-field .lx-link {
+  color: var(--dp-color-accent-light) !important;
+  border-bottom-color: var(--dp-color-accent);
+}
+
+.lx-field .lx-link:hover {
+  color: var(--dp-color-on-field) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Small marks: tags, status lines, count notes
+   -------------------------------------------------------------------------- */
+
+.lx-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lx-tags li {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--dp-color-panel-line);
+  color: var(--dp-color-ink-2);
+  font-family: var(--dp-typography-sans);
+  font-size: var(--dp-typography-attribution);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+.lx-field .lx-tags li {
+  border-color: var(--dp-color-field-line);
+  color: var(--dp-color-on-field-2);
+}
+
+.lx-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.lx-status::before {
+  content: "";
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--dp-color-accent-text) !important;
+  flex: none;
+}
+
+.lx-field .lx-status::before {
+  background: var(--dp-color-accent-light);
+}
+
+/* --------------------------------------------------------------------------
+   Photographs
+   -------------------------------------------------------------------------- */
+
+.lx-figure {
+  position: relative;
+}
+
+.lx-figure img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background: var(--dp-color-ground-2);
+}
+
+.lx-figure--framed {
+  padding: 0.6rem;
+  border: 1px solid var(--dp-color-accent);
+}
+
+.lx-figure--framed img {
+  border: 1px solid var(--dp-color-panel-line);
+}
+
+.lx-field .lx-figure--framed {
+  padding: 0.5rem;
+}
+
+.lx-field .lx-figure--framed img {
+  border-color: var(--dp-color-field-line);
+}
+
+.lx-portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.lx-figure figcaption {
+  margin-top: 0.85rem;
+  color: var(--dp-color-ink-2);
+  font-size: var(--dp-typography-attribution);
+  line-height: 1.45;
+}
+
+.lx-field .lx-figure figcaption {
+  color: var(--dp-color-on-field-2);
+}
+
+/* --------------------------------------------------------------------------
+   Ruled rows (capabilities / services)
+   -------------------------------------------------------------------------- */
+
+.lx-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--dp-color-rule);
+}
+
+.lx-row {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 0.4rem 1rem;
+  padding-block: 1.6rem;
+  border-bottom: 1px solid var(--dp-color-rule);
+}
+
+.lx-row__num {
+  grid-column: 1;
+  grid-row: 1;
+  color: var(--dp-color-accent-text);
+  font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  padding-right: 0.5rem;
+}
+
+.lx-row__title {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.lx-row__text {
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 34em;
+  color: var(--dp-color-ink-2);
+  font-size: var(--dp-typography-reading-small);
+}
+
+.lx-row__tags {
+  grid-column: 2;
+  grid-row: 3;
+  margin-top: 0.35rem;
+}
+
+@media (min-width: 721px) {
+  .lx-row {
+    grid-template-columns: 3.25rem minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 1.75rem;
+    align-items: baseline;
+  }
+
+  .lx-row__title {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .lx-row__text {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .lx-row__tags {
+    grid-column: 3;
+    grid-row: 2;
+    margin-top: 0.4rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Figures strip (opening facts)
+   -------------------------------------------------------------------------- */
+
+.lx-facts {
+  display: grid;
+  gap: 1.75rem 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 721px) {
+  .lx-facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Two across reads better than four squeezed or one very tall column. */
+@media (max-width: 720px) {
+  .lx-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1.25rem;
+  }
+
+  .lx-facts .lx-figure-value {
+    font-size: 2rem;
+    overflow-wrap: anywhere;
+  }
+}
+
+.lx-facts li {
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--dp-color-panel-line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.lx-facts li > * {
+  margin: 0;
+}
+
+.lx-facts dt {
+  margin-top: 0.5rem;
+  color: var(--dp-color-ink-2);
+  font-family: var(--dp-typography-sans);
+  font-size: var(--dp-typography-label);
+  letter-spacing: var(--dp-typography-label-tracking);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Language bars (GitHub data)
+   -------------------------------------------------------------------------- */
+
+.lx-bars {
+  display: grid;
+  gap: 1.4rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lx-bar__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+  font-size: var(--dp-typography-reading-small);
+}
+
+.lx-bar__track {
+  height: 1px;
+  background: var(--dp-color-panel-line);
+}
+
+.lx-bar__fill {
+  display: block;
+  height: 1px;
+  background: var(--dp-color-accent);
+}
+
+.lx-bar__pct {
+  font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  color: var(--dp-color-accent-text);
+}
+
+/* --------------------------------------------------------------------------
+   GitHub contribution heatmap
+   -------------------------------------------------------------------------- */
+
+/* Recent activity: 13 week columns x 7 day rows, filled column-first. */
+.lx-heat__track {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  grid-auto-flow: column;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 30rem;
+}
+
+.lx-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lx-heat__cell {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  background: #d8cfbf;
+  border: 1px solid var(--dp-color-rule);
+}
+
+.lx-heat__cell[data-level="1"] {
+  background: #d9c8a6;
+}
+
+.lx-heat__cell[data-level="2"] {
+  background: var(--dp-color-accent);
+  border-color: var(--dp-color-accent);
+}
+
+.lx-heat__cell[data-level="3"] {
+  background: var(--dp-color-accent-text);
+  border-color: var(--dp-color-accent-text);
+}
+
+
+.lx-heat__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.1rem;
+  color: var(--dp-color-ink-2);
+  font-size: var(--dp-typography-attribution);
+}
+
+.lx-heat__legend span[data-level] {
+  width: 0.65rem;
+  height: 0.65rem;
+  background: #d9c8a6;
+  border: 1px solid var(--dp-color-rule);
+}
+
+.lx-heat__legend span[data-level="2"] {
+  background: var(--dp-color-accent);
+  border-color: var(--dp-color-accent);
+}
+
+.lx-heat__legend span[data-level="3"] {
+  background: var(--dp-color-accent-text);
+  border-color: var(--dp-color-accent-text);
+}
+
+/* --------------------------------------------------------------------------
+   Forms (contact + CRUD forms)
+   -------------------------------------------------------------------------- */
+
+.lx-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.lx-form__field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.lx-form input,
+.lx-form textarea,
+.lx-form select,
+.lx-input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--dp-color-panel-line);
+  border-radius: var(--dp-radius-control);
+  background: var(--dp-color-ground);
+  color: var(--dp-color-ink);
+  font-family: var(--dp-typography-sans);
+  font-size: var(--dp-typography-body);
+  line-height: 1.4;
+  transition: border-color var(--dp-motion-interaction) ease;
+}
+
+.lx-form textarea {
+  resize: vertical;
+  min-height: 9rem;
+}
+
+.lx-form input::placeholder,
+.lx-form textarea::placeholder,
+.lx-input::placeholder {
+  color: var(--dp-color-ink-2);
+  opacity: 0.8;
+}
+
+.lx-form input:focus,
+.lx-form textarea:focus,
+.lx-form select:focus,
+.lx-input:focus {
+  border-color: var(--dp-color-accent-text);
+  outline: var(--dp-border-focus-width) solid var(--dp-color-accent-text);
+  outline-offset: 2px;
+}
+
+.lx-form__note {
+  margin: 0;
+  color: var(--dp-color-ink-2);
+  font-size: var(--dp-typography-attribution);
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+
+.lx-door {
+  position: relative;
+}
+
+.lx-door__content {
+  transition:
+    opacity var(--dp-motion-door-content) var(--dp-motion-door-easing),
+    transform var(--dp-motion-door-content) var(--dp-motion-door-easing);
+}
+
+/* Armed only from script, on wide layouts, with motion allowed. The field
+   stays fully visible until then. */
+.lx-door.is-armed .lx-door__content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition-delay: var(--dp-motion-door-delay);
+}
+
+.lx-door.is-armed {
+  clip-path: inset(0 calc(50% - 5rem) 0 calc(50% - 5rem));
+  transition: clip-path var(--dp-motion-door) var(--dp-motion-door-easing);
+}
+
+.lx-door.is-armed.is-open {
+  clip-path: inset(0 0 0 0);
+}
+
+.lx-door.is-armed.is-open .lx-door__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 720px) {
+  .lx-door.is-armed,
+  .lx-door.is-armed.is-open {
+    clip-path: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body.lx *:not(.fa-spin),
+  body.lx *::before,
+  body.lx *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .lx-btn:active,
+  .lx-link:active {
+    transform: none;
+  }
+
+  .lx-door.is-armed,
+  .lx-door.is-armed.is-open {
+    clip-path: none;
+  }
+
+  .lx-door.is-armed .lx-door__content {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The footer is its own charcoal field (it is not nested inside a .lx-field
+   element), so it takes the same on-field text roles. */
+.lx-footer .lx-link {
+  color: var(--dp-color-accent-light) !important;
+  border-bottom-color: var(--dp-color-accent);
+}
+
+.lx-footer .lx-link:hover {
+  color: var(--dp-color-on-field) !important;
+}
+
+.lx-footer .lx-btn {
+  background: var(--dp-color-ground) !important;
+  border-color: var(--dp-color-ground);
+  color: var(--dp-color-ink) !important;
+}
+
+.lx-footer .lx-btn:hover {
+  background: var(--dp-color-ground-2) !important;
+  border-color: var(--dp-color-ground-2);
+}
+
+.lx-footer .lx-body,
+.lx-footer .lx-meta {
+  color: var(--dp-color-on-field-2);
+}
+
+.lx-footer .lx-label--gold,
+.lx-footer .lx-footer__heading {
+  color: var(--dp-color-accent-light) !important;
+}
+
+.lx-footer .lx-label--muted {
+  color: var(--dp-color-on-field-2) !important;
+}
+
+.lx-footer .lx-quote,
+.lx-footer .lx-statement,
+.lx-footer .lx-footer__copyright,
+.lx-footer .lx-footer__credit,
+.lx-footer .lx-footer__title {
+  color: var(--dp-color-on-field);
+}
+
+.lx-footer :focus-visible {
+  outline-color: var(--dp-color-accent-light);
+}

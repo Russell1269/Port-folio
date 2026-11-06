@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "title": "{{name}} — {{role}}",
+    "description": "Portfolio of {{name}}: {{role}} passionate about modern web applications, intelligent systems and scalable digital products."
+  },
+  "cta": {
+    "eyebrow": "Thank You",
+    "title": "Thanks For Visiting My Digital Space",
+    "body": "Every great product starts with an idea, grows through collaboration, and becomes unforgettable through exceptional execution.",
+    "talk": "Let's Talk"
+  },
+  "brand": {
+    "name": "MD Rasel Hasan",
+    "role": "Full Stack Developer",
+    "blurb": "Passionate about building modern web applications, intelligent AI solutions and meaningful digital experiences that solve real-world problems."
+  },
+  "column": {
+    "navigation": "Navigation",
+    "resources": "Resources",
+    "connect": "Connect",
+    "builtWith": "Built With",
+    "stackNote": "Technologies powering this portfolio"
+  },
+  "link": {
+    "resume": "Resume",
+    "research": "Research",
+    "blog": "Blog",
+    "caseStudies": "Case Studies",
+    "privacy": "Privacy",
+    "email": "Email",
+    "github": "GitHub"
+  },
+  "tech": {
+    "node": "Node.js",
+    "express": "Express.js",
+    "mongodb": "MongoDB",
+    "mongoose": "Mongoose",
+    "ejs": "EJS",
+    "tailwind": "Tailwind CSS",
+    "javascript": "JavaScript",
+    "githubApi": "GitHub API",
+    "cloudinary": "Cloudinary"
+  },
+  "quote": "I don't just write code. I build digital experiences that combine creativity, performance, and intelligent problem solving.",
+  "bottom": {
+    "copyright": "© {{year}} {{name}}",
+    "rights": "All Rights Reserved.",
+    "crafted": "Crafted with <strong>♡</strong> in Bangladesh",
+    "craftedA11y": "love",
+    "designedBy": "Designed & Developed By"
+  }
+}

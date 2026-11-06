@@ -1,0 +1,212 @@
+{
+  "meta": {
+    "title": "Building AI Powered Digital Experiences | {{name}}",
+    "description": "{{name}} builds scalable web applications, intelligent AI systems and thoughtful digital products."
+  },
+  "hero": {
+    "status": "Available for Freelance",
+    "title": "Building <strong>AI-Powered</strong> Digital Experiences",
+    "lead": "Hi, I'm <strong>{{name}}</strong> — a Full Stack Developer and AI enthusiast passionate about creating modern web applications, intelligent systems, and scalable digital products.",
+    "exploreProjects": "Explore Projects",
+    "downloadResume": "Download Resume",
+    "socialLabel": "Social profiles",
+    "portraitAlt": "A quiet workspace in warm afternoon light: two armchairs, a reading lamp and tall windows",
+    "portraitCaption": "The face behind the code and creations."
+  },
+  "facts": {
+    "projects": { "value": "23+", "label": "Projects" },
+    "technologies": { "value": "20+", "label": "Technologies" },
+    "responsive": { "value": "100%", "label": "Responsive Design" },
+    "product": { "value": "Dynamic", "label": "Product Focus" }
+  },
+  "marquee": {
+    "label": "Technologies",
+    "react": "React",
+    "next": "Next.js",
+    "node": "Node.js",
+    "express": "Express",
+    "mongodb": "MongoDB",
+    "tailwind": "Tailwind CSS",
+    "javascript": "JavaScript",
+    "python": "Python",
+    "machineLearning": "Machine Learning",
+    "ai": "AI",
+    "git": "Git",
+    "rest": "REST API"
+  },
+  "scrollCue": {
+    "about": "About"
+  },
+  "expertise": {
+    "label": "My Expertise",
+    "title": "Turning Ideas Into Digital Products",
+    "body": "I build scalable applications, intelligent systems and user experiences using modern technologies and clean software architecture.",
+    "fullstack": {
+      "title": "Full Stack Development",
+      "text": "Building modern web applications with scalable backend architecture and responsive frontend interfaces.",
+      "tags": ["Node.js", "Express", "MongoDB", "React", "REST API"]
+    },
+    "ai": {
+      "title": "Artificial Intelligence",
+      "text": "Creating AI-powered solutions using machine learning, intelligent automation and data-driven decision making.",
+      "tags": ["Python", "Machine Learning", "TensorFlow", "OpenCV"]
+    },
+    "uiux": {
+      "title": "UI / UX Design",
+      "text": "Designing intuitive, responsive and visually engaging user interfaces with attention to usability.",
+      "tags": ["Tailwind", "Bootstrap", "Responsive", "Glass UI"]
+    },
+    "research": {
+      "title": "Research & Innovation",
+      "text": "Exploring AI research, intelligent systems and innovative software solutions for real-world problems.",
+      "tags": ["Research", "AI", "Innovation", "Problem Solving"]
+    }
+  },
+  "current": {
+    "status": "Currently Building",
+    "title": "One Product. <strong>Endless</strong> Possibilities.",
+    "body": "I continuously build products that solve real problems. Here's the application I'm actively developing.",
+    "kicker": "AI Powered Platform",
+    "name": "QNotes",
+    "description": "QNotes is an academic platform designed for university students to discover, upload and organize previous year question papers, lecture materials and notes. It also integrates an AI assistant to provide instant homework help, explanations and study guidance.",
+    "progressLabel": "Development Progress",
+    "progressAria": "{{name}} development progress",
+    "viewProjects": "View Related Projects",
+    "collaborate": "Let's Collaborate",
+    "imageAlt": "QNotes preview: students working across a shared table with laptops and notes",
+    "imageCaption": "QNotes — a preview of the platform",
+    "tags": ["React", "Node.js", "Express", "MongoDB", "AI Chatbot"],
+    "facts": {
+      "assistantValue": "AI",
+      "assistantLabel": "Homework Assistant",
+      "cloudValue": "Cloud",
+      "cloudLabel": "Resource Management",
+      "releaseValue": "2026",
+      "releaseLabel": "Expected Release"
+    }
+  },
+  "work": {
+    "label": "Portfolio",
+    "title": "Selected <strong>Work</strong>",
+    "approachLabel": "The approach",
+    "approachBody": "Every project represents a challenge solved through thoughtful design, clean architecture and modern technologies. Here are some of the products I'm most proud of building.",
+    "items": {
+      "systems": {
+        "title": "Scalable Systems",
+        "text": "Building maintainable architectures using modern backend technologies and clean code principles."
+      },
+      "ai": {
+        "title": "AI Integration",
+        "text": "Combining artificial intelligence with web technologies to create smarter applications."
+      },
+      "impact": {
+        "title": "Real Impact",
+        "text": "Every project is designed to solve practical problems with performance, usability and scalability."
+      }
+    }
+  },
+  "featured": {
+    "status": "Featured Project",
+    "viewProject": "View Project",
+    "liveDemo": "Live Demo",
+    "github": "GitHub",
+    "imageAlt": "{{title}} preview"
+  },
+  "github": {
+    "label": "GitHub Activity",
+    "title": "Coding Never Stops",
+    "body": "Live coding statistics powered directly by the GitHub API.",
+    "avatarAlt": "{{name}} on GitHub",
+    "joined": "Joined {{date}}",
+    "visit": "Visit GitHub",
+    "heatmapTitle": "Contribution Heatmap",
+    "heatmapMeta": "Last 365 Days · recent public activity",
+    "heatmapAria": "Recent public GitHub activity",
+    "cellLabel": "{{repo}} · {{type}} · {{date}}",
+    "emptyHeatmap": "No recent public events were returned by the GitHub API.",
+    "legendFewer": "Fewer",
+    "legendMore": "More",
+    "stats": {
+      "publicKicker": "Public",
+      "repositories": "Repositories",
+      "starsKicker": "Earned",
+      "totalStars": "Total Stars",
+      "followersKicker": "Community",
+      "followers": "Followers",
+      "followingKicker": "Network",
+      "following": "Following"
+    },
+    "languages": {
+      "title": "Most Used Languages",
+      "note": "Calculated from public repositories",
+      "focusTitle": "Development Focus",
+      "focusTags": [
+        "Full Stack Development",
+        "Artificial Intelligence",
+        "REST API Design",
+        "Cloud Integration",
+        "UI / UX Engineering",
+        "Responsive Design",
+        "Database Design",
+        "Research Projects"
+      ],
+      "quote": "I enjoy building software that combines performance, scalability and modern user experience while continuously exploring Artificial Intelligence."
+    },
+    "repos": {
+      "label": "Featured Repositories",
+      "title": "Open Source Work",
+      "body": "Some of the repositories I'm actively maintaining and continuously improving.",
+      "imageCaption": "{{username}} on GitHub — public repositories and ongoing work.",
+      "noDescription": "No description provided.",
+      "stars": "stars",
+      "forks": "forks",
+      "updated": "Updated {{date}}",
+      "liveSite": "Live site",
+      "openOnGitHub": "Open {{name}} on GitHub",
+      "ctaLabel": "Open Source",
+      "ctaTitle": "Explore My GitHub",
+      "ctaBody": "Browse all repositories, explore source code, follow my development journey, and see what I'm building next.",
+      "ctaLink": "Visit GitHub Profile"
+    }
+  },
+  "engagement": {
+    "label": "Ways To Work Together",
+    "title": "Three Ways To Start",
+    "body": "Choose the kind of engagement that fits the work. Every option starts with a short conversation about the problem, then a clear scope.",
+    "caption": "Comparison of engagement types. Use the checkboxes to mark which type suits you; the recommended column stays emphasized.",
+    "detailsHeading": "Details",
+    "plans": {
+      "project": { "kicker": "Project Build", "title": "A complete product" },
+      "ongoing": { "kicker": "Ongoing Partner", "title": "Recommended" },
+      "advisory": { "kicker": "Advisory", "title": "A second opinion" }
+    },
+    "rows": {
+      "bestFor": "Best for",
+      "engagement": "Engagement",
+      "startWith": "Start with"
+    },
+    "cells": {
+      "projectBestFor": "A defined product, from first schema to launch.",
+      "ongoingBestFor": "Products that keep growing after launch.",
+      "advisoryBestFor": "Teams that need direction, not code volume.",
+      "projectEngagement": "Fixed scope, delivered in phases.",
+      "ongoingEngagement": "Weekly cadence with reviews.",
+      "advisoryEngagement": "Reviews, architecture and research.",
+      "projectStart": "See recent work",
+      "ongoingStart": "Start a conversation",
+      "advisoryStart": "Read the research"
+    },
+    "form": {
+      "legend": "Select the engagement that fits",
+      "selected": "Selected: {{names}}",
+      "nothing": "Nothing selected yet."
+    }
+  },
+  "close": {
+    "title": "Let's build something <strong>lasting</strong>.",
+    "status": "Available for Freelance",
+    "body": "Have a product in mind, a research collaboration, or a role you think I'd fit? Send a note and I'll reply within a day.",
+    "cta": "Start a Conversation",
+    "resume": "Download Resume"
+  }
+}

@@ -1,0 +1,490 @@
+<nav id="portfolio-navbar" class="lx-nav" aria-label="<%= t('common:nav.primary') %>">
+  <div class="lx-nav__bar">
+    <div class="lx-nav__inner">
+
+      <a href="/" class="lx-nav__brand" aria-label="<%= t('common:nav.brandHome', { name: 'MD Rasel Hasan' }) %>">
+        RH<span class="lx-nav__brand-dot">.</span>
+      </a>
+
+      <div class="lx-nav__links">
+
+        <a href="/" class="nav-link"><%= t('common:nav.home') %></a>
+
+        <div class="lx-nav__group">
+          <button type="button" class="nav-link lx-nav__toggle" aria-expanded="false" aria-controls="nav-about">
+            <%= t('common:nav.about') %>
+            <svg class="lx-nav__chevron" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div id="nav-about" class="lx-nav__menu">
+            <a href="/about#intro"><%= t('common:nav.aboutIntro') %></a>
+            <a href="/about#journey"><%= t('common:nav.aboutJourney') %></a>
+            <a href="/about#education"><%= t('common:nav.aboutEducation') %></a>
+          </div>
+        </div>
+
+        <a href="/projects" class="nav-link"><%= t('common:nav.projects') %></a>
+
+        <div class="lx-nav__group">
+          <button type="button" class="nav-link lx-nav__toggle" aria-expanded="false" aria-controls="nav-research">
+            <%= t('common:nav.research') %>
+            <svg class="lx-nav__chevron" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div id="nav-research" class="lx-nav__menu">
+            <!-- <a href="/research/ai-ml">AI / ML</a> -->
+            <a href="/research/publications"><%= t('common:nav.publications') %></a>
+          </div>
+        </div>
+
+        <a href="/blogs" class="nav-link"><%= t('common:nav.blog') %></a>
+        <a href="/contact" class="nav-link"><%= t('common:nav.contact') %></a>
+      </div>
+
+      <div class="lx-nav__actions">
+        <%- include('../include/language-switcher') %>
+
+        <a href="https://drive.google.com/uc?export=download&id=1Ez877agXDpwgNpuFyDrsb3ATdtY1Rdlj" download="MD_Rasel_Hasan_Resume.pdf" class="lx-btn lx-btn--ghost lx-nav__resume">
+          <%= t('common:button.resume') %> <span aria-hidden="true">↓</span>
+        </a>
+        <a href="/contact#hire" class="lx-btn lx-nav__hire">
+          <%= t('common:button.hireMe') %>
+        </a>
+
+        <% if (typeof isOwner !== 'undefined' && isOwner && currentUser) { %>
+        <form action="/logout" method="POST" class="lx-nav__auth-form">
+          <button type="submit" class="lx-btn lx-btn--ghost lx-nav__signin" title="Signed in as <%= currentUser.email %>">
+            <%= t('common:button.signOut') %> <span aria-hidden="true">→</span>
+          </button>
+        </form>
+        <% } %>
+      </div>
+
+      <button id="mobile-menu-btn" type="button" class="lx-nav__burger" aria-expanded="false" aria-controls="mobile-menu" aria-label="<%= t('common:nav.openMenu') %>" data-label-open="<%= t('common:nav.openMenu') %>" data-label-close="<%= t('common:nav.closeMenu') %>">
+        <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="lx-nav__mobile" hidden>
+    <div class="lx-nav__mobile-inner">
+      <a href="/" class="mobile-nav-link"><%= t('common:nav.home') %></a>
+
+      <div class="lx-nav__mobile-group">
+        <span class="lx-label"><%= t('common:nav.about') %></span>
+        <div>
+          <a href="/about" class="mobile-nav-link"><%= t('common:nav.aboutIntro') %></a>
+          <a href="/about#journey" class="mobile-nav-link"><%= t('common:nav.aboutJourney') %></a>
+          <a href="/about#education" class="mobile-nav-link"><%= t('common:nav.aboutEducation') %></a>
+        </div>
+      </div>
+
+      <a href="/projects" class="mobile-nav-link"><%= t('common:nav.projects') %></a>
+
+      <div class="lx-nav__mobile-group">
+        <span class="lx-label"><%= t('common:nav.research') %></span>
+        <div>
+          <!-- <a href="/research/ai-ml" class="mobile-nav-link">AI / ML</a> -->
+          <a href="/research/publications" class="mobile-nav-link"><%= t('common:nav.publications') %></a>
+        </div>
+      </div>
+
+      <a href="/blogs" class="mobile-nav-link"><%= t('common:nav.blog') %></a>
+      <a href="https://drive.google.com/uc?export=download&amp;id=1Ez877agXDpwgNpuFyDrsb3ATdtY1Rdlj" download="MD_Rasel_Hasan_Resume.pdf" class="mobile-nav-link"><%= t('common:button.resume') %> <span aria-hidden="true">↓</span></a>
+      <a href="/contact" class="mobile-nav-link"><%= t('common:nav.contact') %></a>
+
+
+
+      <div class="lx-nav__mobile-foot">
+        <%- include('../include/language-switcher') %>
+
+        <% if (typeof isOwner !== 'undefined' && isOwner) { %>
+        <form action="/logout" method="POST">
+          <button type="submit" class="lx-btn lx-btn--ghost"><%= t('common:button.signOut') %></button>
+        </form>
+        <% } else { %>
+        <a href="/contact#hire" class="lx-btn"><%= t('common:button.hireMe') %></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .lx-nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    transition: transform var(--dp-motion-interaction) ease;
+  }
+
+  .lx-nav.is-hidden {
+    transform: translateY(-100%);
+  }
+
+  .lx-nav__bar {
+    border-bottom: 1px solid transparent;
+    background: rgba(243, 238, 228, 0.94);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: border-color var(--dp-motion-interaction) ease;
+  }
+
+  .lx-nav.is-scrolled .lx-nav__bar {
+    border-bottom-color: var(--dp-color-rule);
+  }
+
+  .lx-nav__inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem 2.5rem;
+    min-height: 4.5rem;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding: 0.6rem var(--lx-pad);
+  }
+
+  .lx-nav__brand {
+    flex: none;
+    font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+    color: var(--dp-color-ink);
+  }
+
+  .lx-nav__brand-dot {
+    color: var(--dp-color-accent);
+  }
+
+  .lx-nav__links {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    margin-inline: auto;
+  }
+
+  .lx-nav__group {
+    position: relative;
+  }
+
+  .lx-nav__links .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.75rem;
+    padding-block: 0.5rem;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: none;
+    color: var(--dp-color-ink-2);
+    font-family: var(--dp-typography-sans);
+    font-size: var(--dp-typography-label);
+    font-weight: 500;
+    letter-spacing: var(--dp-typography-label-tracking);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color var(--dp-motion-interaction) ease,
+      border-color var(--dp-motion-interaction) ease;
+  }
+
+  .lx-nav__links .nav-link:hover,
+  .lx-nav__links .nav-link[aria-expanded="true"] {
+    color: var(--dp-color-ink);
+    border-bottom-color: var(--dp-color-accent);
+  }
+
+  .lx-nav__chevron {
+    width: 0.75rem;
+    height: 0.75rem;
+    transition: transform var(--dp-motion-interaction) ease;
+  }
+
+  .lx-nav__group:hover .lx-nav__chevron,
+  .lx-nav__toggle[aria-expanded="true"] .lx-nav__chevron {
+    transform: rotate(180deg);
+  }
+
+  .lx-nav__menu {
+    position: absolute;
+    top: 100%;
+    left: -1rem;
+    min-width: 13rem;
+    padding: 0.5rem 0;
+    border: 1px solid var(--dp-color-rule);
+    background: var(--dp-color-ground);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity var(--dp-motion-interaction) ease,
+      transform var(--dp-motion-interaction) ease,
+      visibility var(--dp-motion-interaction) ease;
+  }
+
+  .lx-nav__group:hover .lx-nav__menu,
+  .lx-nav__group:focus-within .lx-nav__menu,
+  .lx-nav__group.is-open .lx-nav__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .lx-nav__menu a {
+    display: block;
+    padding: 0.7rem 1.25rem;
+    color: var(--dp-color-ink-2);
+    font-family: var(--dp-typography-sans);
+    font-size: var(--dp-typography-reading-small);
+    transition: color var(--dp-motion-interaction) ease,
+      background-color var(--dp-motion-interaction) ease;
+  }
+
+  .lx-nav__menu a:hover {
+    color: var(--dp-color-ink);
+    background: var(--dp-color-ground-2);
+  }
+
+  .lx-nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex: none;
+  }
+
+  .lx-nav__lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--dp-typography-sans);
+    font-size: var(--dp-typography-label);
+    letter-spacing: 0.08em;
+    color: var(--dp-color-ink-2);
+  }
+
+  .lx-nav__lang a {
+    padding-block: 0.35rem;
+    color: var(--dp-color-ink-2);
+    transition: color var(--dp-motion-interaction) ease;
+  }
+
+  .lx-nav__lang a:hover,
+  .lx-nav__lang a.is-current {
+    color: var(--dp-color-accent-text);
+  }
+
+  .lx-nav__lang-sep {
+    color: var(--dp-color-rule);
+  }
+
+  .lx-nav__resume,
+  .lx-nav__hire,
+  .lx-nav__signin {
+    padding: 0.65rem 1.1rem;
+    min-height: 2.75rem;
+  }
+
+  .lx-nav__auth-form {
+    margin: 0;
+    display: inline-flex;
+  }
+
+  /* Signed-out: the accent underline reads as a quiet, findable entry point. */
+  .lx-nav__signin:not(:only-child) {
+    letter-spacing: 0.12em;
+  }
+
+  .lx-nav__signin span {
+    display: inline-block;
+    transition: transform var(--dp-motion-interaction) ease;
+  }
+
+  .lx-nav__signin:hover span {
+    transform: translateX(3px);
+  }
+
+  .lx-nav__links .nav-link.active {
+    color: var(--dp-color-ink) !important;
+    border-bottom-color: var(--dp-color-accent);
+  }
+
+  .lx-nav__burger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: auto;
+    border: 1px solid var(--dp-color-rule);
+    background: transparent;
+    color: var(--dp-color-ink);
+  }
+
+  .lx-nav__mobile {
+    position: fixed;
+    top: 4.5rem;
+    left: 0;
+    right: 0;
+    max-height: calc(100svh - 4.5rem);
+    overflow-y: auto;
+    border-bottom: 1px solid var(--dp-color-accent);
+    background: var(--dp-color-ground);
+    padding: 1.5rem var(--lx-pad) 2rem;
+    padding-left: calc(var(--lx-pad) + var(--lx-numeral-gap) + 0.75rem);
+  }
+
+  .lx-nav__mobile[hidden] {
+    display: none;
+  }
+
+  .lx-nav__mobile-inner {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .lx-nav__mobile .mobile-nav-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-block: 0.6rem;
+    border-bottom: 1px solid var(--dp-color-rule);
+    color: var(--dp-color-ink);
+    font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+    font-size: 1.375rem;
+    line-height: 1.2;
+  }
+
+  .lx-nav__mobile-group {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .lx-nav__mobile-group>div {
+    display: grid;
+    gap: 0.15rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--dp-color-accent);
+  }
+
+  .lx-nav__mobile-group .mobile-nav-link {
+    font-size: 1.125rem;
+  }
+
+  .lx-nav__mobile .mobile-nav-link.active {
+    color: var(--dp-color-accent-text);
+  }
+
+  .lx-nav__mobile-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.75rem;
+  }
+
+  @media (max-width: 1100px) {
+
+    .lx-nav__links,
+    .lx-nav__actions {
+      display: none;
+    }
+
+    .lx-nav__burger {
+      display: inline-flex;
+    }
+  }
+
+  @media (min-width: 1101px) {
+    .lx-nav__mobile {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const navbar = document.getElementById('portfolio-navbar');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const isWide = window.matchMedia('(min-width: 1101px)');
+
+    function setMenuOpen(open) {
+      mobileMenu.hidden = !open;
+      mobileMenuBtn.setAttribute('aria-expanded', String(open));
+      menuIcon.setAttribute('d', open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16');
+      // Translated labels come from the server so no English is hard-coded here.
+      mobileMenuBtn.setAttribute('aria-label', open ?
+        (mobileMenuBtn.dataset.labelClose || mobileMenuBtn.getAttribute('aria-label')) :
+        (mobileMenuBtn.dataset.labelOpen || mobileMenuBtn.getAttribute('aria-label')));
+    }
+
+    setMenuOpen(false);
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      navbar.classList.toggle('is-scrolled', currentScrollY > 8);
+
+      if (currentScrollY > 200 && currentScrollY > lastScrollY && mobileMenu.hidden) {
+        navbar.classList.add('is-hidden');
+      } else {
+        navbar.classList.remove('is-hidden');
+      }
+      lastScrollY = currentScrollY;
+    }, {
+      passive: true
+    });
+
+    mobileMenuBtn.addEventListener('click', () => {
+      setMenuOpen(mobileMenu.hidden);
+    });
+
+    isWide.addEventListener('change', (event) => {
+      if (event.matches) setMenuOpen(false);
+    });
+
+    // Desktop disclosure groups: hover is handled in CSS, keyboard/click here.
+    document.querySelectorAll('.lx-nav__toggle').forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const group = toggle.closest('.lx-nav__group');
+        const open = group.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      document.querySelectorAll('.lx-nav__group.is-open').forEach((group) => {
+        if (!group.contains(event.target)) {
+          group.classList.remove('is-open');
+          group.querySelector('.lx-nav__toggle').setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      setMenuOpen(false);
+      document.querySelectorAll('.lx-nav__group.is-open').forEach((group) => {
+        group.classList.remove('is-open');
+        const toggle = group.querySelector('.lx-nav__toggle');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      });
+    });
+
+    const currentPath = window.location.pathname;
+
+    document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+      }
+    });
+  })();
+</script>

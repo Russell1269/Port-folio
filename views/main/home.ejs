@@ -1,0 +1,729 @@
+<% layout('layout/boilerplate') -%>
+
+<% /* Home page. Every visible string comes from the `home` namespace. */ %>
+
+<%
+  const marquee = [
+    { key: 'react', icon: 'fab fa-react' },
+    { key: 'next', glyph: '▲' },
+    { key: 'node', icon: 'fab fa-node-js' },
+    { key: 'express', icon: 'fas fa-server' },
+    { key: 'mongodb', icon: 'fas fa-database' },
+    { key: 'tailwind', icon: 'fab fa-css3-alt' },
+    { key: 'javascript', icon: 'fab fa-js' },
+    { key: 'python', icon: 'fab fa-python' },
+    { key: 'machineLearning', icon: 'fas fa-brain' },
+    { key: 'ai', icon: 'fas fa-robot' },
+    { key: 'git', icon: 'fab fa-git-alt' },
+    { key: 'rest', icon: 'fas fa-cloud' },
+  ];
+%>
+
+<section id="hero" class="lx-section lx-hero">
+  <div class="lx-block lx-block--spine">
+    <p class="lx-label lx-label--gold lx-status lx-hero__status"><%= t('home:hero.status') %></p>
+
+    <div class="lx-hero__grid">
+      <!-- LEFT: title spans across the margin, then body in columns three to seven -->
+
+      <div class="lx-hero__intro">
+        <h1 class="lx-display">
+          <%- t('home:hero.title') %>
+        </h1>
+
+        <p class="lx-body lx-body-lg lx-hero__lead">
+          <%- t('home:hero.lead', { name: t('footer:brand.name') }) %>
+        </p>
+
+        <div class="lx-actions lx-hero__actions">
+          <a href="<%= localizedUrl('/projects') %>" class="lx-btn"><%= t('home:hero.exploreProjects') %></a>
+
+          <a href="https://drive.google.com/uc?export=download&id=1Ez877agXDpwgNpuFyDrsb3ATdtY1Rdlj" download="MD_Rasel_Hasan_Resume.pdf" class="lx-link">
+            <%= t('home:hero.downloadResume') %>
+          </a>
+        </div>
+
+        <nav class="lx-hero__social" aria-label="<%= t('home:hero.socialLabel') %>">
+          <a href="https://github.com/Russell1269" target="_blank" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i> <%= t('footer:link.github') %></a>
+          <a href="https://www.linkedin.com/in/rasel-hasan-66a755445/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+          <a href="https://www.facebook.com/rh.raselhasan552/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
+          <a href="mailto:rasel.hasan1563@gmail.com" target="_blank" aria-label="<%= t('footer:link.email') %>"><i class="fas fa-envelope" aria-hidden="true"></i> <%= t('footer:link.email') %></a>
+        </nav>
+      </div>
+
+      <!-- RIGHT: portrait crossing into the following taupe field -->
+
+      <figure class="lx-figure lx-figure--framed lx-hero__portrait" data-door-crop>
+        <img src="https://res.cloudinary.com/dsyog2ibh/image/upload/v1793993618/891565429_1811294713540495_7470820260889288968_n_ghatxg.jpg" alt="<%= t('home:hero.portraitAlt') %>" width="800" height="1000" fetchpriority="high" decoding="async" style="object-position: 55% 50%" />
+        <figcaption><%= t('home:hero.portraitCaption') %></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="lx-hero__facts-band">
+  <div class="lx-block">
+    <!-- Concise supporting facts from the brief -->
+    <ul class="lx-facts">
+      <li>
+        <p class="lx-figure-value lx-num"><%= formatNumber(23) %>+</p>
+        <p class="lx-label lx-label--muted"><%= t('home:facts.projects.label') %></p>
+      </li>
+      <li>
+        <p class="lx-figure-value lx-num"><%= formatNumber(20) %>+</p>
+        <p class="lx-label lx-label--muted"><%= t('home:facts.technologies.label') %></p>
+      </li>
+      <li>
+        <p class="lx-figure-value lx-num"><%= t('home:facts.responsive.value') %></p>
+        <p class="lx-label lx-label--muted"><%= t('home:facts.responsive.label') %></p>
+      </li>
+      <li>
+        <p class="lx-figure-value lx-num"><%= t('home:facts.product.value') %></p>
+        <p class="lx-label lx-label--muted"><%= t('home:facts.product.label') %></p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- TECH MARQUEE -->
+<!-- ===================================================== -->
+
+<section class="lx-section lx-section--flush-top" aria-label="<%= t('home:marquee.label') %>">
+  <div class="lx-block">
+    <div class="lx-marquee">
+      <!-- Marquee track: the list plus its aria-hidden duplicate must be exactly 50% + half a gap wide for a seamless loop -->
+      <div class="lx-marquee__track">
+
+        <!-- Primary List -->
+        <ul class="lx-marquee__list">
+          <% marquee.forEach((item) => { %>
+          <li><%- item.glyph ? `<i aria-hidden="true">${item.glyph}</i>` : `<i class="${item.icon}" aria-hidden="true"></i>` %> <%= t(`home:marquee.${item.key}`) %></li>
+          <% }); %>
+        </ul>
+
+        <!-- Duplicated Secondary List for seamless loop transition -->
+        <ul class="lx-marquee__list" aria-hidden="true">
+          <% marquee.forEach((item) => { %>
+          <li><%- item.glyph ? `<i>${item.glyph}</i>` : `<i class="${item.icon}"></i>` %> <%= t(`home:marquee.${item.key}`) %></li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="lx-block lx-scroll-cue-wrap">
+  <a href="<%= localizedUrl('/about') %>" class="lx-link lx-scroll-cue">
+    <span class="lx-scroll-cue__mouse" aria-hidden="true"><span></span></span>
+    <%= t('home:scrollCue.about') %>
+  </a>
+</div>
+
+<!-- MY EXPERTISE -->
+
+<section id="expertise" class="lx-section">
+  <div class="lx-block lx-block--spine">
+    <div class="lx-split">
+      <!-- Section heading beside ruled rows; heading holds on a wide layout -->
+      <div class="lx-split__head lx-sticky">
+        <p class="lx-numeral" aria-hidden="true">I.</p>
+        <p class="lx-label lx-label--gold"><%= t('home:expertise.label') %></p>
+        <h2 class="lx-statement lx-split__title">
+          <%= t('home:expertise.title') %>
+        </h2>
+        <p class="lx-body">
+          <%= t('home:expertise.body') %>
+        </p>
+      </div>
+
+      <div class="lx-split__body">
+        <ul class="lx-rows">
+          <% ['fullstack', 'ai', 'uiux', 'research'].forEach((key, index) => { %>
+          <li class="lx-row">
+            <span class="lx-row__num" aria-hidden="true"><%= String(index + 1).padStart(2, '0') %></span>
+            <h3 class="lx-row__title lx-item-title"><%= t(`home:expertise.${key}.title`) %></h3>
+            <p class="lx-row__text">
+              <%= t(`home:expertise.${key}.text`) %>
+            </p>
+            <ul class="lx-row__tags lx-tags">
+              <% t(`home:expertise.${key}.tags`, { returnObjects: true }).forEach((tag) => { %>
+              <li><%= tag %></li>
+              <% }); %>
+            </ul>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CURRENTLY BUILDING -->
+<!-- ===================================================== -->
+
+<section id="current-project" class="lx-section lx-panel">
+  <div class="lx-block">
+    <div class="lx-split lx-split--media">
+      <!-- LEFT -->
+
+      <div class="lx-split__head">
+        <p class="lx-numeral" aria-hidden="true">II.</p>
+        <p class="lx-label lx-label--gold lx-status"><%= t('home:current.status') %></p>
+
+        <h2 class="lx-statement lx-split__title">
+          <%- t('home:current.title') %>
+        </h2>
+
+        <p class="lx-body">
+          <%= t('home:current.body') %>
+        </p>
+
+        <div class="lx-current">
+          <p class="lx-label lx-label--muted"><%= t('home:current.kicker') %></p>
+          <h3 class="lx-title"><%= t('home:current.name') %></h3>
+
+          <p class="lx-body">
+            <%= t('home:current.description') %>
+          </p>
+
+          <!-- Progress -->
+
+          <div class="lx-progress">
+            <div class="lx-progress__head">
+              <span class="lx-label lx-label--muted"><%= t('home:current.progressLabel') %></span>
+              <span class="lx-bar__pct lx-num"><%= formatNumber(80) %><%= t('common:symbol.percent') %></span>
+            </div>
+            <div class="lx-bar__track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="<%= t('home:current.progressAria', { name: t('home:current.name') }) %>">
+              <span class="lx-bar__fill" style="width: 80%"></span>
+            </div>
+          </div>
+
+          <!-- Stack -->
+
+          <ul class="lx-tags">
+            <% t('home:current.tags', { returnObjects: true }).forEach((tag) => { %>
+            <li><%= tag %></li>
+            <% }); %>
+          </ul>
+
+          <div class="lx-actions">
+            <a href="<%= localizedUrl('/projects') %>" class="lx-btn"><%= t('home:current.viewProjects') %></a>
+            <a href="<%= localizedUrl('/contact') %>" class="lx-link"><%= t('home:current.collaborate') %></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+
+      <figure class="lx-figure lx-figure--framed lx-split__media">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1143&auto=format&fit=crop" alt="<%= t('home:current.imageAlt') %>" loading="lazy" decoding="async" width="1143" height="762" style="object-position: 45% 45%" />
+        <figcaption><%= t('home:current.imageCaption') %></figcaption>
+      </figure>
+    </div>
+
+    <!-- Supporting facts -->
+
+    <ul class="lx-facts lx-current__facts">
+      <li>
+        <p class="lx-figure-value lx-num"><%= t('home:current.facts.assistantValue') %></p>
+        <p class="lx-label lx-label--muted"><%= t('home:current.facts.assistantLabel') %></p>
+      </li>
+      <li>
+        <p class="lx-figure-value lx-num"><%= t('home:current.facts.cloudValue') %></p>
+        <p class="lx-label lx-label--muted"><%= t('home:current.facts.cloudLabel') %></p>
+      </li>
+      <li>
+        <p class="lx-figure-value lx-num"><%= t('home:current.facts.releaseValue') %></p>
+        <p class="lx-label lx-label--muted"><%= t('home:current.facts.releaseLabel') %></p>
+      </li>
+    </ul>
+  </div>
+</section>
+<!-- ===================================================== -->
+<!-- SELECTED WORK INTRO -->
+<!-- ===================================================== -->
+
+<section class="lx-section">
+  <div class="lx-block lx-block--spine">
+    <!-- Broad statement above two reading columns -->
+    <div class="lx-wide-head">
+      <p class="lx-numeral" aria-hidden="true">III.</p>
+      <p class="lx-label lx-label--gold"><%= t('home:work.label') %></p>
+      <h2 class="lx-display lx-wide-head__title lx-home-tagline" data-home-tagline><%- t('home:work.title') %></h2>
+    </div>
+
+    <div class="lx-two-cols">
+      <div>
+        <p class="lx-label lx-label--muted lx-two-cols__label"><%= t('home:work.approachLabel') %></p>
+        <p class="lx-body lx-body-lg">
+          <%= t('home:work.approachBody') %>
+        </p>
+      </div>
+
+      <ul class="lx-rows lx-two-cols__rows">
+        <% ['systems', 'ai', 'impact'].forEach((key, index) => { %>
+        <li class="lx-row lx-row--plain">
+          <span class="lx-row__num" aria-hidden="true"><%= String(index + 1).padStart(2, '0') %></span>
+          <h3 class="lx-row__title lx-item-title"><%= t(`home:work.items.${key}.title`) %></h3>
+          <p class="lx-row__text">
+            <%= t(`home:work.items.${key}.text`) %>
+          </p>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- AFTER THIS SECTION -->
+<!-- Paste your Featured Projects Section here -->
+<!-- ===================================================== -->
+
+<% const featured=projects.find(p=>p.featured); %>
+
+<% if(featured){ %>
+
+<section class="lx-section lx-section--flush-top">
+  <div class="lx-block lx-block--spine">
+    <div class="lx-featured">
+      <!-- Left -->
+
+      <div class="lx-featured__body">
+        <p class="lx-label lx-label--gold lx-status"><%= t('home:featured.status') %></p>
+
+        <h2 class="lx-title lx-featured__title">
+          <%= localized(featured, 'title') %>
+        </h2>
+
+        <p class="lx-body lx-body-lg">
+          <%= localized(featured, 'tagline') %>
+        </p>
+
+        <!-- Technology -->
+
+        <ul class="lx-tags">
+          <% featured.technologies.slice(0,5).forEach(tech=>{ %>
+          <li><%= tech.name %></li>
+          <% }) %>
+        </ul>
+
+        <!-- Buttons -->
+
+        <div class="lx-actions">
+          <a href="<%= localizedUrl('/projects/' + featured.slug) %>" class="lx-btn"><%= t('home:featured.viewProject') %></a>
+
+          <% if(featured.liveUrl){ %>
+          <a href="<%= featured.liveUrl %>" target="_blank" rel="noopener" class="lx-link"><%= t('home:featured.liveDemo') %></a>
+          <% } %>
+
+          <% if(featured.githubUrl){ %>
+          <a href="<%= featured.githubUrl %>" target="_blank" rel="noopener" class="lx-link"><%= t('home:featured.github') %></a>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Right: one large editorial image -->
+
+      <figure class="lx-figure lx-figure--framed lx-featured__media">
+        <img src="<%= featured.thumbnail %>" alt="<%= t('home:featured.imageAlt', { title: localized(featured, 'title') }) %>" loading="lazy" decoding="async" width="1280" height="800">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<% } %>
+
+<!-- ===================================================== -->
+<!-- GITHUB ACTIVITY -->
+<!-- ===================================================== -->
+
+<section id="github" class="lx-section">
+  <div class="lx-block lx-block--spine">
+
+    <!-- Heading -->
+
+    <div class="lx-wide-head">
+      <p class="lx-numeral" aria-hidden="true">IV.</p>
+      <p class="lx-label lx-label--gold"><%= t('home:github.label') %></p>
+      <h2 class="lx-statement lx-wide-head__statement"><%= t('home:github.title') %></h2>
+      <p class="lx-body lx-wide-head__body">
+        <%= t('home:github.body') %>
+      </p>
+    </div>
+
+    <div class="lx-github">
+
+      <!-- ======================================== -->
+      <!-- PROFILE -->
+      <!-- ======================================== -->
+
+      <div class="lx-github__profile">
+
+        <!-- Square portrait, kept the same wherever the person appears -->
+        <img src="<%= github.profile.avatar %>" alt="<%= t('home:github.avatarAlt', { name: github.profile.name }) %>" loading="lazy" decoding="async" width="128" height="128" class="lx-github__avatar">
+
+        <h3 class="lx-title">
+          <%= github.profile.name %>
+        </h3>
+
+        <p class="lx-label lx-label--gold lx-github__handle">
+          @<%= github.profile.username %>
+        </p>
+
+        <p class="lx-body">
+          <%= github.profile.bio %>
+        </p>
+
+        <!-- Info -->
+
+        <ul class="lx-github__info">
+          <% if(github.profile.location){ %>
+          <li>
+            <i class="fas fa-location-dot" aria-hidden="true"></i>
+            <span><%= github.profile.location %></span>
+          </li>
+          <% } %>
+
+          <% if(github.profile.company){ %>
+          <li>
+            <i class="fas fa-building" aria-hidden="true"></i>
+            <span><%= github.profile.company %></span>
+          </li>
+          <% } %>
+
+          <li>
+            <i class="fas fa-calendar" aria-hidden="true"></i>
+            <span><%= t('home:github.joined', { date: formatDate(github.profile.joined, { month: 'long', year: 'numeric', day: undefined }) }) %></span>
+          </li>
+        </ul>
+
+        <a href="<%= github.profile.githubUrl %>" target="_blank" rel="noopener" class="lx-link">
+          <%= t('home:github.visit') %> <span aria-hidden="true">↗</span>
+        </a>
+
+      </div>
+
+
+      <!-- ======================================== -->
+      <!-- HEATMAP -->
+      <!-- ======================================== -->
+
+      <div class="lx-github__heat">
+        <div class="lx-github__heat-head">
+          <div>
+            <h3 class="lx-item-title"><%= t('home:github.heatmapTitle') %></h3>
+            <p class="lx-meta"><%= t('home:github.heatmapMeta') %></p>
+          </div>
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </div>
+
+        <!-- Closed weeks of recent public activity: 13 week columns x 7 days.
+             Only real events are drawn, so this never claims a full year of
+             contributions the public events feed does not contain. -->
+
+        <% const heatDays = github.contributions.slice(0, 91); %>
+        <% const levelFor = (type) => ({ PushEvent: 3, PullRequestEvent: 2, IssuesEvent: 2 }[type] || 1); %>
+        <ol class="lx-heat__track" aria-label="<%= t('home:github.heatmapAria') %>">
+          <% heatDays.forEach(day=>{ %>
+          <li class="lx-heat__cell" data-level="<%= levelFor(day.type) %>" title="<%= day.repo %> · <%= day.type %>">
+            <span class="lx-sr-only"><%= t('home:github.cellLabel', { repo: day.repo, type: day.type, date: formatDate(day.date) }) %></span>
+          </li>
+          <% }); %>
+        </ol>
+        <% if(!heatDays.length){ %>
+        <p class="lx-meta"><%= t('home:github.emptyHeatmap') %></p>
+        <% } %>
+
+        <!-- Legend -->
+
+        <div class="lx-heat__legend">
+          <span><%= t('home:github.legendFewer') %></span>
+          <span data-level="1"></span>
+          <span data-level="2"></span>
+          <span data-level="3"></span>
+          <span><%= t('home:github.legendMore') %></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- GITHUB STATS -->
+<!-- ===================================================== -->
+
+<section class="lx-section lx-section--flush-top">
+  <div class="lx-block lx-block--spine">
+
+    <!-- Statistics -->
+
+    <ul class="lx-facts lx-stats">
+      <!-- Repo -->
+      <li>
+        <p class="lx-label lx-label--gold"><%= t('home:github.stats.publicKicker') %></p>
+        <p class="lx-figure-value lx-num"><%= formatNumber(github.stats.publicRepos) %></p>
+        <p class="lx-label lx-label--muted lx-stats__label"><%= t('home:github.stats.repositories') %></p>
+      </li>
+
+      <!-- Stars -->
+      <li>
+        <p class="lx-label lx-label--gold"><%= t('home:github.stats.starsKicker') %></p>
+        <p class="lx-figure-value lx-num"><%= formatNumber(github.stats.totalStars) %></p>
+        <p class="lx-label lx-label--muted lx-stats__label"><%= t('home:github.stats.totalStars') %></p>
+      </li>
+
+      <!-- Followers -->
+      <li>
+        <p class="lx-label lx-label--gold"><%= t('home:github.stats.followersKicker') %></p>
+        <p class="lx-figure-value lx-num"><%= formatNumber(github.stats.followers) %></p>
+        <p class="lx-label lx-label--muted lx-stats__label"><%= t('home:github.stats.followers') %></p>
+      </li>
+
+      <!-- Following -->
+      <li>
+        <p class="lx-label lx-label--gold"><%= t('home:github.stats.followingKicker') %></p>
+        <p class="lx-figure-value lx-num"><%= formatNumber(github.stats.following) %></p>
+        <p class="lx-label lx-label--muted lx-stats__label"><%= t('home:github.stats.following') %></p>
+      </li>
+    </ul>
+
+
+    <!-- ===================================================== -->
+    <!-- LANGUAGES -->
+    <!-- ===================================================== -->
+
+    <div class="lx-two-cols lx-languages">
+
+      <!-- Languages: aligned open columns -->
+
+      <div>
+        <h3 class="lx-item-title"><%= t('home:github.languages.title') %></h3>
+        <p class="lx-meta lx-languages__note"><%= t('home:github.languages.note') %></p>
+
+        <ul class="lx-bars">
+          <% github.languages.forEach(language=>{ %>
+          <li>
+            <div class="lx-bar__head">
+              <span><%= language.name %></span>
+              <span class="lx-bar__pct"><%= formatNumber(language.percentage) %><%= t('common:symbol.percent') %></span>
+            </div>
+            <div class="lx-bar__track">
+              <span class="lx-bar__fill" style="width: <%= language.percentage %>%"></span>
+            </div>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+
+      <!-- Development Focus -->
+
+      <div class="lx-languages__focus">
+        <h3 class="lx-item-title"><%= t('home:github.languages.focusTitle') %></h3>
+
+        <ul class="lx-tags lx-languages__tags">
+          <% t('home:github.languages.focusTags', { returnObjects: true }).forEach((tag) => { %>
+          <li><%= tag %></li>
+          <% }); %>
+        </ul>
+
+        <blockquote class="lx-quote lx-languages__quote">
+          <%= t('home:github.languages.quote') %>
+        </blockquote>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="lx-section lx-section--flush-top">
+  <div class="lx-block lx-block--spine lx-repos-block">
+    <div class="lx-wide-head">
+      <p class="lx-numeral" aria-hidden="true">V.</p>
+      <p class="lx-label lx-label--gold"><%= t('home:github.repos.label') %></p>
+      <h2 class="lx-statement lx-wide-head__statement"><%= t('home:github.repos.title') %></h2>
+      <p class="lx-body lx-wide-head__body">
+        <%= t('home:github.repos.body') %>
+      </p>
+    </div>
+  </div>
+
+  <!-- Repository entries: one large editorial image, smaller stacked entries -->
+
+  <div class="lx-block lx-repos">
+    <figure class="lx-repos__lead">
+      <img src="<%= github.profile.avatar %>" alt="" loading="lazy" decoding="async" width="640" height="640" />
+      <figcaption><%= t('home:github.repos.imageCaption', { username: github.profile.username }) %></figcaption>
+    </figure>
+
+    <div class="lx-repos__list">
+      <% github.repositories.forEach(repo=>{ %>
+      <article class="lx-repo">
+        <!-- Header -->
+
+        <div class="lx-repo__head">
+          <h3 class="lx-item-title lx-repo__name">
+            <%= repo.name %>
+          </h3>
+
+          <span class="lx-label lx-repo__lang">
+            <%= repo.language %>
+          </span>
+        </div>
+
+        <p class="lx-repo__text">
+          <%= repo.description || t('home:github.repos.noDescription') %>
+        </p>
+
+        <!-- Stats -->
+
+        <div class="lx-repo__stats">
+          <span><i class="fas fa-star" aria-hidden="true"></i> <span class="lx-num"><%= formatNumber(repo.stars) %></span> <%= t('home:github.repos.stars') %></span>
+          <span><i class="fas fa-code-branch" aria-hidden="true"></i> <span class="lx-num"><%= formatNumber(repo.forks) %></span> <%= t('home:github.repos.forks') %></span>
+        </div>
+
+        <!-- Footer -->
+
+        <div class="lx-repo__foot">
+          <span class="lx-meta lx-repo__updated">
+            <%- t('home:github.repos.updated', { date: `<time datetime="${repo.updatedAt}">${formatDate(repo.updatedAt)}</time>`, interpolation: { escapeValue: false } }) %>
+          </span>
+
+          <div class="lx-actions lx-repo__actions">
+            <% if(repo.homepage){ %>
+            <a href="<%= repo.homepage %>" target="_blank" rel="noopener" class="lx-link"><%= t('home:github.repos.liveSite') %></a>
+            <% } %>
+
+            <a href="<%= repo.githubUrl %>" target="_blank" rel="noopener" class="lx-link" aria-label="<%= t('home:github.repos.openOnGitHub', { name: repo.name }) %>">GitHub</a>
+          </div>
+        </div>
+      </article>
+      <% }) %>
+    </div>
+  </div>
+
+
+  <!-- Learn more -->
+
+  <div class="lx-block lx-repos-cta-wrap">
+    <div class="lx-repos-cta">
+      <p class="lx-label lx-label--gold"><%= t('home:github.repos.ctaLabel') %></p>
+      <h2 class="lx-statement lx-repos-cta__title"><%= t('home:github.repos.ctaTitle') %></h2>
+      <p class="lx-body">
+        <%= t('home:github.repos.ctaBody') %>
+      </p>
+      <a href="<%= github.profile.githubUrl %>" target="_blank" rel="noopener" class="lx-link">
+        <i class="fab fa-github" aria-hidden="true"></i>
+        <%= t('home:github.repos.ctaLink') %> <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- ENGAGEMENT OPTIONS -->
+<!-- ===================================================== -->
+
+<section id="engagement" class="lx-section" aria-labelledby="engagement-title">
+  <div class="lx-block lx-block--spine">
+    <div class="lx-wide-head">
+      <p class="lx-numeral" aria-hidden="true">VI.</p>
+      <p class="lx-label lx-label--gold"><%= t('home:engagement.label') %></p>
+      <h2 id="engagement-title" class="lx-statement lx-wide-head__statement"><%= t('home:engagement.title') %></h2>
+      <p class="lx-body lx-wide-head__body">
+        <%= t('home:engagement.body') %>
+      </p>
+    </div>
+
+    <table class="lx-compare">
+      <caption class="lx-compare__caption">
+        <%= t('home:engagement.caption') %>
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col" class="lx-compare__dim"><%= t('home:engagement.detailsHeading') %></th>
+
+          <th scope="col" data-plan="project">
+            <span class="lx-label lx-compare__kicker"><span class="lx-compare__check" aria-hidden="true"></span><%= t('home:engagement.plans.project.kicker') %></span>
+            <span class="lx-compare__title lx-item-title"><%= t('home:engagement.plans.project.title') %></span>
+          </th>
+
+          <th scope="col" data-plan="ongoing">
+            <span class="lx-label lx-compare__kicker"><span class="lx-compare__check" aria-hidden="true"></span><%= t('home:engagement.plans.ongoing.kicker') %></span>
+            <!-- <span class="lx-compare__title lx-item-title"><%= t('home:engagement.plans.ongoing.title') %></span> -->
+          </th>
+
+          <th scope="col" data-plan="advisory">
+            <span class="lx-label lx-compare__kicker"><span class="lx-compare__check" aria-hidden="true"></span><%= t('home:engagement.plans.advisory.kicker') %></span>
+            <span class="lx-compare__title lx-item-title"><%= t('home:engagement.plans.advisory.title') %></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><%= t('home:engagement.rows.bestFor') %></th>
+          <td data-plan="project"><%= t('home:engagement.cells.projectBestFor') %></td>
+          <td data-plan="ongoing"><%= t('home:engagement.cells.ongoingBestFor') %></td>
+          <td data-plan="advisory"><%= t('home:engagement.cells.advisoryBestFor') %></td>
+        </tr>
+        <tr>
+          <th scope="row"><%= t('home:engagement.rows.engagement') %></th>
+          <td data-plan="project"><%= t('home:engagement.cells.projectEngagement') %></td>
+          <td data-plan="ongoing"><%= t('home:engagement.cells.ongoingEngagement') %></td>
+          <td data-plan="advisory"><%= t('home:engagement.cells.advisoryEngagement') %></td>
+        </tr>
+        <tr>
+          <th scope="row"><%= t('home:engagement.rows.startWith') %></th>
+          <td data-plan="project"><a href="<%= localizedUrl('/projects') %>" class="lx-link"><%= t('home:engagement.cells.projectStart') %></a></td>
+          <td data-plan="ongoing"><a href="<%= localizedUrl('/contact') %>#hire" class="lx-link"><%= t('home:engagement.cells.ongoingStart') %></a></td>
+          <td data-plan="advisory"><a href="<%= localizedUrl('/research/publications') %>" class="lx-link"><%= t('home:engagement.cells.advisoryStart') %></a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <form class="lx-compare__form" data-compare-form data-selected-template="<%= t('home:engagement.form.selected', { names: '__NAMES__' }) %>" data-empty-label="<%= t('home:engagement.form.nothing') %>">
+      <fieldset>
+        <legend class="lx-label lx-label--muted"><%= t('home:engagement.form.legend') %></legend>
+        <div class="lx-compare__options">
+          <label class="lx-compare__option"><input type="checkbox" name="plan" value="project" /><%= t('home:engagement.plans.project.kicker') %></label>
+          <label class="lx-compare__option"><input type="checkbox" name="plan" value="ongoing" checked /><%= t('home:engagement.plans.ongoing.kicker') %></label>
+          <label class="lx-compare__option"><input type="checkbox" name="plan" value="advisory" /><%= t('home:engagement.plans.advisory.kicker') %></label>
+        </div>
+      </fieldset>
+      <p class="lx-compare__status" role="status" aria-live="polite"><%= t('home:engagement.form.selected', { names: t('home:engagement.plans.ongoing.kicker') }) %></p>
+    </form>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CLOSING FIELD -->
+<!-- ===================================================== -->
+
+<section class="lx-close lx-field lx-door" id="close" aria-labelledby="close-title">
+  <div class="lx-door__content lx-close__content">
+    <div class="lx-close__title-col">
+      <h2 id="close-title" class="lx-close__title"><%- t('home:close.title') %></h2>
+    </div>
+
+    <figure class="lx-close__image">
+      <!-- Repeats a detail of the opening photograph: the same room, cropped
+           in tight to its armchair and lamp. Decorative, so empty alt text. -->
+      <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=900&auto=format&fit=crop" style="object-fit: cover; object-position: 28% 72%;" alt="" width="450" height="600" loading="lazy" decoding="async" />
+    </figure>
+
+    <div class="lx-close__copy">
+      <p class="lx-label lx-label--gold"><%= t('home:close.status') %></p>
+      <p class="lx-body">
+        <%= t('home:close.body') %>
+      </p>
+      <div class="lx-actions">
+        <a href="<%= localizedUrl('/contact') %>" class="lx-btn"><%= t('home:close.cta') %></a>
+        <a href="https://drive.google.com/uc?export=download&id=1Ez877agXDpwgNpuFyDrsb3ATdtY1Rdlj" download="MD_Rasel_Hasan_Resume.pdf" class="lx-link"><%= t('home:close.resume') %></a>
+      </div>
+    </div>
+  </div>
+</section>

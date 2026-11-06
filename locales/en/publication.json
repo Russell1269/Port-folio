@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "Research Publications — {{name}}",
+    "description": "Published research papers, journal articles and conference proceedings."
+  },
+  "head": {
+    "eyebrow": "Research Publications",
+    "title": "Published <strong>Research</strong>",
+    "body": "A collection of my published research papers, journal articles, conference proceedings, and academic contributions in Artificial Intelligence, Machine Learning, Networking, Cyber Security, Full Stack Development and emerging technologies.",
+    "explore": "Explore Publications",
+    "viewProjects": "View Projects"
+  },
+  "facts": {
+    "archive": "Archive",
+    "publications": "Publications",
+    "field": "Field",
+    "fieldValue": "AI",
+    "machineLearning": "Machine Learning",
+    "venues": "Venues",
+    "venuesValue": "IEEE",
+    "journals": "Journals & Conferences",
+    "access": "Access",
+    "accessValue": "Open",
+    "researchAccess": "Research Access"
+  },
+  "featured": {
+    "label": "Featured Publication",
+    "title": "Highlighted Research",
+    "tags": "Featured · Publication",
+    "read": "Read Publication",
+    "published": "Published",
+    "readTime": "Reading Time",
+    "doi": "DOI",
+    "type": "Research Type",
+    "typeValue": "Academic Publication",
+    "delete": "Delete",
+    "deleteAria": "Delete publication {{title}}",
+    "deleteConfirm": "Delete this publication permanently?"
+  },
+  "archive": {
+    "label": "Research Archive",
+    "title": "All Publications",
+    "body": "Explore my research contributions, academic papers, and published works across different domains.",
+    "badge": "Research",
+    "readTime": "{{count}} min read",
+    "view": "View Publication",
+    "doi": "DOI"
+  },
+  "empty": {
+    "title": "No Publications Yet",
+    "body": "I'm currently working on research projects and academic contributions. New publications will appear here soon.",
+    "cta": "Explore Projects"
+  },
+  "final": {
+    "label": "Research Journey",
+    "title": "Exploring ideas through research and innovation",
+    "body": "Follow my journey in Artificial Intelligence, Machine Learning, Software Engineering and emerging technologies.",
+    "blogs": "Read Blogs",
+    "contact": "Contact Me",
+    "add": "Add Publication"
+  }
+}

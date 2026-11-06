@@ -1,0 +1,5 @@
+<% layout('layout/boilerplate') -%>
+
+<form action="/projects/<%= project._id %>?_method=PUT" enctype="multipart/form-data" method="POST" class="space-y-8">
+  <%- include("../partials/proj_form", { project: project, isEdit: true }) %>
+</form>

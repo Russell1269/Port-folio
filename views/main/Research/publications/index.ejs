@@ -1,0 +1,534 @@
+<% layout('layout/boilerplate') -%>
+
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="absolute left-1/2 top-[-180px] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[140px]">
+    </div>
+
+    <div class="absolute right-[-120px] top-60 h-96 w-96 rounded-full bg-purple-500/10 blur-[150px]"></div>
+
+    <div class="absolute left-[-100px] bottom-0 h-80 w-80 rounded-full bg-sky-500/10 blur-[120px]"></div>
+
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:70px_70px] opacity-20">
+    </div>
+  </div>
+
+  <div class="lx-block lx-block--spine lx-page">
+    <div class="lx-page-head lx-page-head--wide">
+      <p class="lx-numeral" aria-hidden="true">I.</p>
+
+      <p class="lx-label lx-label--gold"><%= t('publication:head.eyebrow') %></p>
+
+      <h1 class="lx-display"><%- t('publication:head.title') %></h1>
+
+      <p class="lx-body lx-body-lg">
+        <%= t('publication:head.body') %>
+      </p>
+
+      <div class="lx-actions lx-page-head__actions">
+        <a href="#publications" class="lx-btn">
+          <%= t('publication:head.explore') %>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+
+        <a href="<%= localizedUrl('/projects') %>" class="lx-link"><%= t('publication:head.viewProjects') %></a>
+      </div>
+    </div>
+
+    <ul class="lx-facts lx-page-facts">
+      <li>
+        <p class="lx-label lx-label--gold"><%= t('publication:facts.archive') %></p>
+        <p class="lx-figure-value lx-num"><%= formatNumber(publications.length) %></p>
+        <p class="lx-label lx-label--muted"><%= t('publication:facts.publications') %></p>
+      </li>
+
+      <li>
+        <p class="lx-label lx-label--gold"><%= t('publication:facts.field') %></p>
+        <p class="lx-figure-value lx-num"><%= t('publication:facts.fieldValue') %></p>
+        <p class="lx-label lx-label--muted"><%= t('publication:facts.machineLearning') %></p>
+      </li>
+
+      <li>
+        <p class="lx-label lx-label--gold"><%= t('publication:facts.venues') %></p>
+        <p class="lx-figure-value lx-num"><%= t('publication:facts.venuesValue') %></p>
+        <p class="lx-label lx-label--muted"><%= t('publication:facts.journals') %></p>
+      </li>
+
+      <li>
+        <p class="lx-label lx-label--gold"><%= t('publication:facts.access') %></p>
+        <p class="lx-figure-value lx-num"><%= t('publication:facts.accessValue') %></p>
+        <p class="lx-label lx-label--muted"><%= t('publication:facts.researchAccess') %></p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- helloo -->
+<% if (publications.length> 0) { %>
+
+<% const featured=publications[0]; %>
+
+<section class="relative pb-24">
+
+  <div class="mx-auto max-w-7xl mt-10 px-5 sm:px-8 lg:px-10">
+
+    <div class="lx-wide-head">
+      <p class="lx-label lx-label--gold"><%= t('publication:featured.label') %></p>
+
+      <h2 class="lx-statement lx-wide-head__statement">
+        <%= t('publication:featured.title') %>
+      </h2>
+    </div>
+
+    <article class="lx-featured lx-pub-featured">
+
+      <div class="lx-featured__body">
+
+        <p class="lx-label lx-label--muted lx-pub-featured__tags">
+          <%= t('publication:featured.tags') %>
+        </p>
+
+        <h3 class="lx-title lx-featured__title">
+
+          <%= localized(featured, 'title') %>
+
+        </h3>
+
+        <p class="lx-body">
+
+          <%= localized(featured, 'abstract') %>
+
+        </p>
+
+        <ul class="lx-tags">
+          <li><%= featured.publishedIn %></li>
+          <% if(featured.publisher){ %>
+          <li><%= featured.publisher %></li>
+          <% } %>
+        </ul>
+
+        <div class="lx-actions">
+
+          <a href="<%= featured.URL %>" target="_blank" rel="noopener noreferrer" class="lx-btn">
+            <%= t('publication:featured.read') %>
+            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          </a>
+
+          <% if(featured.DOI){ %>
+          <a href="https://doi.org/<%= featured.DOI %>" target="_blank" rel="noopener noreferrer" class="lx-link">DOI</a>
+          <% } %>
+
+          <% if (isOwner) { %>
+          <form action="/research/publications/<%= featured._id %>?_method=DELETE" method="POST" onsubmit="return confirm('<%= t('publication:featured.deleteConfirm') %>');" class="lx-pub-delete">
+
+            <button type="submit" aria-label="<%= t('publication:featured.deleteAria', { title: localized(featured, 'title') }) %>" class="lx-link lx-link--danger">
+              <i class="fas fa-trash-alt" aria-hidden="true"></i><%= t('publication:featured.delete') %>
+            </button>
+
+          </form>
+          <% } %>
+
+        </div>
+
+      </div>
+
+      <dl class="lx-pub-meta lx-featured__media">
+
+        <div>
+          <dt><%= t('publication:featured.published') %></dt>
+          <dd>
+            <%= formatDate(featured.publishedAt, { year: "numeric", month: "long", day: "numeric" }) %>
+          </dd>
+        </div>
+
+        <div>
+          <dt><%= t('publication:featured.readTime') %></dt>
+          <dd><%= t('common:label.readTime', { count: featured.readTime }) %></dd>
+        </div>
+
+        <div>
+          <dt><%= t('publication:featured.doi') %></dt>
+          <dd class="lx-pub-meta__doi"><%= featured.DOI %></dd>
+        </div>
+
+        <div>
+          <dt><%= t('publication:featured.type') %></dt>
+          <dd><%= t('publication:featured.typeValue') %></dd>
+        </div>
+
+      </dl>
+
+    </article>
+
+  </div>
+
+</section>
+
+<% } %>
+
+<!-- all publication -->
+<section id="publications" class="relative pb-24">
+
+  <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+
+
+    <div class="mb-12">
+
+      <p class="text-sm uppercase tracking-[0.35em] text-cyan-300">
+        <%= t('publication:archive.label') %>
+      </p>
+
+      <h2 class="mt-3 text-3xl font-bold text-white sm:text-4xl">
+        <%= t('publication:archive.title') %>
+      </h2>
+
+      <p class="mt-4 max-w-2xl text-slate-400">
+        <%= t('publication:archive.body') %>
+      </p>
+
+    </div>
+
+
+
+    <% if(publications.length> 1){ %>
+
+
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+
+
+      <% publications.slice(1).forEach(publication=> { %>
+
+
+      <article class="group relative flex flex-col overflow-hidden rounded-[30px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/30 hover:shadow-[0_30px_70px_rgba(34,211,238,.12)]">
+
+
+        <div class="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-500/10 blur-[90px] transition duration-500 group-hover:bg-cyan-400/20">
+        </div>
+
+
+
+        <div class="relative">
+
+
+          <div class="flex items-center justify-between">
+
+
+            <span class="rounded-full border border-cyan-400/20 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-300">
+
+              <%= t('publication:archive.badge') %>
+
+            </span>
+
+
+            <span class="text-xs text-slate-500">
+
+              <%= t('publication:archive.readTime', { count: publication.readTime }) %>
+
+            </span>
+
+
+          </div>
+
+
+
+
+          <h3 class="mt-6 line-clamp-2 text-xl font-bold leading-8 text-white transition duration-300 group-hover:text-cyan-300">
+
+            <%= localized(publication, 'title') %>
+
+          </h3>
+
+
+
+
+          <p class="mt-4 line-clamp-4 text-sm leading-7 text-slate-400">
+
+            <%= localized(publication, 'abstract') %>
+
+          </p>
+
+
+
+          <div class="mt-6 space-y-3">
+
+
+            <div class="flex items-start gap-3 text-sm text-slate-400">
+
+              <i class="fa-solid fa-building mt-1 text-purple-300"></i>
+
+              <span>
+                <%= publication.publishedIn %>
+              </span>
+
+            </div>
+
+
+
+            <% if(publication.publisher){ %>
+
+            <div class="flex items-start gap-3 text-sm text-slate-400">
+
+              <i class="fa-solid fa-user-tie mt-1 text-cyan-300"></i>
+
+              <span>
+                <%= publication.publisher %>
+              </span>
+
+            </div>
+
+            <% } %>
+
+
+
+            <div class="flex items-start gap-3 text-sm text-slate-400">
+
+              <i class="fa-regular fa-calendar mt-1 text-emerald-300"></i>
+
+              <span>
+
+                <%= formatDate(publication.publishedAt) %>
+
+              </span>
+
+            </div>
+
+
+          </div>
+
+
+
+
+          <div class="mt-6 flex flex-wrap gap-2">
+
+
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+
+              DOI
+
+            </span>
+
+
+            <span class="max-w-[180px] truncate rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-cyan-300">
+
+              <%= publication.DOI %>
+
+            </span>
+
+
+          </div>
+
+
+
+
+          <!-- Administrative action node: open + secure delete -->
+          <div class="mt-8">
+
+            <div class="flex flex-col gap-3 sm:flex-row">
+
+              <a href="<%= publication.URL %>" target="_blank" rel="noopener noreferrer" class="inline-flex flex-1 items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 font-semibold text-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(34,211,238,.25)]">
+
+                <%= t('publication:archive.view') %>
+
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+              </a>
+
+              <% if (isOwner) { %>
+              <form action="/research/publications/<%= publication._id %>?_method=DELETE" method="POST" class="shrink-0" onsubmit="return confirm('<%= t('publication:featured.deleteConfirm') %>');">
+
+                <button type="submit" aria-label="<%= t('publication:featured.deleteAria', { title: localized(publication, 'title') }) %>" class="inline-flex w-full items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/5 px-4 py-2 text-xs font-semibold text-rose-400 transition-all duration-200 hover:scale-[1.02] hover:bg-rose-500/10 hover:border-rose-500/30 active:scale-[0.98]">
+
+                  <i class="fas fa-trash-alt mr-2"></i><%= t('publication:featured.delete') %>
+
+                </button>
+
+              </form>
+              <% } %>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+      </article>
+
+
+      <% }) %>
+
+
+    </div>
+
+
+    <% } %>
+
+
+  </div>
+
+</section>
+<!-- fr empty publicatins -->
+<% if(publications.length===0){ %>
+
+<section class="relative pb-24">
+
+  <div class="mx-auto max-w-4xl px-5 sm:px-8">
+
+    <div class="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/5 p-10 text-center backdrop-blur-2xl sm:p-14">
+
+
+      <div class="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[120px]">
+      </div>
+
+
+      <div class="relative">
+
+
+        <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl border border-cyan-400/20 bg-cyan-500/10 text-cyan-300">
+
+          <i class="fa-solid fa-file-circle-xmark text-3xl"></i>
+
+        </div>
+
+
+
+        <h2 class="mt-8 text-3xl font-bold text-white sm:text-4xl">
+
+          <%= t('publication:empty.title') %>
+
+        </h2>
+
+
+
+        <p class="mx-auto mt-5 max-w-xl leading-8 text-slate-400">
+
+          <%= t('publication:empty.body') %>
+
+        </p>
+
+
+
+        <a href="<%= localizedUrl('/projects') %>" class="mt-8 inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 font-semibold text-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(34,211,238,.25)]">
+
+
+          <%= t('publication:empty.cta') %>
+
+
+          <i class="fa-solid fa-arrow-right"></i>
+
+
+        </a>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+<% } %>
+
+<!-- final polish -->
+<section class="relative pb-20">
+
+
+  <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+
+
+    <div class="relative overflow-hidden rounded-[35px] border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-8 backdrop-blur-2xl sm:p-12">
+
+
+      <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-cyan-500/10 blur-[120px]">
+      </div>
+
+
+      <div class="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-purple-500/10 blur-[120px]">
+      </div>
+
+
+
+      <div class="relative flex flex-col items-center justify-between gap-8 lg:flex-row">
+
+
+        <div class="max-w-2xl text-center lg:text-left">
+
+
+          <p class="text-sm uppercase tracking-[0.3em] text-cyan-300">
+
+            <%= t('publication:final.label') %>
+
+          </p>
+
+
+
+          <h2 class="mt-4 text-3xl font-bold text-white sm:text-4xl">
+
+            <%= t('publication:final.title') %>
+
+          </h2>
+
+
+
+          <p class="mt-5 leading-8 text-slate-400">
+
+            <%= t('publication:final.body') %>
+
+          </p>
+
+
+        </div>
+
+
+
+        <div class="flex flex-col gap-4 sm:flex-row">
+
+
+          <a href="<%= localizedUrl('/blogs') %>" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-7 py-4 font-semibold text-white backdrop-blur-xl transition duration-300 hover:border-cyan-400/30 hover:bg-white/10">
+
+
+            <%= t('publication:final.blogs') %>
+
+
+            <i class="fa-solid fa-book-open"></i>
+
+
+          </a>
+
+
+
+          <a href="<%= localizedUrl('/contact') %>" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-7 py-4 font-semibold text-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(34,211,238,.25)]">
+
+
+            <%= t('publication:final.contact') %>
+
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+
+          </a>
+          <% if (isOwner) { %>
+          <a href="/research/publications/new" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-7 py-4 font-semibold text-white backdrop-blur-xl transition duration-300 hover:border-cyan-400/30 hover:bg-white/10">
+            <%= t('publication:final.add') %>
+            <i class="fa-solid fa-plus"></i>
+          </a>
+          <% } %>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+</section>

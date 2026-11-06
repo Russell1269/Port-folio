@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "title": "{{title}} — {{name}}",
+    "description": "{{tagline}}"
+  },
+  "badge": {
+    "featured": "Featured",
+    "category": "{{value}}",
+    "status": "{{value}}"
+  },
+  "actions": {
+    "live": "Live Demo",
+    "github": "Github",
+    "edit": "Edit Project"
+  },
+  "stats": {
+    "users": "Users",
+    "commits": "Commits",
+    "stars": "GitHub Stars",
+    "performance": "Performance",
+    "lighthouse": "Lighthouse",
+    "na": "N/A"
+  },
+  "about": {
+    "eyebrow": "About Project",
+    "title": "Turning Ideas into Reality"
+  },
+  "details": {
+    "title": "Project Details",
+    "role": "Role",
+    "teamSize": "Team Size",
+    "duration": "Duration",
+    "completion": "Completion",
+    "category": "Category",
+    "status": "Status",
+    "ongoing": "Ongoing"
+  },
+  "caseStudy": {
+    "eyebrow": "Case Study",
+    "title": "Problem & Solution",
+    "body": "Every successful product begins with solving a real problem.",
+    "problem": "The Problem",
+    "solution": "My Solution"
+  },
+  "quick": {
+    "technologies": "Technologies",
+    "features": "Features",
+    "journey": "Journey Steps",
+    "gallery": "Gallery"
+  },
+  "stack": {
+    "badge": "Technology Stack",
+    "title": "Built Using Modern Technologies",
+    "body": "Every technology was carefully selected to deliver maximum performance, scalability and maintainability.",
+    "note": "Modern Development Technology"
+  },
+  "features": {
+    "badge": "Core Features",
+    "title": "What Makes This Project Special",
+    "body": "Every feature was built to solve a real-world problem while providing the best possible user experience.",
+    "note": "This feature enhances usability, improves workflow, and contributes to an efficient user experience."
+  },
+  "architecture": {
+    "eyebrow": "Architecture",
+    "title": "Modern & Scalable Development",
+    "body": "This project follows modern software engineering practices with scalable architecture, reusable components, clean code, responsive design, and performance-focused development.",
+    "technologies": "Technologies",
+    "features": "Features",
+    "status": "Status",
+    "category": "Category"
+  },
+  "journey": {
+    "badge": "Development Journey",
+    "title": "From Idea to Reality",
+    "body": "Every project has a story. Here is the complete development process from planning to deployment.",
+    "step": "Step {{number}}"
+  },
+  "gallery": {
+    "badge": "Gallery",
+    "title": "Project Showcase",
+    "body": "A collection of important screenshots from different stages of the application.",
+    "images": "Gallery Images",
+    "stages": "Development Stages",
+    "majorFeatures": "Major Features"
+  },
+  "future": {
+    "badge": "Future Roadmap",
+    "title": "What's Coming Next",
+    "body": "Continuous improvement is the key to building exceptional software. These are the planned future enhancements.",
+    "cardTitle": "Future Update"
+  },
+  "team": {
+    "eyebrow": "Team Information",
+    "title": "Behind This Project",
+    "body": "Every successful application is built through dedication, problem-solving and continuous learning.",
+    "teamSize": "Team Size",
+    "role": "My Role",
+    "duration": "Duration",
+    "completion": "Completion",
+    "ongoing": "Ongoing"
+  },
+  "cta": {
+    "badge": "Thank You For Visiting",
+    "title": "Interested In This Project?",
+    "body": "Feel free to explore the live application, browse the source code, or contact me for collaboration.",
+    "live": "Live Demo",
+    "github": "GitHub Repository"
+  }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="<%= htmlLang %>" dir="<%= dir %>">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <% const pageTitle = typeof seoTitle !== 'undefined' && seoTitle ? seoTitle : 'MD Rasel Hasan | Portfolio'; %>
+  <% const pageDescription = typeof seoDescription !== 'undefined' && seoDescription ? seoDescription : 'Portfolio of MD Rasel Hasan, showcasing software projects, research, writing, and contact information.'; %>
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= pageDescription %>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="<%= pageTitle %>" />
+  <meta property="og:description" content="<%= pageDescription %>" />
+  <meta property="og:locale" content="<%= htmlLang === 'bn' ? 'bn_BD' : 'en_US' %>" />
+  <meta property="og:site_name" content="MD Rasel Hasan Portfolio" />
+  <% if (typeof canonicalUrl !== 'undefined' && canonicalUrl) { %>
+  <link rel="canonical" href="<%= canonicalUrl %>" />
+  <meta property="og:url" content="<%= canonicalUrl %>" />
+  <% } %>
+  <meta name="theme-color" content="#f3eee4" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Display + reading faces for the Luxury palette. The token aliases
+       "Luxury Garamond" / "Luxury Sans" resolve to these two families. -->
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-clifford: #da373d;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/luxury.css" />
+  <link rel="stylesheet" href="/css/pages.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body class="lx min-h-screen relative overflow-x-hidden">
+
+  <%- include('../include/navbar') %>
+
+  <% const flashGroups = [
+       { key: 'error', tone: 'error', icon: 'fa-circle-exclamation', role: 'alert' },
+       { key: 'success', tone: 'success', icon: 'fa-circle-check', role: 'status' },
+       { key: 'info', tone: 'info', icon: 'fa-circle-info', role: 'status' },
+     ]; %>
+
+  <% if (typeof flash !== 'undefined' && flash) { %>
+  <% flashGroups.forEach((group) => { %>
+    <% (flash[group.key] || []).forEach((message) => { %>
+    <div class="lx-flash lx-flash--<%= group.tone %>" role="<%= group.role %>" aria-live="polite" data-flash>
+      <i class="fas <%= group.icon %>" aria-hidden="true"></i>
+      <p><%= message %></p>
+      <button type="button" class="lx-flash__close" data-flash-close aria-label="<%= t('common:a11y.dismissNotification') %>">
+        <i class="fas fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <% }); %>
+  <% }); %>
+  <% } %>
+
+  <main id="top"><%- body %></main>
+
+  <%- include('../include/footer') %>
+
+  <style>
+    .lx-flash {
+      position: fixed;
+      top: calc(4.5rem + 1rem);
+      left: 50%;
+      z-index: 70;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      width: min(32rem, calc(100vw - 2.5rem));
+      padding: 1rem 1.15rem;
+      border: 1px solid var(--dp-color-panel-line);
+      border-left-width: 3px;
+      background: var(--dp-color-ground);
+      box-shadow: 0 18px 40px -24px rgba(38, 35, 33, 0.55);
+      color: var(--dp-color-ink);
+      font-family: var(--dp-typography-sans);
+      font-size: var(--dp-typography-reading-small);
+      line-height: 1.45;
+    }
+
+    .lx-flash p {
+      margin: 0;
+      flex: 1;
+    }
+
+    .lx-flash > i {
+      margin-top: 0.15rem;
+      flex: none;
+    }
+
+    .lx-flash--error {
+      border-left-color: #a4402f;
+    }
+
+    .lx-flash--error > i {
+      color: #a4402f;
+    }
+
+    .lx-flash--success {
+      border-left-color: #4f6b45;
+    }
+
+    .lx-flash--success > i {
+      color: #4f6b45;
+    }
+
+    .lx-flash--info {
+      border-left-color: var(--dp-color-accent);
+    }
+
+    .lx-flash--info > i {
+      color: var(--dp-color-accent-text);
+    }
+
+    .lx-flash__close {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      margin: -0.25rem -0.35rem -0.25rem 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--dp-color-ink-2);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: color var(--dp-motion-interaction) ease;
+    }
+
+    .lx-flash__close:hover {
+      color: var(--dp-color-ink);
+    }
+  </style>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/luxury.js"></script>
+</body>
+
+</html>

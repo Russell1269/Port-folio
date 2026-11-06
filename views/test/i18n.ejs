@@ -1,0 +1,9 @@
+<% layout('layout/boilerplate') -%>
+
+<section class="lx-section">
+  <h1><%= t('common:nav.home') %></h1>
+  <p><%= t('common:label.readTime', { count: 3 }) %></p>
+  <p data-date><%= formatDate('2026-11-04') %></p>
+  <p data-number><%= formatNumber(1234567) %></p>
+  <p><%= t('common:flash.welcomeBack', { name: 'Rasel' }) %></p>
+</section>

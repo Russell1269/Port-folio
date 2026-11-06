@@ -1,0 +1,39 @@
+{
+  "dependencies": {
+    "cloudinary": "^2.11.0",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "ejs-mate": "^3.0.0",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "i18next": "^25.10.10",
+    "i18next-fs-backend": "^2.6.10",
+    "i18next-http-middleware": "^3.10.0",
+    "joi": "^18.3.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^9.9.5",
+    "morgan": "^1.12.1",
+    "multer": "^2.5.0",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemon": "^1.0.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^9.2.1",
+    "resend": "^6.34.1",
+    "router": "^2.2.0"
+  },
+  "name": "port_folio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node test/i18n.test.js && node test/translatable.test.js && node test/home.test.js && node test/content.test.js && node test/about-contact.test.js",
+    "test:i18n": "node scripts/check-i18n-lib.js"
+  },
+  "keywords": [],
+  "author": "Rasel Hasan",
+  "license": "ISC",
+  "type": "commonjs"
+}

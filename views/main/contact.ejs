@@ -1,0 +1,285 @@
+<% layout('layout/boilerplate') -%>
+
+  <section id="contact" class="lx-section lx-page">
+    <div class="lx-block lx-block--spine">
+      <!-- ========================================= -->
+      <!-- Heading -->
+      <!-- ========================================= -->
+
+      <div class="lx-page-head">
+        <p class="lx-numeral" aria-hidden="true">I.</p>
+        <p class="lx-label lx-label--gold"><%= t('contact:head.eyebrow') %></p>
+
+        <h1 class="lx-display lx-page-head__title"><%= t('contact:head.title') %></h1>
+
+        <p class="lx-body lx-body-lg">
+          <%= t('contact:head.body') %>
+        </p>
+      </div>
+
+      <!-- ========================================= -->
+      <!-- Two Columns -->
+      <!-- ========================================= -->
+
+      <div class="lx-contact-grid">
+        <!-- ========================================= -->
+        <!-- LEFT -->
+        <!-- ========================================= -->
+
+        <div class="lx-contact-info">
+          <!-- Status -->
+
+          <p class="lx-label lx-label--gold lx-status"><%= t('contact:info.status') %></p>
+
+          <h2 class="lx-title"><%= t('contact:info.title') %></h2>
+
+          <p class="lx-body">
+            <%= t('contact:info.body') %>
+          </p>
+
+          <ul class="lx-contact-list">
+            <!-- Email -->
+            <li>
+              <span class="lx-label lx-label--muted"><%= t('contact:info.emailLabel') %></span>
+              <a href="mailto:rasel.hasan1563@gmail.com">rasel.hasan1563@gmail.com</a>
+            </li>
+
+            <!-- Phone -->
+            <li>
+              <span class="lx-label lx-label--muted"><%= t('contact:info.phoneLabel') %></span>
+              <a href="tel:+8801317273552" dir="ltr"><%= formatDigits("01317273552") %></a>
+            </li>
+
+            <!-- Location -->
+            <li>
+              <span class="lx-label lx-label--muted"><%= t('contact:info.locationLabel') %></span>
+              <span><%= t('contact:info.location') %></span>
+            </li>
+          </ul>
+
+          <!-- Social -->
+
+          <h3 class="lx-label lx-label--muted"><%= t('contact:info.follow') %></h3>
+
+          <div class="lx-social-row">
+            <a href="https://github.com/Russell1269" target="_blank" rel="noopener">
+              <i class="fab fa-github" aria-hidden="true"></i> GitHub
+            </a>
+
+            <a href="https://bd.linkedin.com/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+            </a>
+
+            <a href="https://www.facebook.com/rh.raselhasan552/" target="_blank" rel="noopener">
+              <i class="fab fa-facebook-f" aria-hidden="true"></i> Facebook
+            </a>
+
+            <a href="#" target="_blank" rel="noopener">
+              <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
+            </a>
+          </div>
+
+          <!-- Resume -->
+
+          <a href="https://drive.google.com/uc?export=download&id=1Ez877agXDpwgNpuFyDrsb3ATdtY1Rdlj" download="MD_Rasel_Hasan_Resume.pdf" class="lx-btn">
+            <i class="fas fa-download" aria-hidden="true"></i>
+            <%= t('contact:info.resume') %>
+          </a>
+        </div>
+
+        <div class="lx-form-panel">
+          <!-- Form Heading -->
+
+          <div class="lx-form-panel__head">
+            <p class="lx-label lx-label--gold"><%= t('contact:form.eyebrow') %></p>
+
+            <h2 class="lx-title">
+              <%= t('contact:form.title') %>
+            </h2>
+
+            <p class="lx-body">
+              <%= t('contact:form.body') %>
+            </p>
+          </div>
+
+
+          <div id="avatar-container" class="lx-avatar"></div>
+
+          <!-- FORM -->
+
+          <form action="<%= localizedUrl('/contact') %>" id="contactForm" method="POST" class="lx-form"
+                data-short-message="<%= t('contact:form.tooShort') %>"
+                data-sending="<%= t('contact:form.sending') %>"
+                data-sent="<%= t('contact:form.sent') %>"
+                data-failed="<%= t('contact:form.failed') %>"
+                data-submit="<%= t('contact:form.submit') %>">
+            <div class="lx-form__row lx-form__row--split">
+              <!-- Name -->
+
+              <div class="lx-form__field">
+                <label for="contact-name" class="lx-label lx-label--muted"><%= t('contact:form.name') %></label>
+                <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="<%= t('contact:form.namePlaceholder') %>" />
+              </div>
+
+              <!-- Email -->
+
+              <div class="lx-form__field">
+                <label for="contact-email" class="lx-label lx-label--muted"><%= t('contact:form.email') %></label>
+                <input type="email" id="contact-email" name="email" required autocomplete="email" placeholder="<%= t('contact:form.emailPlaceholder') %>" />
+              </div>
+            </div>
+
+            <!-- Subject -->
+
+            <div class="lx-form__field">
+              <label for="contact-subject" class="lx-label lx-label--muted"><%= t('contact:form.subject') %></label>
+              <input type="text" id="contact-subject" name="subject" required />
+            </div>
+
+            <!-- Message -->
+
+            <div class="lx-form__field">
+              <label for="contact-message" class="lx-label lx-label--muted"><%= t('contact:form.message') %></label>
+              <textarea id="contact-message" name="message" rows="7" required></textarea>
+            </div>
+
+            <!-- Bottom -->
+
+            <div class="lx-form__foot">
+              <p class="lx-form__note">
+                <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                <%= t('contact:form.privacy') %>
+              </p>
+
+              <button type="submit" id="submitBtn" class="lx-btn">
+                <span id="btnText" class="lx-btn__label">
+                  <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                  <%= t('contact:form.submit') %>
+                </span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Success notice -->
+
+          <div id="successModal" class="lx-notice" role="status" aria-live="polite" hidden>
+            <h2><%= t('contact:success.title') %></h2>
+            <p>
+              <%= t('contact:success.body') %>
+            </p>
+          </div>
+          <div id="contactError" class="lx-notice" role="alert" aria-live="assertive" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script type="module">
+  import {
+    createAvatar
+  } from './js/avatar.js';
+
+
+  const avatarHost = document.getElementById('avatar-container');
+  const avatar = avatarHost ? createAvatar('#avatar-container', {
+    animation: "idle",
+    size: 192,
+    autoplay: true
+  }) : { animation: 'idle', play() {} };
+
+  const contactForm = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+  const errorNotice = document.getElementById('contactError');
+
+  // Every user-visible label comes from the server (contact.json) so this
+  // script contains no English and follows the selected language.
+  const labels = contactForm.dataset;
+
+
+  const inputs = contactForm.querySelectorAll('input, textarea');
+  inputs.forEach(input => {
+    input.addEventListener('focus', () => {
+      if (avatar.animation !== 'thinking') {
+        avatar.play('thinking');
+      }
+    });
+    input.addEventListener('blur', () => {
+
+      setTimeout(() => {
+        if (!document.activeElement.matches('input, textarea')) {
+          avatar.play('idle');
+        }
+      }, 100);
+    });
+  });
+
+
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const messageField = contactForm.querySelector('textarea[name="message"]');
+    if (messageField.value.trim().length < 10) {
+      avatar.play('confused');
+      if (errorNotice) {
+        errorNotice.textContent = labels.shortMessage;
+        errorNotice.hidden = false;
+      }
+      return;
+    }
+
+    if (errorNotice) errorNotice.hidden = true;
+    submitBtn.disabled = true;
+    avatar.play('working');
+    btnText.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${labels.sending}`;
+
+    const formData = new FormData(contactForm);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch('/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      if (response.ok && result.ok) {
+        avatar.play('excited');
+        if (errorNotice) errorNotice.hidden = true;
+
+        // Persistent, non-blocking confirmation announced to assistive tech.
+        const notice = document.getElementById('successModal');
+        if (notice) notice.hidden = false;
+
+        btnText.innerHTML = `<i class="fas fa-check-circle" aria-hidden="true"></i> ${labels.sent}`;
+
+        setTimeout(() => {
+          contactForm.reset();
+          submitBtn.disabled = false;
+          if (notice) notice.hidden = true;
+          btnText.innerHTML = `<i class="fas fa-paper-plane" aria-hidden="true"></i> ${labels.submit}`;
+          avatar.play('idle');
+        }, 5000);
+
+      } else {
+        throw new Error(result.message || labels.failed);
+      }
+    } catch (error) {
+      avatar.play('sad');
+      if (errorNotice) {
+        errorNotice.textContent = error.message || labels.failed;
+        errorNotice.hidden = false;
+      }
+      btnText.innerHTML = `<i class="fas fa-exclamation-triangle" aria-hidden="true"></i> ${labels.failed}`;
+      submitBtn.disabled = false;
+
+      setTimeout(() => {
+        btnText.innerHTML = `<i class="fas fa-paper-plane" aria-hidden="true"></i> ${labels.submit}`;
+        avatar.play('idle');
+      }, 5000);
+    }
+  });
+</script>

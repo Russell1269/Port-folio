@@ -1,0 +1,425 @@
+<footer id="footer" class="lx-footer">
+  <div class="lx-footer__inner">
+    <div class="lx-footer__cta">
+      <p class="lx-label lx-label--gold"><%= t('footer:cta.eyebrow') %></p>
+
+      <h2 class="lx-statement lx-footer__title">
+        <%= t('footer:cta.title') %>
+      </h2>
+
+      <p class="lx-body lx-body-lg">
+        <%= t('footer:cta.body') %>
+      </p>
+
+      <div class="lx-actions">
+
+        <a href="/contact" class="lx-btn">
+          <%= t('footer:cta.talk') %>
+          <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+
+        <!-- Back To Top -->
+
+        <a href="#top" class="lx-link">
+          <i class="fas fa-arrow-up" aria-hidden="true"></i>
+          <%= t('common:button.backToTop') %>
+        </a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+
+    <hr class="lx-rule lx-rule--gold lx-footer__divider" />
+
+
+    <div class="lx-footer__grid">
+      <!-- ===================================== -->
+      <!-- BRAND (মোবাইলে ২ কলাম পুরোটা নেবে, ট্যাবলেটে ৬ কলাম, ডেক্সটপে ৫ কলাম) -->
+      <!-- ===================================== -->
+      <div class="lx-footer__brand">
+        <!-- Logo -->
+        <a href="/" class="lx-footer__logo">
+          <span aria-hidden="true">RH</span>
+          <div>
+            <h2 class="lx-footer__name"><%= t('footer:brand.name') %></h2>
+            <p class="lx-label lx-footer__role"><%= t('footer:brand.role') %></p>
+          </div>
+        </a>
+
+        <p class="lx-body lx-reading-small lx-footer__blurb">
+          <%= t('footer:brand.blurb') %>
+        </p>
+
+        <!-- Availability -->
+        <p class="lx-label lx-status"><%= t('common:status.available') %></p>
+      </div>
+
+      <!-- ===================================== -->
+      <!-- NAVIGATION (মোবাইলে ১ কলাম, ট্যাবলেটে ৩ কলাম, ডেক্সটপে ২ কলাম) -->
+      <!-- ===================================== -->
+      <div class="lx-footer__col">
+        <h3 class="lx-label lx-footer__heading"><%= t('footer:column.navigation') %></h3>
+        <ul class="lx-footer__links">
+          <li><a href="/" class="footer-link"> <%= t('common:nav.home') %> </a></li>
+          <li><a href="/about" class="footer-link"> <%= t('common:nav.about') %> </a></li>
+          <li><a href="/projects" class="footer-link"> <%= t('common:nav.projects') %> </a></li>
+          <li><a href="/contact" class="footer-link"> <%= t('common:nav.contact') %> </a></li>
+        </ul>
+      </div>
+
+      <div class="lx-footer__col">
+        <h3 class="lx-label lx-footer__heading"><%= t('footer:column.resources') %></h3>
+        <ul class="lx-footer__links">
+          <li><a href="https://drive.google.com/uc?export=download&amp;id=1Ez877agXDpwgNpuFyDrsb3ATdtY1Rdlj" download="MD_Rasel_Hasan_Resume.pdf" class="footer-link"> <%= t('footer:link.resume') %> </a></li>
+          <li><a href="/research/publications" class="footer-link"> <%= t('footer:link.research') %> </a></li>
+          <li><a href="/blogs" class="footer-link"> <%= t('footer:link.blog') %> </a></li>
+          <li><a href="/projects" class="footer-link"> <%= t('footer:link.caseStudies') %> </a></li>
+        </ul>
+      </div>
+
+      <div class="lx-footer__col lx-footer__col--connect">
+        <h3 class="lx-label lx-footer__heading"><%= t('footer:column.connect') %></h3>
+
+        <div class="lx-footer__social">
+          <a href="https://github.com/Russell1269" target="_blank" rel="noopener noreferrer" class="footer-social">
+            <i class="fab fa-github" aria-hidden="true"></i> <%= t('footer:link.github') %>
+          </a>
+          <a href="https://www.linkedin.com/in/rasel-hasan-66a755445/" target="_blank" rel="noopener noreferrer" class="footer-social">
+            <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+          <a href="https://www.facebook.com/rh.raselhasan552/" target="_blank" rel="noopener noreferrer" class="footer-social">
+            <i class="fab fa-facebook" aria-hidden="true"></i> Facebook
+          </a>
+          <a href="mailto:rasel.hasan1563@gmail.com" class="footer-social">
+            <i class="fas fa-envelope" aria-hidden="true"></i> <%= t('footer:link.email') %>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="lx-footer__stack">
+
+
+      <div>
+        <h3 class="lx-label lx-footer__heading"><%= t('footer:column.builtWith') %></h3>
+
+        <p class="lx-body lx-reading-small lx-footer__stack-note">
+          <%= t('footer:column.stackNote') %>
+        </p>
+
+        <ul class="lx-tags lx-footer__tech">
+          <li><%= t('footer:tech.node') %></li>
+          <li><%= t('footer:tech.express') %></li>
+          <li><%= t('footer:tech.mongodb') %></li>
+          <li><%= t('footer:tech.mongoose') %></li>
+          <li><%= t('footer:tech.ejs') %></li>
+          <li><%= t('footer:tech.tailwind') %></li>
+          <li><%= t('footer:tech.javascript') %></li>
+          <li><%= t('footer:tech.githubApi') %></li>
+          <li><%= t('footer:tech.cloudinary') %></li>
+        </ul>
+      </div>
+
+      <!-- ================================= -->
+      <!-- QUOTE -->
+      <!-- ================================= -->
+
+      <figure class="lx-footer__quote">
+        <blockquote class="lx-quote">
+          <%= t('footer:quote') %>
+        </blockquote>
+      </figure>
+    </div>
+
+    <!-- ================================= -->
+    <!-- Bottom Bar -->
+    <!-- ================================= -->
+
+    <div class="lx-footer__bottom">
+      <!-- Left -->
+
+      <div>
+        <h3 class="lx-footer__copyright"><%= t('footer:bottom.copyright', { year: new Date().getFullYear(), name: t('footer:brand.name') }) %></h3>
+        <p class="lx-footer__fine"><%= t('footer:bottom.rights') %></p>
+      </div>
+
+      <!-- Center -->
+
+      <p class="lx-footer__fine">
+        <%- t('footer:bottom.crafted', { interpolation: { escapeValue: false } }) %>
+        <span class="sr-only"><%= t('footer:bottom.craftedA11y') %></span>
+      </p>
+
+      <!-- Right -->
+
+      <div>
+        <p class="lx-footer__fine"><%= t('footer:bottom.designedBy') %></p>
+        <h3 class="lx-footer__credit"><%= t('footer:brand.name') %></h3>
+      </div>
+    </div>
+  </div>
+</footer>
+<style>
+  /* The closing charcoal field continues into the footer, separated from the
+     page by a fine gold rule. The gold spine ends above this field. */
+  /* Double class so this survives any id/utility rule with higher specificity. */
+  footer.lx-footer {
+    position: relative;
+    background-color: var(--dp-color-field);
+    background-image: none;
+    color: var(--dp-color-on-field);
+    border-top: 1px solid var(--dp-color-accent);
+  }
+
+  .lx-footer__inner {
+    max-width: 90rem;
+    margin-inline: auto;
+    padding: 4.5rem var(--lx-pad) 2rem;
+    padding-left: calc(var(--lx-pad) + var(--lx-margin));
+  }
+
+  .lx-footer__cta {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 46rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .lx-footer__title {
+    font-size: clamp(2.25rem, 1.2rem + 3.4vw, 4.5rem);
+    max-width: 14em;
+  }
+
+  .lx-footer__divider {
+    margin: 0 0 3rem;
+  }
+
+  .lx-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 2rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .lx-footer__brand {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .lx-footer__logo {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1rem;
+    color: var(--dp-color-on-field);
+  }
+
+  .lx-footer__logo>span {
+    font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+    font-size: 1.75rem;
+    letter-spacing: 0.02em;
+    color: var(--dp-color-accent-light);
+  }
+
+  .lx-footer__name {
+    margin: 0 0 0.25rem;
+    font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+    font-size: 1.75rem;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .lx-footer__role {
+    color: var(--dp-color-on-field-2);
+  }
+
+  .lx-footer__blurb {
+    max-width: 34em;
+    color: var(--dp-color-on-field-2);
+  }
+
+  .lx-footer__col {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .lx-footer__heading {
+    color: var(--dp-color-accent-light);
+  }
+
+  .lx-footer__links {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--dp-typography-reading-small);
+  }
+
+  .lx-footer .footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding-block: 0.2rem;
+    border-bottom: 1px solid transparent;
+    color: var(--dp-color-on-field-2);
+    transition: color var(--dp-motion-interaction) ease,
+      border-color var(--dp-motion-interaction) ease;
+  }
+
+  .lx-footer .footer-link::before {
+    content: "";
+    width: 0.75rem;
+    height: 1px;
+    background: var(--dp-color-accent);
+  }
+
+  .lx-footer .footer-link:hover {
+    color: var(--dp-color-on-field);
+    border-bottom-color: var(--dp-color-field-line);
+    transform: none;
+  }
+
+  .lx-footer__social {
+    display: grid;
+    gap: 0.65rem;
+    font-size: var(--dp-typography-reading-small);
+  }
+
+  .lx-footer .footer-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0;
+    border: 0;
+    background: none;
+    color: var(--dp-color-on-field-2);
+    transition: color var(--dp-motion-interaction) ease;
+  }
+
+  .lx-footer .footer-social i {
+    width: 1.1rem;
+    text-align: center;
+    color: var(--dp-color-accent-light);
+  }
+
+  .lx-footer .footer-social:hover {
+    color: var(--dp-color-on-field);
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .lx-footer__stack {
+    display: grid;
+    gap: 2.5rem;
+    padding: 3rem 0 3.5rem;
+    border-top: 1px solid var(--dp-color-field-line);
+  }
+
+  .lx-footer__stack-note {
+    margin-top: 0.6rem;
+    color: var(--dp-color-on-field-2);
+  }
+
+  .lx-footer__heading+.lx-body {
+    margin-top: 0.6rem;
+  }
+
+  .lx-footer .lx-tags {
+    margin-top: 1.25rem;
+  }
+
+  .lx-footer .lx-tags li {
+    border-color: var(--dp-color-field-line);
+    color: var(--dp-color-on-field-2);
+  }
+
+  .lx-footer__quote {
+    margin: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--dp-color-accent);
+  }
+
+  .lx-footer__quote .lx-quote {
+    color: var(--dp-color-on-field);
+    max-width: 24em;
+  }
+
+  .lx-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--dp-color-accent);
+  }
+
+  .lx-footer__copyright {
+    margin: 0;
+    font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+    font-weight: 400;
+    font-size: 1.25rem;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    line-height: 1.2;
+  }
+
+  .lx-footer__credit {
+    margin: 0.2rem 0 0;
+    font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    color: var(--dp-color-on-field);
+  }
+
+  .lx-footer__fine {
+    margin: 0.25rem 0 0;
+    color: var(--dp-color-on-field-2);
+    font-size: var(--dp-typography-attribution);
+  }
+
+  @media (min-width: 721px) {
+    .lx-footer__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2.5rem;
+    }
+
+    .lx-footer__brand {
+      grid-column: span 2;
+      padding-right: 2rem;
+    }
+
+    .lx-footer__col--connect {
+      grid-column: span 1;
+    }
+
+    .lx-footer__stack {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  @media (min-width: 1101px) {
+    .lx-footer__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 3fr);
+    }
+
+    .lx-footer__brand {
+      grid-column: span 1;
+    }
+
+    .lx-footer__col--connect {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .lx-footer__inner {
+      padding-left: var(--lx-pad);
+    }
+  }
+</style>

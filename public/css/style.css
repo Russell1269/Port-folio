@@ -1,0 +1,645 @@
+body {
+  /* Base colours come from /css/luxury.css tokens; this file only covers
+     legacy component classes. */
+  font-family: var(--dp-typography-sans, "Instrument Sans", "Helvetica Neue", Arial, sans-serif);
+  background-color: var(--dp-color-ground, #f3eee4);
+  color: var(--dp-color-ink, #262321);
+  overflow-x: hidden;
+}
+
+/* Custom Glassmorphism */
+.glass-card {
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-card:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Background Animated Glows */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  z-index: -1;
+  opacity: 0.35;
+  animation: floatOrb 10s ease-in-out infinite alternate;
+}
+
+@keyframes floatOrb {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-40px) scale(1.1);
+  }
+}
+
+/* Skill / technology pills */
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.skill-chip:hover {
+  border-color: rgba(34, 211, 238, 0.35);
+  color: #a5f3fc;
+}
+
+/* Written as plain CSS on purpose: these classes must render even when the
+   Tailwind runtime/browser build is unavailable. */
+.glass-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: transform 0.5s, border-color 0.5s;
+}
+
+@media (min-width: 640px) {
+  .glass-stat {
+    padding: 2rem;
+  }
+}
+
+.glass-stat:hover {
+  transform: translateY(-0.5rem);
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+.glass-stat h2 {
+  margin: 0;
+  font-size: 2.25rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+  color: #67e8f9;
+}
+
+@media (min-width: 640px) {
+  .glass-stat h2 {
+    font-size: 3rem;
+  }
+}
+
+.glass-stat p {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+@media (min-width: 640px) {
+  .glass-stat p {
+    font-size: 1rem;
+  }
+}
+
+/* GitHub-style heatmap: 53 week columns x 7 day rows, filled column-first.
+   Both row and column counts must be declared, otherwise every cell lands in
+   row 1 and the track widths collapse to 0. */
+.github-grid {
+  display: grid;
+  grid-template-columns: repeat(53, minmax(0, 1fr));
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  grid-auto-flow: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+}
+
+.github-grid > * {
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+}
+
+/* css animatin */
+.success-circle {
+  width: 120px;
+
+  height: 120px;
+}
+
+.success-bg {
+  fill: none;
+
+  stroke: #1e293b;
+
+  stroke-width: 5;
+}
+
+.success-ring {
+  fill: none;
+
+  stroke: #22d3ee;
+
+  stroke-width: 5;
+
+  stroke-linecap: round;
+
+  stroke-dasharray: 283;
+
+  stroke-dashoffset: 283;
+
+  animation: ring 0.8s ease forwards;
+}
+
+.success-check {
+  fill: none;
+
+  stroke: white;
+
+  stroke-width: 6;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+
+  stroke-dasharray: 80;
+
+  stroke-dashoffset: 80;
+
+  animation: check 0.4s ease forwards;
+
+  animation-delay: 0.7s;
+}
+
+@keyframes ring {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes check {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* footer — the charcoal ground, gold top rule and closing field live with the
+   footer markup so the whole footer stays in one place. */
+
+.footer-link {
+  color: #94a3b8;
+
+  transition: 0.35s;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.footer-link::before {
+  content: "";
+
+  width: 0;
+
+  height: 2px;
+
+  background: #22d3ee;
+
+  transition: 0.35s;
+}
+
+.footer-link:hover {
+  color: white;
+
+  transform: translateX(8px);
+}
+
+.footer-link:hover::before {
+  width: 18px;
+}
+
+.footer-social {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 14px 18px;
+
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  transition: 0.35s;
+}
+
+.footer-social:hover {
+  transform: translateX(10px);
+
+  border-color: #22d3ee;
+
+  background: rgba(34, 211, 238, 0.08);
+
+  box-shadow: 0 0 25px rgba(34, 211, 238, 0.15);
+}
+
+.footer-social i {
+  width: 22px;
+
+  text-align: center;
+
+  color: #22d3ee;
+}
+
+.tech-badge {
+  padding: 12px 22px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(20px);
+
+  transition: 0.35s;
+
+  font-weight: 500;
+}
+
+.tech-badge:hover {
+  transform: translateY(-8px);
+
+  border-color: #22d3ee;
+
+  color: #22d3ee;
+
+  box-shadow: 0 15px 35px rgba(34, 211, 238, 0.18);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .custom-blob {
+    animation: none !important;
+  }
+}
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:var(--dp-color-ground, #f3eee4);
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--dp-color-panel-line, #c6b89f);
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--dp-color-accent, #b69355);
+}
+
+body.lx ::selection{
+    background:rgba(182,147,85,.28);
+    color:var(--dp-color-ink, #262321);
+}
+/* ==========================================================================
+   Legacy theme overrides
+
+   The forms, blog index, publications, CRUD pages and error page still use the
+   original dark utility classes. These scoped overrides bring those classes
+   onto the Luxury palette without touching their markup or behaviour, so the
+   shared tokens keep one visual language across every route.
+   ========================================================================== */
+
+body.lx ::selection {
+  background: rgba(182, 147, 85, 0.28);
+  color: #262321;
+}
+
+body.lx main {
+  color: var(--dp-color-ink);
+}
+
+/* Surfaces ---------------------------------------------------------------- */
+
+body.lx .bg-white\/5,
+body.lx .bg-white\/\[0\.05\],
+body.lx .bg-white\/\[0\.03\],
+body.lx .bg-white\/\[0\.02\],
+body.lx .bg-white\/\[0\.01\] {
+  background-color: var(--dp-color-ground);
+}
+
+body.lx .bg-white\/10 {
+  background-color: var(--dp-color-ground-2);
+}
+
+body.lx .hover\:bg-white\/5:hover,
+body.lx .hover\:bg-white\/\[0\.06\]:hover,
+body.lx .hover\:bg-white\/10:hover {
+  background-color: var(--dp-color-ground-2);
+}
+
+body.lx .bg-\[\#111827\],
+body.lx .bg-\[\#0b0f19\]\/40,
+body.lx .bg-\[\#0b0f19\] {
+  background-color: var(--dp-color-ground);
+}
+
+body.lx .border-white\/10,
+body.lx .border-white\/20,
+body.lx .border-white\/\[0\.06\],
+body.lx .border-white\/\[0\.08\] {
+  border-color: var(--dp-color-panel-line);
+}
+
+body.lx .hover\:border-cyan-400\/30:hover,
+body.lx .hover\:border-cyan-400\/50:hover,
+body.lx .hover\:border-cyan-500\/30:hover,
+body.lx .focus\:border-cyan-400\/50:focus,
+body.lx .group:hover .group-hover\:border-cyan-400\/30 {
+  border-color: var(--dp-color-accent);
+}
+
+/* Remove the layered look (blur, glow, lift, large radius) ----------------- */
+
+body.lx .backdrop-blur-xl,
+body.lx .backdrop-blur-2xl,
+body.lx .backdrop-blur-md,
+body.lx .backdrop-blur-sm,
+body.lx .backdrop-blur,
+body.lx .backdrop-blur-\[2px\] {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+body.lx .shadow,
+body.lx .shadow-sm,
+body.lx .shadow-lg,
+body.lx .shadow-xl,
+body.lx .shadow-2xl,
+body.lx [class*="shadow-["],
+body.lx .hover\:shadow-\[0_20px_60px_rgba\(34\,211\,238\,\.25\)\]:hover,
+body.lx .hover\:shadow-\[0_30px_80px_rgba\(34\,211\,238\,\.12\)\]:hover,
+body.lx .hover\:shadow-\[0_30px_80px_rgba\(34\,211\,238\,\.15\)\]:hover,
+body.lx .hover\:shadow-\[0_15px_40px_rgba\(34\,211\,238\,\.18\)\]:hover {
+  box-shadow: none;
+}
+
+body.lx [class*="rounded-"],
+body.lx .rounded {
+  border-radius: 0;
+}
+
+body.lx [class*="hover\:-translate-y"]:hover,
+body.lx [class*="hover\:scale"]:hover,
+body.lx [class*="group-hover\:scale"] {
+  transform: none;
+}
+
+body.lx [class*="hover\:translate-x"]:hover,
+body.lx [class*="group-hover\:translate-x"] {
+  transform: none;
+}
+
+/* Text ------------------------------------------------------------------- */
+
+body.lx .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.lx .text-white,
+body.lx .text-slate-100,
+body.lx .text-slate-200,
+body.lx .text-slate-300,
+body.lx .text-gray-300 {
+  color: var(--dp-color-ink);
+}
+
+body.lx .text-slate-400,
+body.lx .text-slate-500,
+body.lx .text-slate-600 {
+  color: var(--dp-color-ink-2);
+}
+
+body.lx .text-cyan-300,
+body.lx .text-cyan-400,
+body.lx .text-purple-300,
+body.lx .text-purple-400,
+body.lx .text-emerald-300,
+body.lx .text-green-300,
+body.lx .text-yellow-300,
+body.lx .text-amber-400\/80 {
+  color: var(--dp-color-accent-text);
+}
+
+body.lx .bg-cyan-500\/10,
+body.lx .bg-cyan-500\/20,
+body.lx .bg-cyan-400\/10,
+body.lx .bg-purple-500\/10,
+body.lx .bg-purple-500\/20,
+body.lx .bg-emerald-500\/10,
+body.lx .bg-green-500\/10,
+body.lx .bg-yellow-500\/20,
+body.lx .bg-red-500\/10 {
+  background-color: var(--dp-color-ground-2);
+}
+
+body.lx .border-cyan-400\/20,
+body.lx .border-cyan-500\/20,
+body.lx .border-purple-400\/20,
+body.lx .border-purple-500\/20,
+body.lx .border-emerald-400\/20,
+body.lx .border-green-400\/20,
+body.lx .border-yellow-400\/20,
+body.lx .border-red-400\/20 {
+  border-color: var(--dp-color-panel-line);
+}
+
+/* Gradient / glow / grid overlays become flat planes ---------------------- */
+
+body.lx [class*="bg-gradient-to"],
+body.lx [class*="bg-linear-to"],
+body.lx [class*="bg-\[linear-gradient"],
+body.lx [class*="bg-\[radial-gradient"] {
+  background-image: none;
+  background-color: transparent;
+}
+
+body.lx [class*="blur-["],
+body.lx .blur-3xl,
+body.lx .blur-2xl,
+body.lx .blur-xl {
+  filter: none;
+  opacity: 0;
+}
+
+body.lx .bg-clip-text {
+  -webkit-text-fill-color: currentColor;
+  color: var(--dp-color-ink);
+}
+
+body.lx .text-cyan-400.animate-pulse,
+body.lx .bg-cyan-400.animate-pulse,
+body.lx .bg-green-400.animate-pulse,
+body.lx [class*="animate-"] {
+  animation: none;
+}
+
+/* Primary controls: charcoal fill, tracked uppercase labels -------------- */
+
+body.lx main a[class*="from-cyan-500"],
+body.lx main a[class*="bg-cyan-500"],
+body.lx main button[class*="from-cyan-500"],
+body.lx main button[class*="bg-cyan-500"] {
+  background-color: var(--dp-color-ink) !important;
+  color: var(--dp-color-ground) !important;
+  border: 1px solid var(--dp-color-ink);
+  border-radius: 0;
+  font-family: var(--dp-typography-sans);
+  font-size: var(--dp-typography-label);
+  font-weight: 500;
+  letter-spacing: var(--dp-typography-label-tracking);
+  text-transform: uppercase;
+  padding: 0.85rem 1.6rem;
+  min-height: 3rem;
+}
+
+body.lx main a[class*="from-cyan-500"]:hover,
+body.lx main a[class*="bg-cyan-500"]:hover,
+body.lx main button[class*="from-cyan-500"]:hover,
+body.lx main button[class*="bg-cyan-500"]:hover {
+  background-color: var(--dp-color-ink-2) !important;
+  border-color: var(--dp-color-ink-2);
+}
+
+/* Secondary controls: outlined rectangles -------------------------------- */
+
+body.lx main a[class*="bg-white/5"],
+body.lx main a[class*="border-white/10"] {
+  border-radius: 0;
+}
+
+/* Inputs ----------------------------------------------------------------- */
+
+body.lx main input,
+body.lx main textarea,
+body.lx main select {
+  border-radius: 0 !important;
+  background-color: var(--dp-color-ground) !important;
+  border: 1px solid var(--dp-color-panel-line) !important;
+  color: var(--dp-color-ink) !important;
+  font-family: var(--dp-typography-sans);
+  min-height: 3rem;
+  box-shadow: none !important;
+}
+
+body.lx main input::placeholder,
+body.lx main textarea::placeholder {
+  color: var(--dp-color-ink-2);
+  opacity: 0.85;
+}
+
+body.lx main input:focus,
+body.lx main textarea:focus,
+body.lx main select:focus {
+  border-color: var(--dp-color-accent-text) !important;
+  outline: var(--dp-border-focus-width) solid var(--dp-color-accent-text);
+  outline-offset: 2px;
+  box-shadow: none !important;
+}
+
+body.lx main label {
+  color: var(--dp-color-ink-2);
+}
+
+body.lx main option {
+  background: var(--dp-color-ground);
+  color: var(--dp-color-ink);
+}
+
+/* Headings that still rely on the legacy display scale ------------------- */
+
+body.lx main h1.font-black,
+body.lx main h1.font-bold {
+  font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+body.lx main h2.font-black,
+body.lx main h2.font-extrabold,
+body.lx main h2.font-bold,
+body.lx main h3.font-bold,
+body.lx main h4.font-semibold {
+  font-family: var(--dp-typography-serif), var(--dp-typography-serif-fallback);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Focus ring consistency for legacy controls ----------------------------- */
+
+body.lx main a:focus-visible,
+body.lx main button:focus-visible,
+body.lx main summary:focus-visible {
+  outline: var(--dp-border-focus-width) solid var(--dp-color-accent-text);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.lx main *,
+  body.lx main *::before,
+  body.lx main *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

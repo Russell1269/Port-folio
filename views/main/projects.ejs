@@ -1,0 +1,236 @@
+<% layout('layout/boilerplate') -%>
+
+  <!-- ===================================================== -->
+  <!-- PROJECTS -->
+  <!-- ===================================================== -->
+
+  <section id="projects" class="lx-section lx-page">
+    <div class="lx-block lx-block--spine">
+
+      <!-- Section Heading -->
+
+      <div class="lx-page-head">
+        <p class="lx-numeral" aria-hidden="true">I.</p>
+        <p class="lx-label lx-label--gold"><%= t('projects:head.eyebrow') %></p>
+
+        <h1 class="lx-display"><%= t('projects:head.title') %></h1>
+
+        <p class="lx-body lx-body-lg">
+          <%= t('projects:head.body') %>
+        </p>
+      </div>
+
+      <div class="lx-filters" aria-label="<%= t('projects:filter.label') %>">
+        <% const filterItems = [
+             { key: 'all', value: null, href: '/projects' },
+             { key: 'ai', value: 'AI', href: '/projects?category=AI' },
+             { key: 'fullstack', value: 'Full Stack', href: '/projects?category=Full%20Stack' },
+             { key: 'research', value: 'Research', href: '/projects?category=Research' },
+             { key: 'mobile', value: 'Mobile', href: '/projects?category=Mobile' },
+           ]; %>
+        <% filterItems.forEach((item) => { %>
+        <a href="<%= localizedUrl(item.href) %>" class="project-filter lx-filter <%= (item.value ? activeCategory === item.value : activeCategory === 'All') ? 'is-active' : '' %>" data-category="<%= item.value ? item.value.toUpperCase().replace(' ', '-') : 'ALL' %>" <%= item.value ? '' : 'aria-current="page"' %>><%= t(`projects:filter.${item.key}`) %></a>
+        <% }); %>
+      </div>
+
+
+      <!-- Featured Project -->
+
+      <% const featured = projects.find(p=>p.featured); %>
+
+      <% if(featured){ %>
+
+      <div class="lx-featured">
+
+        <!-- Left -->
+
+        <div class="lx-featured__body">
+          <p class="lx-label lx-label--gold lx-status"><%= t('projects:featured.label') %></p>
+
+          <h2 class="lx-title lx-featured__title">
+            <%= localized(featured, 'title') %>
+          </h2>
+
+          <p class="lx-body lx-body-lg">
+            <%= localized(featured, 'tagline') %>
+          </p>
+
+          <!-- Technology -->
+
+          <ul class="lx-tags">
+            <% featured.technologies.slice(0,5).forEach(tech=>{ %>
+            <li><%= tech.name %></li>
+            <% }) %>
+          </ul>
+
+          <!-- Buttons -->
+
+          <div class="lx-actions">
+            <a href="<%= localizedUrl('/projects/' + featured.slug) %>" class="lx-btn"><%= t('projects:featured.view') %></a>
+
+            <% if(featured.liveUrl){ %>
+            <a href="<%= featured.liveUrl %>" target="_blank" rel="noopener" class="lx-link"><%= t('projects:featured.live') %></a>
+            <% } %>
+
+            <% if(featured.githubUrl){ %>
+            <a href="<%= featured.githubUrl %>" target="_blank" rel="noopener" class="lx-link"><%= t('projects:featured.github') %></a>
+            <% } %>
+          </div>
+        </div>
+
+
+        <!-- Right -->
+
+        <figure class="lx-figure lx-figure--framed lx-featured__media">
+          <img src="<%= featured.thumbnail.url %>" alt="<%= t('projects:featured.imageAlt', { title: localized(featured, 'title') }) %>" loading="lazy" decoding="async" width="1280" height="800">
+        </figure>
+
+      </div>
+
+      <% } %>
+
+    </div>
+  </section>
+
+  <div class="lx-block lx-projects-list">
+    <div class="lx-entries">
+
+      <% projects.filter(project => !project.featured).forEach(project => { %>
+
+      <article class="lx-entry">
+
+        <!-- Thumbnail -->
+
+        <div class="lx-entry__media">
+          <img src="<%= project.thumbnail.url %>" alt="<%= t('projects:card.imageAlt', { title: localized(project, 'title') }) %>" loading="lazy" decoding="async" width="640" height="400">
+        </div>
+
+
+        <!-- Content -->
+
+        <div class="lx-entry__body">
+          <!-- Badges -->
+
+          <div class="lx-entry__meta">
+            <span class="lx-label lx-label--gold"><%= t(`projects:category.${project.category}`) %></span>
+            <span class="lx-label lx-label--muted"><%= t(`projects:status.${project.status}`) %></span>
+          </div>
+
+          <h3 class="lx-entry__title lx-serif">
+            <%= localized(project, 'title') %>
+          </h3>
+
+          <p class="lx-body">
+            <%= localized(project, 'tagline') %>
+          </p>
+
+          <!-- Technologies -->
+
+          <ul class="lx-tags">
+            <% project.technologies.slice(0,3).forEach(tech=>{ %>
+            <li><%= tech.name %></li>
+            <% }) %>
+
+            <% if(project.technologies.length>3){ %>
+            <li class="lx-label"><%= t('projects:card.more', { count: formatNumber(project.technologies.length - 3) }) %></li>
+            <% } %>
+          </ul>
+        </div>
+
+
+        <!-- Links -->
+
+        <div class="lx-entry__aside">
+          <div class="lx-actions">
+            <a href="<%= localizedUrl('/projects/' + project.slug) %>" class="lx-link">
+              <%= t('projects:card.viewDetails') %>
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+
+            <% if(project.githubUrl){ %>
+            <a href="<%= project.githubUrl %>" target="_blank" rel="noopener" class="lx-link" aria-label="<%= t('projects:card.githubAria', { title: localized(project, 'title') }) %>">
+              <i class="fab fa-github" aria-hidden="true"></i>
+              <%= t('projects:card.github') %>
+            </a>
+            <% } %>
+
+            <% if(project.liveUrl){ %>
+            <a href="<%= project.liveUrl %>" target="_blank" rel="noopener" class="lx-link" aria-label="<%= t('projects:card.liveAria', { title: localized(project, 'title') }) %>">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              <%= t('projects:card.live') %>
+            </a>
+            <% } %>
+          </div>
+        </div>
+
+      </article>
+
+      <% }) %>
+
+    </div>
+  </div>
+  <!-- ===================================================== -->
+  <!-- EMPTY STATE -->
+  <!-- ===================================================== -->
+
+  <% if(projects.length === 0){ %>
+
+  <section class="lx-section">
+    <div class="lx-block lx-block--spine">
+      <div class="lx-empty">
+        <p class="lx-label lx-label--gold"><%= t('projects:empty.eyebrow') %></p>
+
+        <h2 class="lx-statement"><%= t('projects:empty.title') %></h2>
+
+        <p class="lx-body">
+          <%= t('projects:empty.body') %>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <% } %>
+
+  <!-- ===================================================== -->
+  <!-- PROJECT STATISTICS -->
+  <!-- ===================================================== -->
+
+  <% if(projects.length){ %>
+
+  <section class="lx-section">
+    <div class="lx-block lx-block--spine">
+      <ul class="lx-facts">
+        <li>
+          <p class="lx-label lx-label--gold"><%= t('projects:stats.portfolio') %></p>
+          <p class="lx-figure-value lx-num"><%= formatNumber(projects.length) %></p>
+          <p class="lx-label lx-label--muted lx-stats__label"><%= t('projects:stats.total') %></p>
+        </li>
+
+        <li>
+          <p class="lx-label lx-label--gold"><%= t('projects:stats.status') %></p>
+          <p class="lx-figure-value lx-num"><%= formatNumber(projects.filter(p=>p.status==="Completed").length) %></p>
+          <p class="lx-label lx-label--muted lx-stats__label"><%= t('projects:stats.completed') %></p>
+        </li>
+
+        <li>
+          <p class="lx-label lx-label--gold"><%= t('projects:stats.category') %></p>
+          <p class="lx-figure-value lx-num"><%= formatNumber(projects.filter(p=>p.category==="AI").length) %></p>
+          <p class="lx-label lx-label--muted lx-stats__label"><%= t('projects:stats.aiProjects') %></p>
+        </li>
+
+        <li>
+          <p class="lx-label lx-label--gold"><%= t('projects:stats.selection') %></p>
+          <p class="lx-figure-value lx-num"><%= formatNumber(projects.filter(p=>p.featured).length) %></p>
+          <p class="lx-label lx-label--muted lx-stats__label"><%= t('projects:stats.featured') %></p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <% } %>
+
+  <% if (isOwner) { %>
+  <div class="lx-block lx-page-end">
+    <a href="<%= localizedUrl('/projects/new') %>" class="lx-btn lx-btn--ghost"><%= t('projects:admin.add') %></a>
+  </div>
+  <% } %>

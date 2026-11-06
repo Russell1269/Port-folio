@@ -1,0 +1,434 @@
+<% layout('layout/boilerplate') -%>
+
+  <section id="admin-login" class="lx-section lx-section--roomy lx-auth">
+    <div class="lx-block lx-block--spine">
+      <div class="lx-auth__grid">
+
+
+        <div class="lx-auth__aside">
+          <p class="lx-numeral" aria-hidden="true">I.</p>
+          <p class="lx-label lx-label--muted">Private Area</p>
+        </div>
+
+        <div class="lx-auth__main">
+          <div class="lx-page-head">
+            <p class="lx-label lx-label--gold">Studio Access</p>
+
+            <h1 class="lx-display lx-auth__title"><%= alreadyLoggedIn ? 'Signed In' : 'Sign In' %></h1>
+
+            <p class="lx-body lx-body-lg">
+              <%= alreadyLoggedIn
+                ? 'Your session is active. Owner tools are unlocked across the portfolio.'
+                : 'This area is reserved for the studio owner. Enter your credentials to publish projects, research and journal entries.' %>
+            </p>
+          </div>
+
+          <div class="lx-form-panel lx-auth__panel">
+            <% if (alreadyLoggedIn) { %>
+
+            <!-- ========================================= -->
+            <!-- Already signed in -->
+            <!-- ========================================= -->
+
+            <div class="lx-auth__done" role="status">
+              <p class="lx-label lx-label--gold">Session Active</p>
+
+              <h2 class="lx-title">You are already logged in.</h2>
+
+              <p class="lx-body">
+                Signed in as <strong><%= user.name %></strong>.
+                <span class="lx-auth__email"><%= user.email %></span>
+                Edit and delete controls are now visible on projects, publications and the blog.
+              </p>
+
+              <p class="lx-form__note lx-auth__stamp">
+                <i class="fas fa-clock" aria-hidden="true"></i>
+                Session expires automatically after three days.
+              </p>
+            </div>
+
+            <div class="lx-form__foot lx-auth__foot">
+              <a href="/" class="lx-btn">
+                <span class="lx-btn__label">
+                  Continue to the site
+                  <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </span>
+              </a>
+
+              <form action="/logout" method="POST" class="lx-auth__logout">
+                <button type="submit" class="lx-btn lx-btn--ghost">
+                  <i class="fas fa-right-from-bracket" aria-hidden="true"></i>
+                  Sign Out
+                </button>
+              </form>
+            </div>
+
+            <% } else { %>
+
+            <!-- ========================================= -->
+            <!-- Sign-in form -->
+            <!-- ========================================= -->
+
+            <div class="lx-form-panel__head">
+              <p class="lx-label lx-label--gold">Admin Login</p>
+
+              <h2 class="lx-title">Welcome Back</h2>
+
+              <p class="lx-body">
+                Authentication is handled by Passport. Your session stays
+                active for three days.
+              </p>
+            </div>
+
+            <form action="/login" method="POST" class="lx-form lx-auth__form" id="login-form" novalidate>
+
+
+              <div class="lx-form__field">
+                <label for="admin-email" class="lx-label lx-label--muted">Email Address</label>
+                <input type="email" id="admin-email" name="email" required autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="name@example.com" aria-describedby="admin-email-error" />
+                <p class="lx-auth__field-error" id="admin-email-error" aria-live="polite"></p>
+              </div>
+
+
+              <div class="lx-form__field">
+                <label for="admin-password" class="lx-label lx-label--muted">Password</label>
+                <div class="lx-auth__password">
+                  <input type="password" id="admin-password" name="password" required autocomplete="current-password" placeholder="••••••••" aria-describedby="admin-password-error" />
+                  <button type="button" id="toggle-password" class="lx-auth__reveal" aria-controls="admin-password" aria-pressed="false" aria-label="Show password">
+                    <i class="fas fa-eye" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <p class="lx-auth__field-error" id="admin-password-error" aria-live="polite"></p>
+              </div>
+
+
+              <div class="lx-auth__options">
+                <label class="lx-auth__remember">
+                  <input type="checkbox" name="remember" value="1" />
+                  <span>Remember me</span>
+                </label>
+
+                <a href="/contact" class="lx-auth__helper">Need access?</a>
+              </div>
+
+              <div class="lx-form__foot lx-auth__foot">
+                <p class="lx-form__note">
+                  <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                  Secure and private. Unauthorised attempts are logged.
+                </p>
+
+                <button type="submit" id="login-submit" class="lx-btn">
+                  <span class="lx-btn__label">
+                    <span data-submit-text>Sign In</span>
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+            </form>
+
+            <% } %>
+
+            <div class="lx-auth__divider" role="presentation"></div>
+
+            <p class="lx-auth__back">
+              <a href="/" class="lx-link">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                Back to the portfolio
+              </a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* Nudges the page below the fixed 4.5rem navigation. */
+    .lx-auth {
+      padding-top: calc(var(--dp-spacing-section-roomy) + 4rem);
+    }
+
+    .lx-auth__grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .lx-auth__aside {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .lx-auth__aside .lx-numeral {
+      margin: 0;
+    }
+
+    .lx-auth__main {
+      display: grid;
+      gap: clamp(2rem, 4vw, 3rem);
+      max-width: 42rem;
+    }
+
+    .lx-auth__title {
+      font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+      max-width: none;
+    }
+
+    .lx-auth__panel {
+      gap: 1.75rem;
+    }
+
+    .lx-auth__password {
+      position: relative;
+    }
+
+    .lx-auth__password input {
+      padding-right: 3.25rem;
+    }
+
+    .lx-auth__reveal {
+      position: absolute;
+      top: 50%;
+      right: 0.25rem;
+      transform: translateY(-50%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--dp-color-ink-2);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: color var(--dp-motion-interaction) ease;
+    }
+
+    .lx-auth__reveal:hover {
+      color: var(--dp-color-accent-text);
+    }
+
+    .lx-auth__options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 1.5rem;
+    }
+
+    .lx-auth__remember {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 2.75rem;
+      font-family: var(--dp-typography-sans);
+      font-size: var(--dp-typography-caption);
+      color: var(--dp-color-ink-2);
+      cursor: pointer;
+    }
+
+    .lx-auth__remember input {
+      width: 1rem;
+      height: 1rem;
+      min-height: 0;
+      padding: 0;
+      accent-color: var(--dp-color-accent-text);
+    }
+
+    .lx-auth__helper {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--dp-color-accent);
+      font-family: var(--dp-typography-sans);
+      font-size: var(--dp-typography-caption);
+      color: var(--dp-color-ink-2);
+      transition: color var(--dp-motion-interaction) ease;
+    }
+
+    .lx-auth__helper:hover {
+      color: var(--dp-color-accent-text);
+    }
+
+    .lx-auth__field-error {
+      margin: 0;
+      min-height: 1.1em;
+      font-family: var(--dp-typography-sans);
+      font-size: var(--dp-typography-attribution);
+      color: #a4402f;
+    }
+
+    .lx-auth__field-error:empty {
+      display: none;
+    }
+
+    .lx-auth__form input[aria-invalid="true"] {
+      border-color: #a4402f;
+    }
+
+    .lx-auth__foot {
+      align-items: flex-end;
+    }
+
+    .lx-auth__foot .lx-form__note {
+      max-width: 22em;
+    }
+
+    .lx-auth__foot .lx-btn {
+      min-width: 12rem;
+    }
+
+    .lx-auth__divider {
+      height: 1px;
+      background: var(--dp-color-panel-line);
+    }
+
+    .lx-auth__back {
+      margin: 0;
+    }
+
+    /* Already-signed-in panel ------------------------------------------- */
+
+    .lx-auth__done {
+      display: grid;
+      gap: 0.9rem;
+      padding: 1.5rem;
+      border-left: 3px solid var(--dp-color-accent);
+      background: var(--dp-color-ground-2);
+    }
+
+    .lx-auth__done .lx-title {
+      margin: 0;
+    }
+
+    .lx-auth__done strong {
+      font-weight: 500;
+      color: var(--dp-color-ink);
+    }
+
+    .lx-auth__email {
+      display: block;
+      margin-top: 0.25rem;
+      overflow-wrap: anywhere;
+      font-family: var(--dp-typography-sans);
+      font-size: var(--dp-typography-caption);
+      color: var(--dp-color-accent-text);
+    }
+
+    .lx-auth__stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-top: 0.35rem;
+      border-top: 1px solid var(--dp-color-panel-line);
+    }
+
+    .lx-auth__logout {
+      margin: 0;
+    }
+
+    /* Wide: numeral sits in the margin column beside the gold spine. */
+    @media (min-width: 1101px) {
+      .lx-auth__grid {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--lx-gap);
+      }
+
+      .lx-auth__aside {
+        display: block;
+        grid-column: 1 / span 2;
+        padding-right: 1rem;
+        text-align: right;
+      }
+
+      .lx-auth__aside .lx-label {
+        margin-top: 0.25rem;
+      }
+
+      .lx-auth__main {
+        grid-column: 4 / span 8;
+      }
+    }
+  </style>
+
+  <script>
+    (function() {
+      const form = document.getElementById('login-form');
+      if (!form) return;
+
+      const input = document.getElementById('admin-password');
+      const toggle = document.getElementById('toggle-password');
+      const submit = document.getElementById('login-submit');
+      const email = document.getElementById('admin-email');
+      const emailError = document.getElementById('admin-email-error');
+      const passwordError = document.getElementById('admin-password-error');
+
+      const icon = toggle ? toggle.querySelector('i') : null;
+
+      function setFieldError(field, node, message) {
+        if (node) node.textContent = message || '';
+        field.setAttribute('aria-invalid', message ? 'true' : 'false');
+      }
+
+      function validate() {
+        const emailOk = email.validity.valid && email.value.trim() !== '';
+        setFieldError(email, emailError, emailOk ? '' : 'Enter a valid email address.');
+
+        const passwordOk = input.value.length > 0;
+        setFieldError(input, passwordError, passwordOk ? '' : 'Enter your password.');
+
+        return emailOk && passwordOk;
+      }
+
+      if (toggle && input && icon) {
+        toggle.addEventListener('click', () => {
+          const show = input.type === 'password';
+          input.type = show ? 'text' : 'password';
+          toggle.setAttribute('aria-pressed', String(show));
+          toggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+          icon.className = show ? 'fas fa-eye-slash' : 'fas fa-eye';
+          input.focus();
+        });
+      }
+
+      [email, input].forEach((field) => {
+        if (!field) return;
+        field.addEventListener('blur', validate);
+        field.addEventListener('input', () => {
+          if (field.getAttribute('aria-invalid') === 'true') validate();
+        });
+      });
+
+      form.addEventListener('submit', (event) => {
+        if (!validate()) {
+          event.preventDefault();
+          const firstInvalid = form.querySelector('[aria-invalid="true"]');
+          if (firstInvalid) firstInvalid.focus();
+          return;
+        }
+
+        // Pressing Enter or clicking both land here; the button locks once.
+        submit.disabled = true;
+        submit.setAttribute('aria-busy', 'true');
+        const label = submit.querySelector('[data-submit-text]');
+        if (label) label.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Signing in';
+      });
+
+      // Escape clears the credential fields and re-hides the password.
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        form.reset();
+        input.type = 'password';
+        if (toggle) {
+          toggle.setAttribute('aria-pressed', 'false');
+          toggle.setAttribute('aria-label', 'Show password');
+        }
+        if (icon) icon.className = 'fas fa-eye';
+        setFieldError(email, emailError, '');
+        setFieldError(input, passwordError, '');
+      });
+    })();
+  </script>

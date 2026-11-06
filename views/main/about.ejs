@@ -1,0 +1,161 @@
+<% layout('layout/boilerplate') -%>
+
+<% /* Timeline years are data, not copy: the digits differ per locale. */ %>
+<% const timeline = [
+     { key: 'start', year: new Date('2022-01-01') },
+     { key: 'fullstack', year: new Date('2023-01-01') },
+     { key: 'university', year: new Date('2024-01-01') },
+     { key: 'product', year: new Date('2025-01-01') },
+     { key: 'ai', year: new Date('2026-01-01') },
+     { key: 'next', future: true },
+   ]; %>
+
+<section id="about" class="lx-section lx-page">
+  <div class="lx-block lx-block--spine">
+    <!-- Section Heading -->
+
+    <div class="lx-page-head">
+      <p class="lx-numeral" aria-hidden="true">I.</p>
+      <p class="lx-label lx-label--gold"><%= t('about:head.eyebrow') %></p>
+
+      <h1 class="lx-display"><%= t('about:head.title') %> <span class="lx-em"><%= t('about:head.emphasis') %></span></h1>
+
+      <p class="lx-body lx-body-lg">
+        <%= t('about:head.body') %>
+      </p>
+    </div>
+
+    <div class="lx-split">
+      <div class="lx-split__head">
+        <div class="lx-profile">
+
+          <div class="lx-profile__monogram" aria-hidden="true">
+            <img src="https://res.cloudinary.com/dsyog2ibh/image/upload/v1793993592/890376770_1820562619287872_156884089691869937_n_x90s8t.jpg" alt="pp">
+          </div>
+
+          <h2 class="lx-title"><%= t('about:profile.name') %></h2>
+
+          <p class="lx-label lx-label--gold">
+            <%= t('about:profile.role') %>
+          </p>
+
+          <p class="lx-body">
+            <%= t('about:profile.bio') %>
+          </p>
+
+          <!-- Buttons -->
+
+          <div class="lx-actions">
+            <a href="https://drive.google.com/uc?export=download&id=1Ez877agXDpwgNpuFyDrsb3ATdtY1Rdlj" download="MD_Rasel_Hasan_Resume.pdf" rel="noopener" class="lx-btn"><%= t('about:profile.resume') %></a>
+            <a href="<%= localizedUrl('/contact') %>" class="lx-link"><%= t('about:profile.contact') %></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+
+      <div class="lx-split__body lx-intro">
+        <h2 class="lx-statement"><%= t('about:intro.title') %></h2>
+
+        <p class="lx-body lx-body-lg">
+          <%= t('about:intro.body') %>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey" class="lx-section lx-panel">
+  <div class="lx-block">
+    <div class="lx-wide-head">
+      <p class="lx-numeral" aria-hidden="true">II.</p>
+      <p class="lx-label lx-label--gold"><%= t('about:journey.eyebrow') %></p>
+
+      <h2 class="lx-statement lx-wide-head__statement">
+        <%= t('about:journey.title') %> <span class="lx-em"><%= t('about:journey.emphasis') %></span>
+      </h2>
+
+      <p class="lx-body lx-wide-head__body">
+        <%= t('about:journey.body') %>
+      </p>
+    </div>
+
+    <div class="lx-split">
+      <div class="lx-split__head">
+        <p class="lx-label lx-label--muted"><%= t('about:journey.timelineLabel') %></p>
+        <p class="lx-body">
+          <%= t('about:journey.timelineBody') %>
+        </p>
+      </div>
+
+      <ol class="lx-split__body lx-timeline">
+        <% timeline.forEach((entry) => { %>
+        <li>
+          <% if (entry.future) { %>
+          <p class="lx-timeline__year lx-serif"><%= t('about:journey.entries.next.year') %></p>
+          <% } else { %>
+          <p class="lx-timeline__year lx-num"><%= formatNumber(entry.year.getFullYear(), { useGrouping: false }) %></p>
+          <% } %>
+          <h3 class="lx-item-title"><%- t(`about:journey.entries.${entry.key}.title`) %></h3>
+          <p class="lx-body lx-reading-small">
+            <%= t(`about:journey.entries.${entry.key}.text`) %>
+          </p>
+        </li>
+        <% }); %>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="lx-section">
+  <div class="lx-block lx-block--spine">
+    <div class="lx-wide-head">
+      <p class="lx-numeral" aria-hidden="true">III.</p>
+      <p class="lx-label lx-label--gold"><%= t('about:education.eyebrow') %></p>
+
+      <h2 class="lx-statement lx-wide-head__statement"><%- t('about:education.title') %></h2>
+
+      <p class="lx-body lx-wide-head__body">
+        <%= t('about:education.body') %>
+      </p>
+    </div>
+
+    <!-- Main Grid Layout: Left Timeline, Right Certifications -->
+    <div class="lx-split">
+
+      <!-- ACADEMIC HISTORY -->
+      <div class="lx-split__head">
+        <h3 class="lx-label lx-label--muted"><%= t('about:education.academicLabel') %></h3>
+
+        <div class="lx-education">
+          <% ['bsc', 'hsc'].forEach((key) => { %>
+          <article class="lx-education__item">
+            <p class="lx-label lx-label--gold"><%= t(`about:education.items.${key}.period`) %></p>
+            <h3 class="lx-item-title"><%- t(`about:education.items.${key}.title`) %></h3>
+            <p class="lx-education__place"><%= t(`about:education.items.${key}.place`) %></p>
+            <p class="lx-body lx-reading-small">
+              <%= t(`about:education.items.${key}.text`) %>
+            </p>
+          </article>
+          <% }); %>
+        </div>
+      </div>
+
+      <!-- CERTIFICATIONS -->
+      <div class="lx-split__body">
+        <h3 class="lx-label lx-label--muted lx-certifications__title"><%= t('about:education.certificationsLabel') %></h3>
+
+        <div class="lx-certifications">
+          <% ['mongoose', 'llm', 'aws'].forEach((key) => { %>
+          <div class="lx-credential">
+            <h4><%- t(`about:education.credentials.${key}.title`) %></h4>
+            <p><%= t(`about:education.credentials.${key}.issuer`) %></p>
+            <p class="lx-label lx-label--gold"><%= t(`about:education.credentials.${key}.note`) %></p>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

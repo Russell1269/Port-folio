@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "Blog — {{name}}",
+    "description": "Tutorials, project breakdowns and research notes on full stack development and AI."
+  },
+  "head": {
+    "eyebrow": "Knowledge • Tutorials • Research",
+    "title": "Latest <strong>Articles</strong>",
+    "body": "Welcome to my personal developer journal. Here I share tutorials, project breakdowns, research experiences, AI experiments, networking concepts, and everything I learn while building modern software.",
+    "explore": "Explore Articles",
+    "viewProjects": "View Projects"
+  },
+  "stats": {
+    "journal": "Journal",
+    "total": "Total Articles",
+    "ai": "AI",
+    "aiValue": "Compass",
+    "aiLabel": "Tutorials &amp; Experiments",
+    "fullstack": "Full Stack",
+    "fullstackValue": "Field Notes",
+    "fullstackLabel": "Development Guides",
+    "research": "Research",
+    "researchValue": "Archive",
+    "researchLabel": "Papers &amp; Case Studies"
+  },
+  "featured": {
+    "label": "Featured",
+    "title": "Editor's Pick",
+    "read": "Read Article",
+    "imageAlt": "{{title}}"
+  },
+  "list": {
+    "label": "Latest Posts",
+    "title": "Recent Articles",
+    "body": "Tutorials, development logs, AI experiments, research insights and practical knowledge from my journey as a Full Stack Developer.",
+    "count": "{{count}} Articles Published",
+    "read": "Read Article"
+  },
+  "empty": {
+    "label": "Journal",
+    "title": "No Articles Yet",
+    "body": "I'm currently preparing high-quality articles about Full Stack Development, Artificial Intelligence, Machine Learning, Networking, Cyber Security, Research, and software engineering.",
+    "tags": ["Full Stack", "AI", "Machine Learning", "Research", "Networking", "Cyber Security"],
+    "backHome": "Back to Home"
+  },
+  "cta": {
+    "label": "Keep Learning",
+    "title": "Thanks for reading.",
+    "titleEm": "More articles are coming soon.",
+    "body": "I regularly publish articles about Full Stack Development, Artificial Intelligence, Networking, Research, Cyber Security, software architecture, and everything I learn while building real-world applications.",
+    "write": "Write a New Blog",
+    "contact": "Contact Me"
+  },
+  "status": {
+    "published": "Published",
+    "draft": "Draft",
+    "archived": "Archived"
+  },
+  "show": {
+    "home": "Home",
+    "blogs": "Blogs",
+    "back": "Back to Blogs",
+    "readTime": "{{count}} min read",
+    "author": "Author",
+    "authorRole": "Full Stack Developer",
+    "authorBio": "Sharing tutorials, project breakdowns and research notes from building modern web applications and AI-powered systems.",
+    "getInTouch": "Get in touch",
+    "aboutMe": "About me",
+    "infoTitle": "Article Info",
+    "readTimeLabel": "Read time",
+    "readTimeValue": "{{count}} min",
+    "words": "Words",
+    "published": "Published",
+    "slug": "Slug",
+    "topics": "Topics",
+    "previous": "Previous Article",
+    "noPrevious": "No previous article",
+    "next": "Next Article",
+    "noNext": "No next article",
+    "backAll": "Back to All Articles",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this article permanently?"
+  }
+}

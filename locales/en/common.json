@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "language": "English",
+    "locale": "en-US",
+    "dir": "ltr"
+  },
+  "nav": {
+    "primary": "Primary navigation",
+    "home": "Home",
+    "about": "About",
+    "aboutIntro": "Introduction",
+    "aboutJourney": "Journey",
+    "aboutEducation": "Education",
+    "projects": "Projects",
+    "research": "Research",
+    "publications": "Publications",
+    "blog": "Blog",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "brandHome": "{{name}} — home"
+  },
+  "language": {
+    "label": "Language",
+    "switchTo": "Switch language",
+    "current": "Current language"
+  },
+  "button": {
+    "resume": "Resume",
+    "downloadResume": "Download Resume",
+    "hireMe": "Hire Me",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "send": "Send",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "backToTop": "Back To Top",
+    "readMore": "Read more",
+    "viewAll": "View all"
+  },
+  "status": {
+    "available": "Available for Freelance",
+    "unpublished": "Unpublished"
+  },
+  "symbol": {
+    "percent": "%"
+  },
+  "label": {
+    "readTime": "{{count}} min read",
+    "publishedOn": "Published on {{date}}",
+    "updatedOn": "Updated on {{date}}",
+    "by": "By {{name}}",
+    "loading": "Loading…"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "externalLink": "Opens in a new tab",
+    "dismissNotification": "Dismiss notification"
+  },
+  "flash": {
+    "alreadyLoggedIn": "You are already logged in.",
+    "missingCredentials": "Please enter both your email and password.",
+    "invalidCredentials": "Invalid email or password. Please try again.",
+    "welcomeBack": "Welcome back, {{name}}.",
+    "signInRequired": "Please sign in to make that change.",
+    "signedInRequired": "You must be signed in to make that change."
+  },
+  "error": {
+    "generic": "Something went wrong on the server. Please try again later.",
+    "notFound": "Page not found",
+    "validationFailed": "Validation failed",
+    "csrf": "That request could not be verified. Please reload the page and try again.",
+    "crossSite": "This request was rejected because it did not originate from this site.",
+    "unauthorized": "You must be signed in to make that change.",
+    "backHome": "Back to home"
+  }
+}

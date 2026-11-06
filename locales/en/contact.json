@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "Contact — {{name}}",
+    "description": "Start a conversation about a product, a research collaboration, or a role."
+  },
+  "head": {
+    "eyebrow": "Let's Connect",
+    "title": "Let's Build Something Amazing Together",
+    "body": "Whether you have a startup idea, freelance opportunity, AI research collaboration, or just want to say hello, I'd love to hear from you."
+  },
+  "info": {
+    "status": "Available for new opportunities",
+    "title": "Contact Information",
+    "body": "Feel free to reach out through any platform. I usually respond within 24 hours.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "locationLabel": "Location",
+    "location": "Gazipur, Dhaka, Bangladesh",
+    "follow": "Follow Me",
+    "resume": "Download Resume"
+  },
+  "form": {
+    "eyebrow": "Send Message",
+    "title": "Tell Me About Your Project",
+    "body": "Fill out the form below and I'll get back to you as soon as possible.",
+    "name": "Full Name",
+    "namePlaceholder": "Your name",
+    "email": "Email Address",
+    "emailPlaceholder": "name@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "Subject",
+    "message": "Message",
+    "messagePlaceholder": "Tell me about your project...",
+    "privacy": "Your information is kept private.",
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "tooShort": "Message too short!",
+    "sent": "Message Sent",
+    "failed": "Failed to Send"
+  },
+  "success": {
+    "title": "Message Sent!",
+    "body": "Thank you for reaching out. I'll get back to you as soon as possible."
+  },
+  "error": {
+    "invalid": "Please fill in every field with a valid email address.",
+    "tooShort": "Please write at least 10 characters so I can reply usefully.",
+    "send": "Your message could not be sent. Please try again in a moment.",
+    "success": "Thank you! Your message has been sent."
+  }
+}

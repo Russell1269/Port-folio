@@ -1,0 +1,827 @@
+<section class="relative py-10 sm:py-16 lg:py-20">
+  <div class="absolute -top-20 left-0 h-72 w-72 rounded-full bg-cyan-500/10 blur-[120px] pointer-events-none"></div>
+  <div class="absolute top-[35%] right-0 h-96 w-96 rounded-full bg-purple-500/10 blur-[150px] pointer-events-none"></div>
+
+  <div class="relative z-10 mx-auto max-w-7xl">
+    <div class="mb-10 sm:mb-14">
+      <div class="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">
+        <i class="fa-solid fa-folder-plus"></i>
+        Project Manager
+      </div>
+
+      <div class="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <h1 class="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <%= isEdit ? "Edit Project" : "Create New Project" %>
+          </h1>
+
+          <p class="mt-4 max-w-2xl leading-7 text-slate-400">
+            Add project information, technologies, case study, media, statistics and SEO information from one place.
+          </p>
+        </div>
+
+        <a href="/projects" class="inline-flex w-fit items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium text-slate-300 backdrop-blur-xl transition hover:border-cyan-400/30 hover:bg-white/10 hover:text-white">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to Projects
+        </a>
+      </div>
+    </div>
+
+    <div id="projectForm" class="space-y-8">
+      <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+        <div class="mb-8 flex items-start gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-500/10 text-cyan-300">
+            <i class="fa-solid fa-circle-info"></i>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-semibold text-white sm:text-2xl">
+              Basic Information
+            </h2>
+            <p class="mt-1 text-sm leading-6 text-slate-400">
+              Main information visitors will see about the project.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="lg:col-span-2">
+            <label for="title" class="mb-2 block text-sm font-medium text-slate-300">
+              Project Title <span class="text-red-400">*</span>
+            </label>
+
+            <input type="text" id="title" name="title" value="<%= project?.title || '' %>" required placeholder="AI-Powered Disaster Intelligence Platform" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50 focus:bg-white/[0.07] focus:ring-4 focus:ring-cyan-400/5" />
+          </div>
+
+          <div>
+            <label for="slug" class="mb-2 block text-sm font-medium text-slate-300">
+              Slug <span class="text-red-400">*</span>
+            </label>
+
+            <input type="text" id="slug" name="slug" value="<%= project?.slug || '' %>" required placeholder="ai-disaster-intelligence-platform" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50 focus:ring-4 focus:ring-cyan-400/5" />
+          </div>
+
+          <div>
+            <label for="category" class="mb-2 block text-sm font-medium text-slate-300">
+              Category
+            </label>
+
+            <select id="category" name="category" class="w-full rounded-2xl border border-white/10 bg-[#111827] px-5 py-4 text-white outline-none transition focus:border-cyan-400/50 focus:ring-4 focus:ring-cyan-400/5">
+              <option value="Other" <%= project?.category === "Other" ? "selected" : "" %>>Other</option>
+              <option value="AI" <%= project?.category === "AI" ? "selected" : "" %>>AI</option>
+              <option value="Full Stack" <%= project?.category === "Full Stack" ? "selected" : "" %>>Full Stack</option>
+              <option value="Research" <%= project?.category === "Research" ? "selected" : "" %>>Research</option>
+              <option value="Open Source" <%= project?.category === "Open Source" ? "selected" : "" %>>Open Source</option>
+              <option value="Mobile" <%= project?.category === "Mobile" ? "selected" : "" %>>Mobile</option>
+            </select>
+          </div>
+
+          <div class="lg:col-span-2">
+            <label for="tagline" class="mb-2 flex items-center justify-between gap-4 text-sm font-medium text-slate-300">
+              <span>Tagline <span class="text-red-400">*</span></span>
+              <span id="taglineCounter" class="text-xs text-slate-500">0 / 120</span>
+            </label>
+
+            <input type="text" id="tagline" name="tagline" value="<%= project?.tagline || '' %>" maxlength="120" required placeholder="AI-powered multi-agent platform for disaster prediction and emergency intelligence" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50 focus:ring-4 focus:ring-cyan-400/5" />
+          </div>
+
+          <div class="lg:col-span-2">
+            <label for="description" class="mb-2 block text-sm font-medium text-slate-300">
+              Description <span class="text-red-400">*</span>
+            </label>
+
+            <textarea id="description" name="description" rows="6" required placeholder="Write a complete description of your project..." class="w-full resize-y rounded-2xl border border-white/10 bg-white/5 px-5 py-4 leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50 focus:ring-4 focus:ring-cyan-400/5"><%= project?.description || '' %></textarea>
+          </div>
+
+          <div>
+            <label for="status" class="mb-2 block text-sm font-medium text-slate-300">
+              Project Status
+            </label>
+
+            <select id="status" name="status" class="w-full rounded-2xl border border-white/10 bg-[#111827] px-5 py-4 text-white outline-none transition focus:border-cyan-400/50 focus:ring-4 focus:ring-cyan-400/5">
+              <option value="Planning" <%= project?.status === "Planning" ? "selected" : "" %>>Planning</option>
+              <option value="In Progress" <%= project?.status === "In Progress" ? "selected" : "" %>>In Progress</option>
+              <option value="Completed" <%= !project || project?.status === "Completed" ? "selected" : "" %>>Completed</option>
+              <option value="Maintaining" <%= project?.status === "Maintaining" ? "selected" : "" %>>Maintaining</option>
+              <option value="Archived" <%= project?.status === "Archived" ? "selected" : "" %>>Archived</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition hover:border-cyan-400/30">
+              <div>
+                <p class="font-medium text-white">Featured</p>
+                <p class="mt-1 text-xs text-slate-500">Highlight this project</p>
+              </div>
+
+              <input type="hidden" name="featured" value="false" />
+              <input type="checkbox" name="featured" value="true" <%= project?.featured ? "checked" : "" %> class="h-5 w-5 accent-cyan-500" />
+            </label>
+
+            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition hover:border-cyan-400/30">
+              <div>
+                <p class="font-medium text-white">Published</p>
+                <p class="mt-1 text-xs text-slate-500">Show publicly</p>
+              </div>
+
+              <input type="hidden" name="published" value="false" />
+              <input type="checkbox" name="published" value="true" <%= !project || project?.published ? "checked" : "" %> class="h-5 w-5 accent-cyan-500" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+        <div class="mb-8 flex items-start gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-purple-400/20 bg-purple-500/10 text-purple-300">
+            <i class="fa-solid fa-images"></i>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-semibold text-white sm:text-2xl">
+              Project Media
+            </h2>
+            <p class="mt-1 text-sm leading-6 text-slate-400">
+              Add thumbnail, cover, preview video and screenshots.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div>
+            <label for="thumbnail" class="mb-2 block text-sm font-medium text-slate-300">
+              Thumbnail <span class="text-red-400">*</span>
+            </label>
+            <input type="file" id="thumbnail" name="thumbnail" accept="image/png,image/jpeg,image/webp" <%= !isEdit ? "required" : "" %> class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none transition placeholder:text-slate-600 focus:border-purple-400/50 focus:ring-4 focus:ring-purple-400/5" />
+            <img id="thumbnailPreview" class="mt-3 h-40 w-full rounded-xl object-cover" src="<%= project?.thumbnail?.url || '' %>" <%= project?.thumbnail?.url ? '' : 'hidden' %> alt="Thumbnail preview">
+          </div>
+
+          <div>
+            <label for="coverImage" class="mb-2 block text-sm font-medium text-slate-300">
+              Cover Image
+            </label>
+            <input type="file" id="coverImage" name="coverImage" accept="image/png,image/jpeg,image/webp" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none transition placeholder:text-slate-600 focus:border-purple-400/50 focus:ring-4 focus:ring-purple-400/5" />
+            <img id="coverImagePreview" class="mt-3 h-40 w-full rounded-xl object-cover" src="<%= project?.coverImage?.url || '' %>" <%= project?.coverImage?.url ? '' : 'hidden' %> alt="Cover image preview">
+          </div>
+
+          <div class="lg:col-span-2">
+            <label for="previewVideo" class="mb-2 block text-sm font-medium text-slate-300">
+              Preview Video URL
+            </label>
+
+            <input type="text" id="previewVideo" name="previewVideo" value="<%= project?.previewVideo || '' %>" placeholder="https://youtube.com/... or hosted video URL" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none transition placeholder:text-slate-600 focus:border-purple-400/50 focus:ring-4 focus:ring-purple-400/5" />
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 class="font-semibold text-white">Gallery</h3>
+              <p class="mt-1 text-sm text-slate-500">
+                Add screenshots or project images.
+              </p>
+            </div>
+
+            <button type="button" id="addGallery" class="inline-flex w-fit items-center gap-2 rounded-xl border border-purple-400/20 bg-purple-500/10 px-4 py-2 text-sm text-purple-300 transition hover:bg-purple-500/20">
+              <i class="fa-solid fa-plus"></i>
+              Add Image
+            </button>
+          </div>
+
+          <div id="galleryContainer" class="space-y-4">
+            <% const galleryItems = (project?.gallery && project.gallery.length) ? project.gallery : [{ image: '', title: '' }]; %>
+            <% galleryItems.forEach((image, index) => { %>
+            <div class="gallery-row dynamic-row grid gap-4 rounded-2xl border border-white/10 bg-black/10 p-4 sm:grid-cols-[1fr_1fr_auto]" data-existing-index="<%= isEdit ? index : '' %>">
+              <div>
+                <% if (isEdit && image.image?.url) { %>
+                <input type="hidden" name="existingGalleryIndex" value="<%= index %>" />
+                <img class="gallery-preview mb-3 h-32 w-full rounded-xl object-cover" src="<%= image.image.url %>" alt="<%= image.title || 'Gallery image' %>" />
+                <% } %>
+                <input type="file" name="gallery" accept="image/png,image/jpeg,image/webp" class="gallery-file-input rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-purple-400/40" />
+              </div>
+
+              <input type="text" name="galleryTitle_<%= index %>" value="<%= image.title || '' %>" placeholder="Image title" class="gallery-title-input rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-purple-400/40" />
+
+              <button type="button" class="remove-row flex h-12 w-12 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+        <div class="mb-8 flex items-start gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-500/10 text-cyan-300">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-semibold text-white sm:text-2xl">
+              Technologies
+            </h2>
+            <p class="mt-1 text-sm leading-6 text-slate-400">
+              Add technologies and Font Awesome icon classes.
+            </p>
+          </div>
+        </div>
+
+        <div class="mb-5 flex justify-end">
+          <button type="button" id="addTechnology" class="inline-flex items-center gap-2 rounded-xl border border-cyan-400/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300 transition hover:bg-cyan-500/20">
+            <i class="fa-solid fa-plus"></i>
+            Add Technology
+          </button>
+        </div>
+
+        <div id="technologyContainer" class="space-y-4">
+          <% const technologyItems = (project?.technologies && project.technologies.length) ? project.technologies : [{ name: '', icon: '' }]; %>
+          <% technologyItems.forEach((tech, index) => { %>
+          <div class="dynamic-row grid gap-4 rounded-2xl border border-white/10 bg-black/10 p-4 sm:grid-cols-[1fr_1fr_auto]">
+            <input type="text" name="technologies[<%= index %>][name]" value="<%= tech.name || '' %>" placeholder="Technology name, e.g. Node.js" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-cyan-400/40" />
+
+            <input type="text" name="technologies[<%= index %>][icon]" value="<%= tech.icon || '' %>" placeholder="Icon class, e.g. fa-brands fa-node-js" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-cyan-400/40" required />
+
+            <button type="button" class="remove-row flex h-12 w-12 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+        <div class="mb-8 flex items-start gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-pink-400/20 bg-pink-500/10 text-pink-300">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-semibold text-white sm:text-2xl">
+              Case Study
+            </h2>
+            <p class="mt-1 text-sm leading-6 text-slate-400">
+              Explain the problem, your solution and important features.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div>
+            <label for="problem" class="mb-2 block text-sm font-medium text-slate-300">
+              Problem
+            </label>
+
+            <textarea id="problem" name="problem" rows="7" placeholder="What problem did this project solve?" class="w-full resize-y rounded-2xl border border-white/10 bg-white/5 px-5 py-4 leading-7 text-white outline-none placeholder:text-slate-600 focus:border-red-400/40 focus:ring-4 focus:ring-red-400/5"><%= project?.problem || '' %></textarea>
+          </div>
+
+          <div>
+            <label for="solution" class="mb-2 block text-sm font-medium text-slate-300">
+              Solution
+            </label>
+
+            <textarea id="solution" name="solution" rows="7" placeholder="How did you solve it?" class="w-full resize-y rounded-2xl border border-white/10 bg-white/5 px-5 py-4 leading-7 text-white outline-none placeholder:text-slate-600 focus:border-green-400/40 focus:ring-4 focus:ring-green-400/5"><%= project?.solution || '' %></textarea>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 class="font-semibold text-white">Features</h3>
+              <p class="mt-1 text-sm text-slate-500">
+                Add important project features.
+              </p>
+            </div>
+
+            <button type="button" id="addFeature" class="inline-flex w-fit items-center gap-2 rounded-xl border border-pink-400/20 bg-pink-500/10 px-4 py-2 text-sm text-pink-300 transition hover:bg-pink-500/20">
+              <i class="fa-solid fa-plus"></i>
+              Add Feature
+            </button>
+          </div>
+
+          <div id="featureContainer" class="space-y-3">
+            <% const featureItems = (project?.features && project.features.length) ? project.features : ['']; %>
+            <% featureItems.forEach((feature) => { %>
+            <div class="dynamic-row flex gap-3">
+              <input type="text" name="features[]" value="<%= feature || '' %>" placeholder="e.g. AI-powered chatbot" class="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-pink-400/40" required />
+
+              <button type="button" class="remove-row flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+        <div class="mb-8 flex items-start gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-yellow-400/20 bg-yellow-500/10 text-yellow-300">
+            <i class="fa-solid fa-road"></i>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-semibold text-white sm:text-2xl">
+              Development Journey
+            </h2>
+            <p class="mt-1 text-sm leading-6 text-slate-400">
+              Add important development stages.
+            </p>
+          </div>
+        </div>
+
+        <div class="mb-5 flex justify-end">
+          <button type="button" id="addJourney" class="inline-flex items-center gap-2 rounded-xl border border-yellow-400/20 bg-yellow-500/10 px-4 py-2 text-sm text-yellow-300 transition hover:bg-yellow-500/20">
+            <i class="fa-solid fa-plus"></i>
+            Add Step
+          </button>
+        </div>
+
+        <div id="journeyContainer" class="space-y-4">
+          <% const journeyItems = (project?.developmentJourney && project.developmentJourney.length) ? project.developmentJourney : [{ title: '', description: '' }]; %>
+          <% journeyItems.forEach((item, index) => { %>
+          <div class="dynamic-row rounded-2xl border border-white/10 bg-black/10 p-4">
+            <div class="grid gap-4 sm:grid-cols-[1fr_auto]">
+              <input type="text" name="developmentJourney[<%= index %>][title]" value="<%= item.title || '' %>" placeholder="Stage title" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-yellow-400/40" />
+
+              <button type="button" class="remove-row flex h-12 w-12 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+
+            <textarea name="developmentJourney[<%= index %>][description]" rows="4" placeholder="Describe this development stage..." class="mt-4 w-full resize-y rounded-xl border border-white/10 bg-white/5 px-4 py-3 leading-7 text-white outline-none placeholder:text-slate-600 focus:border-yellow-400/40"><%= item.description || '' %></textarea>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+        <div class="mb-8 flex items-start gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-green-400/20 bg-green-500/10 text-green-300">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-semibold text-white sm:text-2xl">
+              Future Plans
+            </h2>
+            <p class="mt-1 text-sm leading-6 text-slate-400">
+              Add features or improvements planned for the future.
+            </p>
+          </div>
+        </div>
+
+        <div class="mb-5 flex justify-end">
+          <button type="button" id="addFuturePlan" class="inline-flex items-center gap-2 rounded-xl border border-green-400/20 bg-green-500/10 px-4 py-2 text-sm text-green-300 transition hover:bg-green-500/20">
+            <i class="fa-solid fa-plus"></i>
+            Add Plan
+          </button>
+        </div>
+
+        <div id="futurePlanContainer" class="space-y-3">
+          <% const futurePlanItems = (project?.futurePlans && project.futurePlans.length) ? project.futurePlans : ['']; %>
+          <% futurePlanItems.forEach((plan) => { %>
+          <div class="dynamic-row flex gap-3">
+            <input type="text" required name="futurePlans[]" value="<%= plan || '' %>" placeholder="e.g. Launch mobile application" class="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-green-400/40" />
+
+            <button type="button" class="remove-row flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="grid gap-8 xl:grid-cols-2">
+        <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+          <div class="mb-8 flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-blue-400/20 bg-blue-500/10 text-blue-300">
+              <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-semibold text-white sm:text-2xl">
+                Team & Timeline
+              </h2>
+            </div>
+          </div>
+
+          <div class="space-y-5">
+            <div>
+              <label for="teamSize" class="mb-2 block text-sm font-medium text-slate-300">
+                Team Size
+              </label>
+
+              <input type="number" id="teamSize" name="teamSize" min="1" value="<%= project?.teamSize || 1 %>" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-blue-400/40" />
+            </div>
+
+            <div>
+              <label for="myRole" class="mb-2 block text-sm font-medium text-slate-300">
+                My Role
+              </label>
+
+              <input type="text" id="myRole" name="myRole" value="<%= project?.myRole || 'Full Stack Developer' %>" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-blue-400/40" />
+            </div>
+
+            <div>
+              <label for="duration" class="mb-2 block text-sm font-medium text-slate-300">
+                Duration
+              </label>
+
+              <input type="text" id="duration" name="duration" value="<%= project?.duration || '' %>" placeholder="e.g. 4 Months" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-slate-600 focus:border-blue-400/40" />
+            </div>
+
+            <div>
+              <label for="completionDate" class="mb-2 block text-sm font-medium text-slate-300">
+                Completion Date
+              </label>
+
+              <input type="date" required id="completionDate" name="completionDate" value="<%= project?.completionDate ? new Date(project.completionDate).toISOString().split('T')[0] : '' %>" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-blue-400/40" />
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+          <div class="mb-8 flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-500/10 text-cyan-300">
+              <i class="fa-solid fa-link"></i>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-semibold text-white sm:text-2xl">
+                Project Links
+              </h2>
+            </div>
+          </div>
+
+          <div class="space-y-5">
+            <div>
+              <label for="githubUrl" class="mb-2 block text-sm font-medium text-slate-300">
+                GitHub URL
+              </label>
+
+              <input type="url" id="githubUrl" name="githubUrl" value="<%= project?.githubUrl || '' %>" placeholder="https://github.com/..." class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-slate-600 focus:border-cyan-400/40" />
+            </div>
+
+            <div>
+              <label for="liveUrl" class="mb-2 block text-sm font-medium text-slate-300">
+                Live URL
+              </label>
+
+              <input type="url" id="liveUrl" name="liveUrl" value="<%= project?.liveUrl || '' %>" placeholder="https://..." class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-slate-600 focus:border-cyan-400/40" />
+            </div>
+
+            <div>
+              <label for="order" class="mb-2 block text-sm font-medium text-slate-300">
+                Display Order
+              </label>
+
+              <input type="number" id="order" name="order" value="<%= project?.order || 0 %>" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-cyan-400/40" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+        <div class="mb-8 flex items-start gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-orange-400/20 bg-orange-500/10 text-orange-300">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-semibold text-white sm:text-2xl">
+              Project Statistics
+            </h2>
+          </div>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          <div>
+            <label class="mb-2 block text-sm text-slate-300">Users</label>
+            <input type="number" name="stats[users]" value="<%= project?.stats?.users || 0 %>" min="0" placeholder="0" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-orange-400/40" />
+          </div>
+
+          <div>
+            <label class="mb-2 block text-sm text-slate-300">Commits</label>
+            <input type="number" name="stats[commits]" value="<%= project?.stats?.commits || 0 %>" min="0" placeholder="0" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-orange-400/40" />
+          </div>
+
+          <div>
+            <label class="mb-2 block text-sm text-slate-300">GitHub Stars</label>
+            <input type="number" name="stats[githubStars]" value="<%= project?.stats?.githubStars || 0 %>" min="0" placeholder="0" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-orange-400/40" />
+          </div>
+
+          <div>
+            <label class="mb-2 block text-sm text-slate-300">Performance</label>
+            <input type="number" name="stats[performanceScore]" value="<%= project?.stats?.performanceScore || 0 %>" min="0" max="100" placeholder="100" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-orange-400/40" />
+          </div>
+
+          <div>
+            <label class="mb-2 block text-sm text-slate-300">Lighthouse</label>
+            <input type="number" name="stats[lighthouseScore]" value="<%= project?.stats?.lighthouseScore || 0 %>" min="0" max="100" placeholder="100" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-orange-400/40" />
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-2xl sm:p-7 lg:p-9">
+        <div class="mb-8 flex items-start gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-purple-400/20 bg-purple-500/10 text-purple-300">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-semibold text-white sm:text-2xl">
+              SEO Settings
+            </h2>
+
+            <p class="mt-1 text-sm text-slate-400">
+              Control how this project appears in search engines.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div>
+            <label for="metaTitle" class="mb-2 block text-sm font-medium text-slate-300">
+              Meta Title
+            </label>
+
+            <input type="text" id="metaTitle" name="metaTitle" value="<%= project?.metaTitle || '' %>" placeholder="Project title for search engines" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-slate-600 focus:border-purple-400/40" />
+          </div>
+
+          <div>
+            <label for="keywords" class="mb-2 block text-sm font-medium text-slate-300">
+              Keywords
+            </label>
+
+            <input type="text" required id="keywords" name="keywords" value="<%= project?.keywords && project.keywords.length ? project.keywords.join(', ') : '' %>" placeholder="AI, Node.js, MongoDB, Disaster Management" class="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-slate-600 focus:border-purple-400/40" />
+          </div>
+
+          <div class="lg:col-span-2">
+            <label for="metaDescription" class="mb-2 block text-sm font-medium text-slate-300">
+              Meta Description
+            </label>
+
+            <textarea id="metaDescription" name="metaDescription" rows="4" placeholder="Short SEO description..." class="w-full resize-y rounded-2xl border border-white/10 bg-white/5 px-5 py-4 leading-7 text-white outline-none placeholder:text-slate-600 focus:border-purple-400/40"><%= project?.metaDescription || '' %></textarea>
+          </div>
+        </div>
+
+        <div id="keywordHiddenContainer"></div>
+      </div>
+
+      <div class="sticky bottom-4 z-30 rounded-[26px] border border-white/10 bg-[#0b0f19]/80 p-4 shadow-2xl backdrop-blur-2xl sm:p-5">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p class="text-sm text-slate-500">
+            Make sure required information is complete before publishing.
+          </p>
+
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a href="/projects" class="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-7 py-3.5 font-medium text-slate-300 transition hover:bg-white/10 hover:text-white">
+              Cancel
+            </a>
+
+            <button type="submit" class="group inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-500 px-8 py-3.5 font-semibold text-white shadow-lg shadow-cyan-500/10 transition hover:-translate-y-1 hover:shadow-cyan-500/20">
+              <i class="fa-solid fa-floppy-disk transition group-hover:scale-110"></i>
+              <%= isEdit ? "Update Project" : "Create Project" %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const title = document.getElementById("title");
+    const slug = document.getElementById("slug");
+    const tagline = document.getElementById("tagline");
+    const taglineCounter = document.getElementById("taglineCounter");
+
+    title.addEventListener("input", () => {
+      slug.value = title.value
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+    });
+
+    const updateCounter = () => {
+      taglineCounter.textContent = `${tagline.value.length} / 120`;
+    };
+
+    tagline.addEventListener("input", updateCounter);
+    updateCounter();
+
+    const previewImage = (input, preview) => {
+      input.addEventListener("change", () => {
+        const file = input.files?.[0];
+        if (!file) return;
+        preview.src = URL.createObjectURL(file);
+        preview.hidden = false;
+      });
+    };
+
+    previewImage(document.getElementById("thumbnail"), document.getElementById("thumbnailPreview"));
+    previewImage(document.getElementById("coverImage"), document.getElementById("coverImagePreview"));
+
+    const createTechnologyRow = (index) => `
+      <div class="dynamic-row grid gap-4 rounded-2xl border border-white/10 bg-black/10 p-4 sm:grid-cols-[1fr_1fr_auto]">
+        <input
+          type="text"
+          name="technologies[${index}][name]"
+          placeholder="Technology name"
+          class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-cyan-400/40"
+        />
+        <input
+          type="text"
+          name="technologies[${index}][icon]"
+          placeholder="Font Awesome icon class"
+          class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-cyan-400/40"
+        />
+        <button
+          type="button"
+          class="remove-row flex h-12 w-12 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    `;
+
+    const createGalleryRow = (index) => `
+      <div class="gallery-row dynamic-row grid gap-4 rounded-2xl border border-white/10 bg-black/10 p-4 sm:grid-cols-[1fr_1fr_auto]" data-existing-index="">
+        <div>
+          <img class="gallery-preview mb-3 h-32 w-full rounded-xl object-cover" hidden alt="Gallery preview" />
+          <input
+            type="file"
+            name="gallery"
+            accept="image/png,image/jpeg,image/webp"
+            class="gallery-file-input rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-purple-400/40"
+          />
+        </div>
+        <input
+          type="text"
+          name="galleryTitle_${index}"
+          placeholder="Image title"
+          class="gallery-title-input rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-purple-400/40"
+        />
+        <button
+          type="button"
+          class="remove-row flex h-12 w-12 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    `;
+
+    const createFeatureRow = () => `
+      <div class="dynamic-row flex gap-3">
+        <input
+          type="text"
+          name="features[]"
+          placeholder="Project feature"
+          class="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-pink-400/40"
+        />
+        <button
+          type="button"
+          class="remove-row flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    `;
+
+    const createFutureRow = () => `
+      <div class="dynamic-row flex gap-3">
+        <input
+          type="text"
+          name="futurePlans[]"
+          placeholder="Future plan"
+          class="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-green-400/40"
+        />
+        <button
+          type="button"
+          class="remove-row flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    `;
+
+    const createJourneyRow = (index) => `
+      <div class="dynamic-row rounded-2xl border border-white/10 bg-black/10 p-4">
+        <div class="grid gap-4 sm:grid-cols-[1fr_auto]">
+          <input
+            type="text"
+            name="developmentJourney[${index}][title]"
+            placeholder="Stage title"
+            class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-yellow-400/40"
+          />
+          <button
+            type="button"
+            class="remove-row flex h-12 w-12 items-center justify-center rounded-xl border border-red-400/20 bg-red-500/10 text-red-300 transition hover:bg-red-500/20"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+        <textarea
+          name="developmentJourney[${index}][description]"
+          rows="4"
+          placeholder="Describe this development stage..."
+          class="mt-4 w-full resize-y rounded-xl border border-white/10 bg-white/5 px-4 py-3 leading-7 text-white outline-none placeholder:text-slate-600 focus:border-yellow-400/40"
+        ></textarea>
+      </div>
+    `;
+
+    const technologyContainer = document.getElementById("technologyContainer");
+    const galleryContainer = document.getElementById("galleryContainer");
+    const featureContainer = document.getElementById("featureContainer");
+    const journeyContainer = document.getElementById("journeyContainer");
+    const futurePlanContainer = document.getElementById("futurePlanContainer");
+
+    document.getElementById("addTechnology").addEventListener("click", () => {
+      const index = technologyContainer.querySelectorAll(".dynamic-row").length;
+      technologyContainer.insertAdjacentHTML("beforeend", createTechnologyRow(index));
+    });
+
+    document.getElementById("addGallery").addEventListener("click", () => {
+      const index = galleryContainer.querySelectorAll(".dynamic-row").length;
+      galleryContainer.insertAdjacentHTML("beforeend", createGalleryRow(index));
+    });
+
+    document.getElementById("addFeature").addEventListener("click", () => {
+      featureContainer.insertAdjacentHTML("beforeend", createFeatureRow());
+    });
+
+    document.getElementById("addJourney").addEventListener("click", () => {
+      const index = journeyContainer.querySelectorAll(".dynamic-row").length;
+      journeyContainer.insertAdjacentHTML("beforeend", createJourneyRow(index));
+    });
+
+    document.getElementById("addFuturePlan").addEventListener("click", () => {
+      futurePlanContainer.insertAdjacentHTML("beforeend", createFutureRow());
+    });
+
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest(".remove-row");
+
+      if (!button) return;
+
+      const row = button.closest(".dynamic-row");
+
+      if (row) {
+        row.remove();
+      }
+    });
+
+    galleryContainer.addEventListener("change", (event) => {
+      const input = event.target.closest(".gallery-file-input");
+      if (!input?.files?.[0]) return;
+
+      const preview = input.closest(".gallery-row")?.querySelector(".gallery-preview");
+      if (preview) {
+        preview.src = URL.createObjectURL(input.files[0]);
+        preview.hidden = false;
+      }
+    });
+
+    const form = document.getElementById("projectForm")?.closest("form");
+    const keywordsInput = document.getElementById("keywords");
+    const keywordHiddenContainer = document.getElementById("keywordHiddenContainer");
+
+    form?.addEventListener("submit", () => {
+      keywordHiddenContainer.innerHTML = "";
+
+      form.querySelectorAll('input[name="galleryUploads"]').forEach((input) => input.remove());
+      galleryContainer.querySelectorAll(".gallery-row").forEach((row) => {
+        const fileInput = row.querySelector(".gallery-file-input");
+        if (!fileInput?.files?.[0]) return;
+
+        const existingIndexValue = row.dataset.existingIndex;
+        const titleInput = row.querySelector(".gallery-title-input");
+        const hidden = document.createElement("input");
+        hidden.type = "hidden";
+        hidden.name = "galleryUploads";
+        hidden.value = JSON.stringify({
+          existingIndex: existingIndexValue === "" ? null : Number(existingIndexValue),
+          title: titleInput?.value || "",
+        });
+        form.appendChild(hidden);
+      });
+
+      keywordsInput.value
+        .split(",")
+        .map((keyword) => keyword.trim())
+        .filter(Boolean)
+        .forEach((keyword) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "keywords[]";
+          input.value = keyword;
+          keywordHiddenContainer.appendChild(input);
+        });
+
+    });
+  });
+</script>

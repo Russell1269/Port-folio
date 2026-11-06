@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "About — {{name}}",
+    "description": "Full Stack Developer and AI enthusiast building modern, scalable digital products."
+  },
+  "head": {
+    "eyebrow": "About Me",
+    "title": "Passion Meets",
+    "emphasis": "Innovation",
+    "body": "I enjoy transforming ideas into modern, scalable and intelligent digital products. Every project I build is focused on performance, user experience and clean architecture."
+  },
+  "profile": {
+    "name": "MD Rasel Hasan",
+    "role": "Full Stack Developer & AI Enthusiast",
+    "bio": "Passionate about building AI-powered applications, modern web platforms and scalable backend systems.",
+    "resume": "Resume",
+    "contact": "Contact"
+  },
+  "intro": {
+    "title": "Who I Am",
+    "body": "I'm a Computer Science student and Full Stack Developer who enjoys creating meaningful software solutions. My interests include Artificial Intelligence, Machine Learning, scalable backend systems, and modern frontend development. I continuously learn new technologies, improve my problem-solving skills, and enjoy turning complex ideas into elegant products."
+  },
+  "journey": {
+    "eyebrow": "My Journey",
+    "title": "From Curiosity To",
+    "body": "Every year introduced a new challenge, a new technology, and a new opportunity to grow as a developer.",
+    "timelineLabel": "Timeline",
+    "timelineBody": "A short account of the steps that shaped the way I build software.",
+    "entries": {
+      "start": {
+        "title": "Started Programming",
+        "text": "Began my software development journey by learning HTML, CSS and JavaScript. Focused on building responsive interfaces and understanding modern frontend development."
+      },
+      "fullstack": {
+        "title": "Transition to Full Stack",
+        "text": "Expanded into backend development, databases and authentication. Started building complete web applications from frontend to deployment."
+      },
+      "university": {
+        "title": "University Projects",
+        "text": "Focused on academic software development, backend architecture, authentication, CRUD systems, and real-world university projects."
+      },
+      "product": {
+        "title": "Product Development",
+        "text": "Started building complete digital products, improved system architecture, UI/UX, cloud media management and scalable web platforms."
+      },
+      "ai": {
+        "title": "AI &amp; Research",
+        "text": "Shifted focus toward Artificial Intelligence, Machine Learning, research, and AI-powered software solutions. Presented an AI disaster intelligence research project."
+      },
+      "next": {
+        "year": "Future",
+        "title": "What's Next?",
+        "text": "Building AI products, contributing to open source, freelancing globally, publishing research, and creating impactful software used by thousands of people."
+      }
+    },
+    "emphasis": "Innovation"
+  },
+  "education": {
+    "eyebrow": "My Educational Qualification",
+    "title": "Education &amp; Credentials",
+    "body": "An overview of my academic foundation, specialized training, and ongoing technical certifications.",
+    "academicLabel": "Academic",
+    "certificationsLabel": "Certifications",
+    "items": {
+      "bsc": {
+        "period": "2023 – 2026",
+        "title": "B.Sc. in Computer Science &amp; Engineering",
+        "place": "Uttara University · Dhaka, Bangladesh",
+        "text": "Specialized in Software Engineering and Distributed Architectures. Graduated with honors, focusing core research on predictive full-stack development models."
+      },
+      "hsc": {
+        "period": "2020 – 2022",
+        "title": "Higher Secondary Certificate (HSC)",
+        "place": "Science Group — Misir Ali Khan Memorial College · Gazipur, Dhaka, Bangladesh",
+        "text": "Achieved dynamic marks across foundational disciplines including Mathematics, Physics, and ICT systems logic tracks."
+      }
+    },
+    "credentials": {
+      "mongoose": {
+        "title": "Advanced Mongoose &amp; Node Stack",
+        "issuer": "Issued by MongoDB University",
+        "note": "Credential ID: MON-9831"
+      },
+      "llm": {
+        "title": "Neural Networks &amp; Fine-Tuning LLMs",
+        "issuer": "Issued by DeepLearning.AI",
+        "note": "Verified Account Track"
+      },
+      "aws": {
+        "title": "AWS Cloud Practitioner",
+        "issuer": "Issued by Amazon Web Services",
+        "note": "Active Baseline Scope"
+      }
+    }
+  }
+}

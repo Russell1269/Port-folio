@@ -1,0 +1,21 @@
+﻿✔ Project has title_bn/tagline_bn/description_bn
+✔ Project has NO title_en column (base field is English)
+✔ Blog has title_bn/summary_bn + translations subdocument
+✔ Publication has title_bn/abstract_bn
+✔ Publication did NOT translate identifiers (DOI/URL/publishedIn)
+✔ slug is NOT duplicated per language
+✔ bn present → Bangla
+✔ bn missing on one field → English fallback
+✔ empty bn string → English
+✔ untranslated field → English
+✔ legacy document (no _bn field) → English
+✔ english always resolves to itself
+✔ unknown language → English fallback
+✔ isTranslatedIn(bn) true when fields filled
+✔ isTranslatedIn(bn) false for partial
+✖ translationProgress reports 50% → 0
+✔ localizeDoc exposes Bangla under base name
+✔ localizeDoc falls back for untranslated fields
+✔ localizeDoc keeps original _bn keys for admin
+
+18/19 checks passed
