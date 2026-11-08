@@ -151,13 +151,16 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/debug-secure", (req, res) => {
-  res.json({
-    protocol: req.protocol,
-    secure: req.secure,
-    forwardedProto: req.headers["x-forwarded-proto"],
-    host: req.headers.host,
-    nodeEnv: process.env.NODE_ENV,
+app.get("/cookie-test", (req, res) => {
+  req.session.test = "hello";
+
+  req.session.save((err) => {
+    console.log("Save error:", err);
+
+    res.json({
+      sessionID: req.sessionID,
+      session: req.session,
+    });
   });
 });
 
