@@ -8,6 +8,7 @@ const ejs = require("ejs");
 const morgan = require("morgan");
 const { Resend } = require("resend");
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const flash = require("connect-flash");
 
 const User = require("./model/user");
@@ -100,7 +101,22 @@ app.use((req, res, next) => {
   next();
 });
 
+// console.log(MongoStore);
+// console.log(typeof MongoStore.create);
+
+const store = MongoStore.create({
+  mongoUrl: process.env.ATLASIAN_URL,
+  crypto: {
+    secret: process.env.SESSION_SECRET,
+  },
+  touchAfter: 24 * 3600, // 24hours
+});
+store.on("error", (err) => {
+  console.log("Session store error", err);
+});
+
 const sessionOption = {
+  store: store,
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -112,6 +128,7 @@ const sessionOption = {
     sameSite: "lax",
   },
 };
+
 if (!sessionOption.secret && process.env.NODE_ENV === "production") {
   throw new Error("SESSION_SECRET is required in production");
 }
