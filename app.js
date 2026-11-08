@@ -115,6 +115,8 @@ store.on("error", (err) => {
   console.log("Session store error", err);
 });
 
+app.set("trust proxy", 1);
+
 const sessionOption = {
   store: store,
   secret: process.env.SESSION_SECRET,
@@ -137,7 +139,7 @@ if (!sessionOption.secret) {
   sessionOption.secret = "development-only-session-secret";
 }
 
-app.set("trust proxy", 1);
+
 
 app.use(session(sessionOption));
 
@@ -148,6 +150,16 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.get("/debug-secure", (req, res) => {
+  res.json({
+    protocol: req.protocol,
+    secure: req.secure,
+    forwardedProto: req.headers["x-forwarded-proto"],
+    host: req.headers.host,
+    nodeEnv: process.env.NODE_ENV,
+  });
+});
 
 app.get(
   "/register/admin",
