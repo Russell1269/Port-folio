@@ -120,8 +120,9 @@ const sessionOption = {
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   cookie: {
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 3,
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3),
     maxAge: 1000 * 60 * 60 * 24 * 3,
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -135,6 +136,9 @@ if (!sessionOption.secret && process.env.NODE_ENV === "production") {
 if (!sessionOption.secret) {
   sessionOption.secret = "development-only-session-secret";
 }
+
+app.set("trust proxy", 1);
+
 app.use(session(sessionOption));
 
 app.use(flash());
